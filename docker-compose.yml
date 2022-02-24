@@ -18,10 +18,10 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: ****
-      MYSQL_USER: ****
-      MYSQL_PASSWORD: ****
-      MYSQL_ROOT_PASSWORD: ****
+      MYSQL_DATABASE: opinion_making_app
+      MYSQL_USER: takuya
+      MYSQL_PASSWORD: takuya
+      MYSQL_ROOT_PASSWORD: takuya
     ports:
       - "3306:3306"
     volumes:
