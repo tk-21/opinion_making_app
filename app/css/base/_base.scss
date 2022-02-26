@@ -1,0 +1,22 @@
+body {
+    font-family: "Oswald", "Helvetica Neue", "Helvetica", "Arial",
+        "Hiragino Sans", "游ゴシック", YuGothic, "ヒラギノ角ゴシック",
+        "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    background: #e2dcd6;
+    position: relative;
+    main {
+        position: relative;
+        z-index: 2;
+    }
+}
+img {
+    width: 100%;
+    vertical-align: bottom;
+}
+a {
+    display: inline-block;
+    color: $color-text;
+}
+p {
+    color: $color-text;
+}

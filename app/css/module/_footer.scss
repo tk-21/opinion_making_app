@@ -1,0 +1,26 @@
+.footer {
+    position: relative;
+    z-index: 2;
+    background: $color-bg-footer;
+    padding: 64px 0 40px;
+    .inner {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        @include mq(tab) {
+            display: block;
+        }
+    }
+    &-logo {
+        width: 80px;
+        @include mq(tab) {
+            margin-bottom: 30px;
+        }
+    }
+    &-copyright {
+        text-align: center;
+        color: $color-white;
+        letter-spacing: 0.1em;
+        font-size: 12px;
+    }
+}

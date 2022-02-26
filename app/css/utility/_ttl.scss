@@ -1,0 +1,74 @@
+.sec-ttl {
+    display: inline-block;
+    color: transparent;
+    -webkit-text-stroke: 3px $color-text;
+    text-shadow: 4px 4px $color-accent;
+    letter-spacing: 0.1em;
+    font-size: 86px;
+    margin-bottom: 80px;
+    transition: 0.5s;
+    transform: scaleX(0);
+    transform-origin: left;
+    position: relative;
+    @include mq(sp) {
+        font-size: 60px;
+        margin-bottom: 60px;
+        -webkit-text-stroke-width: 2px;
+    }
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $color-text;
+        transition: 0.5s;
+        transform-origin: right;
+    }
+    &.slide-in {
+        transform: scaleX(1);
+        &::before {
+            transform: scaleX(0);
+            transition-delay: 0.5s;
+        }
+    }
+}
+
+.page-ttl {
+    padding: 200px 0 100px;
+    text-align: center;
+    position: relative;
+    &-txt {
+        display: inline-block;
+        color: $color-text;
+        letter-spacing: 0.1em;
+        font-size: 86px;
+        text-transform: uppercase;
+        transition: 0.5s;
+        transform: scaleX(0);
+        transform-origin: left;
+        position: relative;
+        @include mq(sp) {
+            font-size: 48px;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $color-accent;
+            transition: 0.5s;
+            transform-origin: right;
+        }
+        &.slide-in {
+            transform: scaleX(1);
+            &::before {
+                transform: scaleX(0);
+                transition-delay: 0.5s;
+            }
+        }
+    }
+}
