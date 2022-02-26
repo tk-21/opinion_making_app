@@ -1,0 +1,11 @@
+.fluid {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 20vh;
+    height: 20vh;
+    background: rgba($color: $color-accent, $alpha: 0.3);
+    animation: fluidrotate 25s ease 0s infinite;
+}
