@@ -2,16 +2,13 @@
 // 現在のURI（ドメイン以下のパス）を取得
 define('CURRENT_URI', $_SERVER['REQUEST_URI']);
 
-// appまでを取得
-if (preg_match("/(.+(app))/i", CURRENT_URI, $match)) {
-    define('BASE_CONTEXT_PATH', $match[0] . '/');
-}
-define('BASE_IMAGE_PATH', BASE_CONTEXT_PATH . 'img/');
-define('BASE_JS_PATH', BASE_CONTEXT_PATH . 'js/');
-define('BASE_CSS_PATH', BASE_CONTEXT_PATH . 'css/');
+// このファイルがあるディレクトリのフルパスを返す（/var/www/html/app/）
+define('SOURCE_BASE', __DIR__ . '/');
 
-// __DIR__は、このファイルがあるディレクトリのフルパスを返す
-define('SOURCE_BASE', __DIR__ . '/php/');
+define('BASE_IMAGE_PATH', SOURCE_BASE . 'public/img/');
+define('BASE_JS_PATH', SOURCE_BASE . 'public/js/');
+define('BASE_CSS_PATH', SOURCE_BASE . 'public/css/');
+
 
 define('GO_HOME', 'home');
 define('GO_REFERER', 'referer');
