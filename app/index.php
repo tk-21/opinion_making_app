@@ -44,9 +44,9 @@ session_start();
 
 try {
     // ヘッダーを共通化して読み込み
-    // \partials\header();
+    \partials\header();
 
-    // 動的にコントローラーを呼び出す処理
+    // 以下、動的にコントローラーを呼び出すための処理
 
     // CURRENT_URIからスラッシュを取り除く
     $rpath = str_replace('/', '', CURRENT_URI);
@@ -59,7 +59,7 @@ try {
     route($rpath, $method);
 
     // フッターを共通化して読み込み
-    // \partials\footer();
+    \partials\footer();
 } catch (Throwable $e) {
     // 処理を止める
     die('<h1>何かがすごくおかしいようです。</h1>');
