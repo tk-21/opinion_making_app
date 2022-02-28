@@ -15,10 +15,22 @@ class Msg extends AbstractModel
     public const DEBUG = 'debug';
 
 
+    // セッションを初期化するメソッド
+    private static function init()
+    {
+        // セッションの初期値として配列が保存される
+        static::setSession([
+            static::ERROR => [],
+            static::INFO => [],
+            static::DEBUG => []
+        ]);
+    }
+
+
     // セッションにメッセージを詰めるためのメソッド
     public static function push($type, $msg)
     {
-        // getSessionで配列がとれてこなかったら、セッション上に配列を初期化する
+        // $_SESSION['_msg']から配列がとれてこなかったら、セッション上に配列を初期化する
         if (!is_array(static::getSession())) {
             static::init();
         }
@@ -41,7 +53,7 @@ class Msg extends AbstractModel
 
             echo '<div id="messages">';
             foreach ($msgs_with_type as $type => $msgs) {
-                // $typeにデバッグが回ってきたとき、falseだったら次のループにステップする
+                // $typeにデバッグが回ってきたとき、デバッグフラグがfalse（本番環境）だったら次のループにステップする
                 if ($type === static::DEBUG && !DEBUG) {
                     continue;
                 }
@@ -60,17 +72,5 @@ class Msg extends AbstractModel
             // メッセージを表示させて改修がしやすいようにしておく
             Msg::push(Msg::ERROR, 'Msg::Flushで例外が発生しました。');
         }
-    }
-
-
-    // セッションを初期化するメソッド
-    private static function init()
-    {
-        // セッションの初期値として保存される
-        static::setSession([
-            static::ERROR => [],
-            static::INFO => [],
-            static::DEBUG => []
-        ]);
     }
 }

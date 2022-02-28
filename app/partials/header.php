@@ -47,93 +47,7 @@ function header()
             </h1>
             <nav class="gnav">
                 <ul class="gnav-list">
-                    <li class="gnav-item _sub">
-                        <a href="">会社案内</a>
-                        <nav class="subnav">
-                            <div class="subnav-inner">
-                                <div class="subnav-head">
-                                    <h3 class="subnav-ttl">会社案内</h3>
-                                    <p class="subnav-txt">
-                                        在手賀産業が扱う商品は多岐に渡ります。
-                                        そんな弊社の情報を細かくお伝えします。
-                                    </p>
-                                    <a href="#" class="view-btn">View more</a>
-                                </div>
-                                <ul class="subnav-list">
-                                    <li class="subnav-item">
-                                        <a href="#">
-                                            <figure class="subnav-pic">
-                                                <img src="img/vision.png" alt="" />
-                                            </figure>
-                                            <span>ビジョン</span>
-                                        </a>
-                                    </li>
-                                    <li class="subnav-item">
-                                        <a href="#">
-                                            <figure class="subnav-pic">
-                                                <img src="img/vision.png" alt="" />
-                                            </figure>
-                                            <span>会社概要</span>
-                                        </a>
-                                    </li>
-                                    <li class="subnav-item">
-                                        <a href="#">
-                                            <figure class="subnav-pic">
-                                                <img src="img/vision.png" alt="" />
-                                            </figure>
-                                            <span>沿革</span>
-                                        </a>
-                                    </li>
-                                    <li class="subnav-item">
-                                        <a href="#">
-                                            <figure class="subnav-pic">
-                                                <img src="img/vision.png" alt="" />
-                                            </figure>
-                                            <span>代表あいさつ</span>
-                                        </a>
-                                    </li>
-                                    <li class="subnav-item">
-                                        <a href="#">
-                                            <figure class="subnav-pic">
-                                                <img src="img/vision.png" alt="" />
-                                            </figure>
-                                            <span>メンバー</span>
-                                        </a>
-                                    </li>
-                                    <li class="subnav-item">
-                                        <a href="#">
-                                            <figure class="subnav-pic">
-                                                <img src="img/vision.png" alt="" />
-                                            </figure>
-                                            <span>主要取引先一覧</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                        <nav class="spsubnav">
-                            <ul class="spsubnav-list">
-                                <li class="spsubnav-item">
-                                    <a href="#">ビジョン</a>
-                                </li>
-                                <li class="spsubnav-item">
-                                    <a href="#">会社概要</a>
-                                </li>
-                                <li class="spsubnav-item">
-                                    <a href="#">沿革</a>
-                                </li>
-                                <li class="spsubnav-item">
-                                    <a href="#">代表あいさつ</a>
-                                </li>
-                                <li class="spsubnav-item">
-                                    <a href="#">メンバー</a>
-                                </li>
-                                <li class="spsubnav-item">
-                                    <a href="#">主要取引先一覧</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </li>
+                    <li class="gnav-item"><a href="">会社案内</a></li>
                     <li class="gnav-item"><a href="">お知らせ</a></li>
                     <li class="gnav-item"><a href="">事業内容</a></li>
                     <li class="gnav-item"><a href="">実績紹介</a></li>
@@ -149,7 +63,7 @@ function header()
 
 
 
-    <!-- <body>
+            <!-- <body>
         <div id="container">
             <header class="container my-2">
                 <nav class="row align-items-center py-2">
@@ -165,27 +79,27 @@ function header()
                         ?>
                         <?php if (Auth::isLogin()) : ?>
                             <!-- ログインしているとき -->
-                            <!-- <a href="<?php the_url('topic/create'); ?>" class="btn btn-primary mr-2">投稿</a>
+            <!-- <a href="<?php the_url('topic/create'); ?>" class="btn btn-primary mr-2">投稿</a>
                             <a href="<?php the_url('topic/archive'); ?>" class="mr-2">過去の投稿</a>
                             <a href="<?php the_url('logout'); ?>">ログアウト</a> -->
-                        <?php else : ?>
-                            <!-- <a href="<?php the_url('register'); ?>" class="btn btn-primary mr-2">登録</a>
+        <?php else : ?>
+            <!-- <a href="<?php the_url('register'); ?>" class="btn btn-primary mr-2">登録</a>
                             <a href="<?php the_url('login'); ?>">ログイン</a> -->
-                        <?php endif; ?>
+        <?php endif; ?>
 
-                    <!-- </div>
+        <!-- </div>
                 </nav>
             </header> -->
-            <!-- <main class="container py-3"> -->
+        <!-- <main class="container py-3"> -->
 
-            <?php
-            // ここで$_SESSION['_msg']にセットされた配列の値をループで表示している
-            Msg::flush();
+    <?php
+    // ここで$_SESSION['_msg']にセットされた配列の値をループで表示している
+    Msg::flush();
 
-            if (Auth::isLogin()) {
-                echo 'ログイン中です。';
-            } else {
-                echo 'ログインしていません。';
-            }
-        }
-            ?>
+    if (Auth::isLogin()) {
+        echo 'ログイン中です。';
+    } else {
+        echo 'ログインしていません。';
+    }
+}
+    ?>

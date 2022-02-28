@@ -47,12 +47,33 @@ class DataSource
     public const CLS = 'cls';
 
     // DB接続
-    public function __construct($host = 'localhost', $port = '8889', $dbName = 'pollapp', $username = 'test_user', $password = 'pwd')
+    public function __construct($dsn = DSN, $username = USER, $password = PASSWORD)
     {
-
-        $dsn = "mysql:host={$host};port={$port};dbname={$dbName};";
         $this->conn = PDOSingleton::getInstance($dsn, $username, $password);
     }
+
+
+    // SQLを実行し、ステートメントを返すメソッド
+    private function executeSql($sql, $params)
+    {
+        // $sqlで渡ってきたsqlを渡してprepareを実行
+        $stmt = $this->conn->prepare($sql);
+        // $paramsで渡ってきた配列を渡して実行し、結果を$sqlResultに代入（成功すればtrueが代入される）
+        $this->sqlResult = $stmt->execute($params);
+        // ステートメントを返す
+        return $stmt;
+    }
+
+
+    // 更新系はこのメソッドを使う
+    // SQLを実行し、その結果をtrueかfalseで返すメソッド
+    public function execute($sql = "", $params = [])
+    {
+        $this->executeSql($sql, $params);
+        // PDOのexecuteと戻り値を同じにするため、$this->sqlResultを返す
+        return  $this->sqlResult;
+    }
+
 
     // データを複数行取ってくるメソッド
     // オブジェクト形式か連想配列形式かを第３引数で指定する。どちらかの形式で結果が帰ってくる
@@ -69,23 +90,16 @@ class DataSource
         }
     }
 
-    // 更新系はこのメソッドを使う
-    // SQLを実行し、その結果をtrueかfalseで返すメソッド
-    public function execute($sql = "", $params = [])
-    {
-        $this->executeSql($sql, $params);
-        // PDOのexecuteと戻り値を同じにするため、$this->sqlResultを返す
-        return  $this->sqlResult;
-    }
 
     // 取得した配列の１行目だけを返すメソッド
     public function selectOne($sql = "", $params = [], $type = '', $cls = '')
     {
         $result = $this->select($sql, $params, $type, $cls);
-        // 1行だけ取ってきたいので、$resultの0番目を返す
         // countで空の配列ではないことを確認する
+        // 1行だけ取ってきたいので、$resultの0番目を返す
         return count($result) > 0 ? $result[0] : false;
     }
+
 
     public function begin()
     {
@@ -100,16 +114,5 @@ class DataSource
     public function rollback()
     {
         $this->conn->rollback();
-    }
-
-    // SQLを実行し、ステートメントを返すメソッド
-    private function executeSql($sql, $params)
-    {
-        // $sqlで渡ってきたsqlを渡してprepareを実行
-        $stmt = $this->conn->prepare($sql);
-        // $paramsで渡ってきた配列を渡して実行し、結果を$sqlResultに代入（成功すればtrueが代入される）
-        $this->sqlResult = $stmt->execute($params);
-        // ステートメントを返す
-        return $stmt;
     }
 }

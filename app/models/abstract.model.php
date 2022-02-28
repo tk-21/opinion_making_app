@@ -10,14 +10,14 @@ abstract class AbstractModel
     protected static $SESSION_NAME = null;
 
 
-    // セッションに情報を格納するstaticメソッド
+    // セッションに情報を格納するメソッド
     public static function setSession($val)
     {
         if (empty(static::$SESSION_NAME)) {
             // 例外を発生させる
             throw new Error('$SESSION_NAMEを設定してください。');
         }
-        // static::$SESSION_NAMEのところは、UserModelで定義した$SESSION_NAMEが呼ばれる
+        // static::$SESSION_NAMEのところは、継承先で定義した$SESSION_NAMEが呼ばれる
         // static::をつけると、継承先まで探しに行く
         // 継承先のモデルによって値を変えれば、格納されるセッションのプロパティが変わってくる
         // static::$SESSION_NAMEは継承先のモデルで設定する
@@ -25,6 +25,7 @@ abstract class AbstractModel
     }
 
 
+    // セッションに入っている値を返すメソッド
     public static function getSession()
     {
         // 何もとれてこなかったらnullを返す
