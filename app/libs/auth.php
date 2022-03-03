@@ -17,7 +17,7 @@ class Auth
             // バリデーションがどれか一つでもfalseで返ってきたら
             if (
                 !(UserModel::validateId($id)
-                    * UserModel::validatePwd($pwd))
+                    * UserModel::validatePassword($pwd))
             ) {
                 // 呼び出し元のregister.phpにfalseを返して登録失敗になる
                 return false;

@@ -4,6 +4,11 @@ body {
         "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
     background: #e2dcd6;
     position: relative;
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
     main {
         position: relative;
         z-index: 2;
