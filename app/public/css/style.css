@@ -602,6 +602,17 @@ body {
   position: relative;
 }
 
+body .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+}
+
 body main {
   position: relative;
   z-index: 2;
@@ -1219,6 +1230,7 @@ p {
   z-index: 2;
   background: #272727;
   padding: 64px 0 40px;
+  margin-top: auto;
 }
 
 .footer .inner {

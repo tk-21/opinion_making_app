@@ -15,10 +15,10 @@ function header()
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>在手賀産業株式会社</title>
+        <title>opinion_making_app</title>
         <meta name="description" content="{ページの説明文}" />
         <!--OGPの設定-->
-        <meta property="og:title" content="在手賀産業株式会社" />
+        <meta property="og:title" content="opinion_making_app" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{サイトURL}" />
         <meta property="og:image" content="{OGP画像のURL}" />
@@ -39,31 +39,43 @@ function header()
     </head>
 
     <body>
-        <header class="header">
-            <h1 class="header-logo">
-                <a href="#"><img src="svg/logo.svg" alt="" />
-                    在手賀産業株式会社
-                </a>
-            </h1>
-            <nav class="gnav">
-                <ul class="gnav-list">
-                    <li class="gnav-item"><a href="">会社案内</a></li>
-                    <li class="gnav-item"><a href="">お知らせ</a></li>
-                    <li class="gnav-item"><a href="">事業内容</a></li>
-                    <li class="gnav-item"><a href="">実績紹介</a></li>
-                    <li class="gnav-item"><a href="">ブログ</a></li>
-                    <li class="gnav-item"><a href="">求人情報</a></li>
-                </ul>
-                <a href="#" class="contact-btn">お問い合わせ</a>
-            </nav>
-            <div class="open-btn"><span></span><span></span><span></span></div>
-        </header>
+        <!-- 背景ライン -->
+        <div class="bg">
+            <ul class="bg-line">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
 
-        <main>
+        <div class="wrapper">
+            <header class="header">
+                <h1 class="header-logo">
+                    <a href="#"><img src="svg/logo.svg" alt="" />
+                        在手賀産業株式会社
+                    </a>
+                </h1>
+                <nav class="gnav">
+                    <ul class="gnav-list">
+                        <li class="gnav-item"><a href="">会社案内</a></li>
+                        <li class="gnav-item"><a href="">お知らせ</a></li>
+                        <li class="gnav-item"><a href="">事業内容</a></li>
+                        <li class="gnav-item"><a href="">実績紹介</a></li>
+                        <li class="gnav-item"><a href="">ブログ</a></li>
+                        <li class="gnav-item"><a href="">求人情報</a></li>
+                    </ul>
+                    <a href="#" class="contact-btn">お問い合わせ</a>
+                </nav>
+                <div class="open-btn"><span></span><span></span><span></span></div>
+            </header>
+
+            <main>
 
 
 
-            <!-- <body>
+                <!-- <body>
         <div id="container">
             <header class="container my-2">
                 <nav class="row align-items-center py-2">
@@ -79,27 +91,27 @@ function header()
                         ?>
                         <?php if (Auth::isLogin()) : ?>
                             <!-- ログインしているとき -->
-            <!-- <a href="<?php the_url('topic/create'); ?>" class="btn btn-primary mr-2">投稿</a>
+                <!-- <a href="<?php the_url('topic/create'); ?>" class="btn btn-primary mr-2">投稿</a>
                             <a href="<?php the_url('topic/archive'); ?>" class="mr-2">過去の投稿</a>
                             <a href="<?php the_url('logout'); ?>">ログアウト</a> -->
-        <?php else : ?>
-            <!-- <a href="<?php the_url('register'); ?>" class="btn btn-primary mr-2">登録</a>
+            <?php else : ?>
+                <!-- <a href="<?php the_url('register'); ?>" class="btn btn-primary mr-2">登録</a>
                             <a href="<?php the_url('login'); ?>">ログイン</a> -->
-        <?php endif; ?>
+            <?php endif; ?>
 
-        <!-- </div>
+            <!-- </div>
                 </nav>
             </header> -->
-        <!-- <main class="container py-3"> -->
+            <!-- <main class="container py-3"> -->
 
-    <?php
-    // ここで$_SESSION['_msg']にセットされた配列の値をループで表示している
-    Msg::flush();
+        <?php
+        // ここで$_SESSION['_msg']にセットされた配列の値をループで表示している
+        Msg::flush();
 
-    if (Auth::isLogin()) {
-        echo 'ログイン中です。';
-    } else {
-        echo 'ログインしていません。';
+        if (Auth::isLogin()) {
+            echo 'ログイン中です。';
+        } else {
+            echo 'ログインしていません。';
+        }
     }
-}
-    ?>
+        ?>
