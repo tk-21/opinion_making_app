@@ -1266,6 +1266,45 @@ p {
   font-size: 12px;
 }
 
+.form {
+  background: #fff;
+}
+
+.form-inner {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.form-ttl {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.form-list {
+  margin-bottom: 30px;
+}
+
+.form-dttl {
+  margin-bottom: 10px;
+}
+
+.form-text {
+  height: 2.4em;
+  width: 100%;
+  padding: 0 16px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 0 1px #ccc inset;
+          box-shadow: 0 0 0 1px #ccc inset;
+}
+
+.form-text:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #2196f3 inset;
+          box-shadow: 0 0 0 2px #2196f3 inset;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
