@@ -1,0 +1,30 @@
+.form {
+    background: #fff;
+    &-inner {
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    &-ttl {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    &-list {
+        margin-bottom: 30px;
+    }
+    &-dttl {
+        margin-bottom: 10px;
+    }
+    &-text {
+        height: 2.4em;
+        width: 100%;
+        padding: 0 16px;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px #ccc inset;
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+        }
+    }
+}
