@@ -642,7 +642,7 @@ p {
   }
 }
 
-.detail-btn {
+.submit-btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -663,7 +663,7 @@ p {
   position: relative;
 }
 
-.detail-btn::before {
+.submit-btn::before {
   content: "";
   position: absolute;
   top: -5px;
@@ -675,7 +675,7 @@ p {
   transition: 0.2s;
 }
 
-.detail-btn::after {
+.submit-btn::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -688,11 +688,11 @@ p {
           transform: rotate(45deg) translateY(-50%);
 }
 
-.detail-btn:hover {
+.submit-btn:hover {
   background: rgba(188, 82, 44, 0.8);
 }
 
-.detail-btn:hover::before {
+.submit-btn:hover::before {
   top: 0;
   left: 0;
 }
@@ -1027,6 +1027,13 @@ p {
   padding: 0 20px;
 }
 
+.auth-inner {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 #page-top {
   position: fixed;
   right: 10px;
@@ -1268,18 +1275,14 @@ p {
 
 .form {
   background: #fff;
-}
-
-.form-inner {
-  max-width: 600px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
+  padding: 50px;
+  border-radius: 4px;
 }
 
 .form-ttl {
   font-size: 20px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-list {
@@ -1329,5 +1332,9 @@ p {
   .header-logo {
     width: 60px;
   }
+}
+
+.login {
+  padding: 100px 0;
 }
 /*# sourceMappingURL=style.css.map */

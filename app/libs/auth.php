@@ -10,14 +10,15 @@ use Throwable;
 
 class Auth
 {
-    public static function login($id, $pwd)
+    public static function login($name, $password)
     {
         try {
+            // DBに接続する前にバリデーションは終わらせておく
             // ここはstaticのメソッドを使う
             // バリデーションがどれか一つでもfalseで返ってきたら
             if (
-                !(UserModel::validateId($id)
-                    * UserModel::validatePassword($pwd))
+                !(UserModel::validateName($name)
+                    * UserModel::validatePassword($password))
             ) {
                 // 呼び出し元のregister.phpにfalseを返して登録失敗になる
                 return false;
@@ -26,14 +27,13 @@ class Auth
             // 関数の実行結果を入れる値。ログインが成功したときはtrueを入れる
             $is_success = false;
 
-            // DBに接続する前にバリデーションは終わらせておく
-            $user = UserQuery::fetchById($id);
+            $user = UserQuery::fetchByName($name);
 
             // idからユーザーが取れてきた場合、パスワードの確認（DBに登録されているパスワードとの照合）を行う
-            if (!empty($user) && $user->del_flg !== 1) {
+            if (!empty($user) && !$user->deleted_at) {
 
                 // ログインに成功した場合、$is_successにtrueを入れる
-                if (password_verify($pwd, $user->pwd)) {
+                if (password_verify($password, $user->password)) {
                     $is_success = true;
                     // セッションにもユーザーの情報を入れておく
                     // クラスから生成したユーザー情報の入ったオブジェクトをセッションに格納
@@ -65,15 +65,12 @@ class Auth
                 // ()の中が０の場合にはtrueになり、if文の中が実行される
                 // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
                 !($user->isValidId()
-                    * $user->isValidPwd()
-                    * $user->isValidNickname())
+                    * $user->isValidName()
+                    * $user->isValidPassword())
             ) {
                 // 呼び出し元のregister.phpにfalseを返して登録失敗になる
                 return false;
             }
-
-            // 処理が成功したかどうかのフラグ。初期値はfalse。ログインが成功したときはtrueを入れる
-            $is_success = false;
 
             // まずは同じユーザーが存在するかどうかの確認。idでユーザーが取れてくるかどうか
             $exist_user = UserQuery::fetchById($user->id);
@@ -82,7 +79,10 @@ class Auth
                 return false;
             }
 
-            // 登録が成功すれば$is_successにtrueが入る
+            // 処理が成功したかどうかのフラグ。初期値はfalse。ログインが成功したときはtrueを入れる
+            $is_success = false;
+
+            // クエリを実行して登録が成功すれば$is_successにtrueが入る
             $is_success = UserQuery::insert($user);
 
             if ($is_success) {

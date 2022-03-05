@@ -18,6 +18,7 @@ require_once SOURCE_BASE . 'libs/message.php';
 
 // DB
 require_once SOURCE_BASE . 'db/datasource.php';
+require_once SOURCE_BASE . 'db/db.php';
 require_once SOURCE_BASE . 'db/user.query.php';
 require_once SOURCE_BASE . 'db/topic.query.php';
 // require_once SOURCE_BASE . 'db/comment.query.php';
