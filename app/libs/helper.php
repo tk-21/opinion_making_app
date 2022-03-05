@@ -10,25 +10,17 @@ function get_param($key, $default_val, $is_post = true)
     $array = $is_post ? $_POST : $_GET;
     // 値が飛んでこなかった場合には$default_valを設定する
     // null合体演算子
-    // 非nullのときは第一オペランドを返し、nullのときは第二オペランドを返す
+    // nullでないときは第一オペランドを返し、nullのときは第二オペランドを返す
     // 値が設定されているか確認して、設定されていなければ何らかの値を代入したいときに使う
     return $array[$key] ?? $default_val;
 }
 
 
-// 渡ってきた値が含まれるURLに遷移させるメソッド
-function redirect($path)
+// 渡ってきた値をフルパスの後ろにつなげてURLを返すメソッド
+function get_url($path)
 {
-    if ($path === GO_HOME) {
-        $path = get_url('');
-    } elseif ($path === GO_REFERER) {
-        $path = $_SERVER['HTTP_REFERER'];
-    } else {
-        $path = get_url($path);
-    }
-
-    header("Location: {$path}");
-    die();
+    // 両端にスラッシュが含まれていればトリミングする
+    return SOURCE_BASE . trim($path, '/');
 }
 
 
@@ -39,11 +31,19 @@ function the_url($path)
 }
 
 
-// 渡ってきた値をフルパスの後ろにつなげてURLを返すメソッド
-function get_url($path)
+// 渡ってきた値が含まれるURLに遷移させるメソッド
+function redirect($path)
 {
-    // 両端にスラッシュが含まれていればトリミングする
-    return SOURCE_BASE . trim($path, '/');
+    if ($path === GO_HOME) {
+        $path = get_url('controllers/home.php');
+    } elseif ($path === GO_REFERER) {
+        $path = $_SERVER['HTTP_REFERER'];
+    } else {
+        $path = get_url($path);
+    }
+
+    header("Location: {$path}");
+    die();
 }
 
 

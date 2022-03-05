@@ -9,8 +9,8 @@ class UserModel extends AbstractModel
 {
     // これらのプロパティに値を格納する
     public $id;
+    public $name;
     public $password;
-    public $nickname;
     public $deleted_at;
     public $created_at;
     public $updated_at;
@@ -19,38 +19,34 @@ class UserModel extends AbstractModel
     // セッションの情報はメソッドを通じて取得してくださいという意味
     protected static $SESSION_NAME = '_user';
 
-    // IDのバリデーション
-    public static function validateId($val)
+
+    // ユーザーネームのバリデーション
+    public static function validateName($val)
     {
-        // レスポンス
+
         $res = true;
 
-        // 空文字が渡ってきた場合に注意文を表示する
         if (empty($val)) {
-            Msg::push(Msg::ERROR, 'ユーザーIDを入力してください。');
-            // バリデートが失敗した場合にマークしておく
+
+            Msg::push(Msg::ERROR, 'ユーザーネームを入力してください。');
             $res = false;
         } else {
-            // 文字列の長さが11文字以上だったら
-            if (strlen($val) > 10) {
-                Msg::push(Msg::ERROR, 'ユーザーIDは10桁以下で入力してください。');
-                $res = false;
-            }
 
-            // 小文字か大文字の半角英字もしくは数字にマッチしない場合
-            if (!is_alnum($val)) {
-                Msg::push(Msg::ERROR, 'ユーザーIDは半角英数字で入力してください。');
+            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
+            if (mb_strlen($val) > 10) {
+
+                Msg::push(Msg::ERROR, 'ユーザーネームは１０桁以下で入力してください。');
                 $res = false;
             }
         }
-        // エラーに引っかかった場合はfalseが返る
+
         return $res;
     }
 
     // インスタンスメソッドとしてはこのメソッドを使う
-    public function isValidId()
+    public function isValidName()
     {
-        return static::validateId($this->id);
+        return static::validateName($this->name);
     }
 
 
@@ -86,35 +82,5 @@ class UserModel extends AbstractModel
     public function isValidPassword()
     {
         return static::validatePassword($this->password);
-    }
-
-
-    // ニックネームのバリデーション
-    public static function validateNickname($val)
-    {
-
-        $res = true;
-
-        if (empty($val)) {
-
-            Msg::push(Msg::ERROR, 'ニックネームを入力してください。');
-            $res = false;
-        } else {
-
-            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
-            if (mb_strlen($val) > 10) {
-
-                Msg::push(Msg::ERROR, 'ニックネームは１０桁以下で入力してください。');
-                $res = false;
-            }
-        }
-
-        return $res;
-    }
-
-    // インスタンスメソッドとしてはこのメソッドを使う
-    public function isValidNickname()
-    {
-        return static::validateNickname($this->nickname);
     }
 }

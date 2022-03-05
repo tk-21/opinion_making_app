@@ -1,14 +1,11 @@
 .form {
     background: #fff;
-    &-inner {
-        max-width: 600px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
+    padding: 50px;
+    border-radius: 4px;
     &-ttl {
         font-size: 20px;
         margin-bottom: 20px;
+        text-align: center;
     }
     &-list {
         margin-bottom: 30px;
