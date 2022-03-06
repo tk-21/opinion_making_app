@@ -45,7 +45,7 @@ session_start();
 
 try {
     // ヘッダーを共通化して読み込み
-    \partials\header();
+    // \partials\header();
 
     // 以下、動的にコントローラーを呼び出すための処理
 

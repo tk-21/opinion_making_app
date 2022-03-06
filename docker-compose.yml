@@ -1,30 +1,31 @@
-version: '3'
+version: "3"
 services:
-  web:
-    image: nginx:1.15.6
-    ports:
-      - "8000:80"
-    depends_on: # 追加
-      - app
-    volumes:
-      - ./docker/web/default.conf:/etc/nginx/conf.d/default.conf
-      - .:/var/www/html
-  app:
-    build: ./docker/php
-    volumes:
-     - .:/var/www/html
-    depends_on:
-      - mysql
-  mysql:
-    image: mysql:5.7
-    environment:
-      MYSQL_DATABASE: opinion_making_app
-      MYSQL_USER: takuya
-      MYSQL_PASSWORD: takuya
-      MYSQL_ROOT_PASSWORD: takuya
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
+    web:
+        image: nginx:1.15.6
+        ports:
+            - "8000:80"
+        depends_on: # 追加
+            - app
+        volumes:
+            - ./docker/web/default.conf:/etc/nginx/conf.d/default.conf
+            - .:/var/www/html
+    app:
+        build: ./docker/php
+        volumes:
+            - .:/var/www/html
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+        depends_on:
+            - mysql
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: opinion_making_app
+            MYSQL_USER: takuya
+            MYSQL_PASSWORD: takuya
+            MYSQL_ROOT_PASSWORD: takuya
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql-data:/var/lib/mysql
 volumes:
-  mysql-data:
+    mysql-data:
