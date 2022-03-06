@@ -17,7 +17,6 @@ function route($rpath, $method)
         if ($rpath === '') {
             $rpath = 'home';
         }
-        echo $rpath; //アクセスしているファイル
 
         // 渡ってきたパスによってコントローラー内のどれかのファイル名を取得
         $targetFile = SOURCE_BASE . "controllers/{$rpath}.php";
