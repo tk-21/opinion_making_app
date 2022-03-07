@@ -60,7 +60,7 @@ try {
     route($rpath, $method);
 
     // フッターを共通化して読み込み
-    \partials\footer();
+    // \partials\footer();
 } catch (Throwable $e) {
     // 処理を止める
     die('<h1>何かがすごくおかしいようです。</h1>');

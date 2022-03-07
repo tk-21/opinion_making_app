@@ -35,7 +35,7 @@ function the_url($path)
 function redirect($path)
 {
     if ($path === GO_HOME) {
-        $path = get_url('controllers/home.php');
+        $path = '/';
     } elseif ($path === GO_REFERER) {
         $path = $_SERVER['HTTP_REFERER'];
     } else {
