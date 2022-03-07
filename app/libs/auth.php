@@ -33,7 +33,8 @@ class Auth
             if (!empty($user) && !$user->deleted_at) {
 
                 // ログインに成功した場合、$is_successにtrueを入れる
-                if (password_verify($password, $user->password)) {
+                // if (password_verify($password, $user->password)) {
+                if ($password == $user->password) {
                     $is_success = true;
                     // セッションにもユーザーの情報を入れておく
                     // クラスから生成したユーザー情報の入ったオブジェクトをセッションに格納
