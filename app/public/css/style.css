@@ -1276,6 +1276,7 @@ p {
 .form {
   background: #fff;
   padding: 50px;
+  margin-bottom: 50px;
   border-radius: 4px;
 }
 
@@ -1309,23 +1310,8 @@ p {
 }
 
 .header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   padding: 42px 12.98611vw 0 5.55556vw;
   width: 100%;
-  position: relative;
-  z-index: 3;
-}
-
-.header-logo {
-  width: 100px;
 }
 
 @media (max-width: 767px) {
@@ -1336,5 +1322,9 @@ p {
 
 .login {
   padding: 100px 0;
+}
+
+.login .auth-txt {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

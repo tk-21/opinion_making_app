@@ -52,24 +52,13 @@ function header()
         <div class="wrapper">
             <header class="header">
                 <h1 class="header-logo">
-                    <a href="#"><img src="svg/logo.svg" alt="" />
+                    <a href="#">
                         在手賀産業株式会社
                     </a>
                 </h1>
-                <nav class="gnav">
-                    <ul class="gnav-list">
-                        <li class="gnav-item"><a href="">会社案内</a></li>
-                        <li class="gnav-item"><a href="">お知らせ</a></li>
-                        <li class="gnav-item"><a href="">事業内容</a></li>
-                        <li class="gnav-item"><a href="">実績紹介</a></li>
-                        <li class="gnav-item"><a href="">ブログ</a></li>
-                        <li class="gnav-item"><a href="">求人情報</a></li>
-                    </ul>
-                    <a href="#" class="contact-btn">お問い合わせ</a>
-                </nav>
-                <div class="open-btn"><span></span><span></span><span></span></div>
             </header>
             <main>
+
             <?php
             // ここで$_SESSION['_msg']にセットされた配列の値をループで表示している
             Msg::flush();

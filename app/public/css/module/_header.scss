@@ -1,13 +1,7 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 42px vw(187) 0 vw(80);
     width: 100%;
-    position: relative;
-    z-index: 3;
     &-logo {
-        width: 100px;
         @include mq(sp) {
             width: 60px;
         }
