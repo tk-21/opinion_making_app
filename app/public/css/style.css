@@ -697,6 +697,22 @@ p {
   left: 0;
 }
 
+.submit-btn:disabled {
+  background: #ccc;
+}
+
+.submit-btn:disabled::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #bc522c;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
 .send-btn {
   display: block;
   width: 183px;

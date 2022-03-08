@@ -1,5 +1,9 @@
 <?php
-// 現在のURI（ドメイン以下のパス）を取得
+
+// ホスト名（ドメイン部分）までのパスを取得
+define('BASE_PATH', (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . '/');
+
+// ホスト名（ドメイン部分）以下のパスを取得
 define('CURRENT_URI', $_SERVER['REQUEST_URI']);
 
 // このファイルがあるディレクトリのフルパスを返す（/var/www/html/app/）

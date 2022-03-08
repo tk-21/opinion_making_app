@@ -16,11 +16,11 @@ function get_param($key, $default_val, $is_post = true)
 }
 
 
-// 渡ってきた値をフルパスの後ろにつなげてURLを返すメソッド
+// 渡ってきた値をホスト名以下につなげてURLを返すメソッド
 function get_url($path)
 {
     // 両端にスラッシュが含まれていればトリミングする
-    return SOURCE_BASE . trim($path, '/');
+    return BASE_PATH . trim($path, '/');
 }
 
 
@@ -35,7 +35,7 @@ function the_url($path)
 function redirect($path)
 {
     if ($path === GO_HOME) {
-        $path = '/';
+        $path = get_url('');
     } elseif ($path === GO_REFERER) {
         $path = $_SERVER['HTTP_REFERER'];
     } else {
