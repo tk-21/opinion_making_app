@@ -9,13 +9,13 @@ class TopicModel extends AbstractModel
     // topicsテーブルとusersテーブルを内部結合したテーブルから取ってきた値を、これらのプロパティに格納する
     public $id;
     public $title;
-    public $published;
-    public $views;
-    public $likes;
-    public $dislikes;
+    public $body;
+    public $position;
+    public $finish_flg;
     public $user_id;
-    public $nickname;
-    public $del_flg;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
 
     // 先頭にアンダースコアがついていれば、何か特定のメソッドを通じて値を取得するものという意味
     // セッションの情報はメソッドを通じて取得してくださいという意味

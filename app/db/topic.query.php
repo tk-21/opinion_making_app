@@ -36,6 +36,33 @@ class TopicQuery
         return $result;
     }
 
+
+    // controllerのhome.phpで呼び出している
+    public static function fetchUserTopics()
+    {
+        $db = new DataSource;
+
+        // inner joinで内部結合している
+        $sql = '
+        SELECT * FROM topics
+        WHERE t.del_flg != 1
+        and u.del_flg != 1
+        and t.published = 1
+        order by t.id DESC
+        ';
+        // 第2引数のパラメータは指定しないので、空の配列を渡す
+        // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
+        // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
+        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\TopicModel が返る）
+        // ここはselectメソッドなので複数行取れてくる
+        // $resultにはオブジェクトの配列が格納される
+        $result = $db->select($sql, [], DataSource::CLS, TopicModel::class);
+
+        // 結果が取れてくればresultを返す
+        return $result;
+    }
+
+
     // controllerのhome.phpで呼び出している
     public static function fetchPublishedTopics()
     {
