@@ -9,10 +9,18 @@
         text-align: center;
     }
     &-list {
-        margin-bottom: 30px;
+        margin-bottom: 60px;
     }
     &-dttl {
         margin-bottom: 10px;
+    }
+    &-item {
+        &:not(:last-of-type) {
+            margin-bottom: 30px;
+        }
+        .invalid-feedback {
+            color: $color-accent;
+        }
     }
     &-text {
         height: 2.4em;

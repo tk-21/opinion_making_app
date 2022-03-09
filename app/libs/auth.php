@@ -33,8 +33,7 @@ class Auth
             if (!empty($user) && !$user->deleted_at) {
 
                 // ログインに成功した場合、$is_successにtrueを入れる
-                // if (password_verify($password, $user->password)) {
-                if ($password == $user->password) {
+                if (password_verify($password, $user->password)) {
                     $is_success = true;
                     // セッションにもユーザーの情報を入れておく
                     // クラスから生成したユーザー情報の入ったオブジェクトをセッションに格納
@@ -65,8 +64,7 @@ class Auth
             if (
                 // ()の中が０の場合にはtrueになり、if文の中が実行される
                 // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-                !($user->isValidId()
-                    * $user->isValidName()
+                !($user->isValidName()
                     * $user->isValidPassword())
             ) {
                 // 呼び出し元のregister.phpにfalseを返して登録失敗になる
@@ -74,7 +72,7 @@ class Auth
             }
 
             // まずは同じユーザーが存在するかどうかの確認。idでユーザーが取れてくるかどうか
-            $exist_user = UserQuery::fetchById($user->id);
+            $exist_user = UserQuery::fetchByName($user->name);
             if (!empty($exist_user)) {
                 Msg::push(Msg::ERROR, 'すでにユーザーが存在します。');
                 return false;
@@ -87,7 +85,7 @@ class Auth
             $is_success = UserQuery::insert($user);
 
             if ($is_success) {
-                // UserModelのsetSessionにuserオブジェクトを渡してセッションに情報をセットする
+                // userオブジェクトを渡してセッションに情報をセットする（$_SESSION[_user] = $user）
                 // スーパーグローバルには何らかの共通したメソッドからアクセスするようにする
                 UserModel::setSession($user);
             }
