@@ -12,9 +12,9 @@ function get()
     // logoutメソッドでtrueが返ってきたらメッセージを格納する
     if (Auth::logout()) {
         Msg::push(Msg::INFO, 'ログアウトが成功しました。');
+        redirect('login');
     } else {
         Msg::push(Msg::ERROR, 'ログアウトが失敗しました。');
     }
 
-    redirect(GO_HOME);
 }

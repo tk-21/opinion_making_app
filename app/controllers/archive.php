@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\topic\archive;
+namespace controller\archive;
 
 use db\TopicQuery;
 use lib\Auth;
