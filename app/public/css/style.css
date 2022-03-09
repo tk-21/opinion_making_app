@@ -1303,11 +1303,19 @@ p {
 }
 
 .form-list {
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 .form-dttl {
   margin-bottom: 10px;
+}
+
+.form-item:not(:last-of-type) {
+  margin-bottom: 30px;
+}
+
+.form-item .invalid-feedback {
+  color: #bc522c;
 }
 
 .form-text {
@@ -1336,11 +1344,11 @@ p {
   }
 }
 
-.login {
+.auth {
   padding: 100px 0;
 }
 
-.login .auth-txt {
+.auth-txt {
   text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
