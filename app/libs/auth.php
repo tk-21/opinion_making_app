@@ -71,7 +71,7 @@ class Auth
                 return false;
             }
 
-            // まずは同じユーザーが存在するかどうかの確認。idでユーザーが取れてくるかどうか
+            // まずは同じユーザーが存在するかどうかの確認
             $exist_user = UserQuery::fetchByName($user->name);
             if (!empty($exist_user)) {
                 Msg::push(Msg::ERROR, 'すでにユーザーが存在します。');
@@ -85,8 +85,7 @@ class Auth
             $is_success = UserQuery::insert($user);
 
             if ($is_success) {
-                // userオブジェクトを渡してセッションに情報をセットする（$_SESSION[_user] = $user）
-                // スーパーグローバルには何らかの共通したメソッドからアクセスするようにする
+                // 登録が成功すれば、そのユーザー情報をセッションに入れる（$_SESSION[_user] = $user）
                 UserModel::setSession($user);
             }
         } catch (Throwable $e) {
@@ -101,7 +100,7 @@ class Auth
 
 
     // ログインしているかどうかを判定するメソッド
-    // 結果はtrueかfalseで返ってくる
+    // セッションにユーザー情報が入っていればtrueを返す
     public static function isLogin()
     {
         try {
@@ -115,12 +114,24 @@ class Auth
             return false;
         }
 
-        if (isset($user)) {
-            return true;
-        } else {
+        if (!isset($user)) {
             return false;
         }
+
+        return true;
     }
+
+
+    // ログインを促すメソッド
+    public static function requireLogin()
+    {
+        // セッションにユーザー情報が入っていない場合、メッセージを出してログイン画面へリダイレクトさせる
+        if (!static::isLogin()) {
+            Msg::push(Msg::ERROR, 'ログインしてください。');
+            redirect('login');
+        }
+    }
+
 
     // ログアウトするメソッド
     public static function logout()
@@ -138,15 +149,6 @@ class Auth
         return true;
     }
 
-    // ログインを促すメソッド
-    public static function requireLogin()
-    {
-        // もしログインしていない場合、メッセージを追加してログイン画面へリダイレクトさせる
-        if (!static::isLogin()) {
-            Msg::push(Msg::ERROR, 'ログインしてください。');
-            redirect('login');
-        }
-    }
 
     // 編集権限があるかどうか確認するメソッド
     public static function hasPermission($topic_id, $user)

@@ -2,64 +2,46 @@
 
 namespace view\home;
 
-
-// 引数でトピックの配列が渡ってくる
-function index()
+// 引数でtopicの配列が渡ってくる
+function index($topics)
 {
     \partials\header();
 
+    $topics = escape($topics);
 ?>
-    <!-- <ul class="container"> -->
-    <?php
-    // 一つずつの投稿がtopic_list_itemに渡って、リストが形成される
-    // foreach ($topics as $topic) {
-    // idをキーにしてtopicの詳細画面に飛ぶようにする
-    // このURLを引数として渡す
-    // $url = get_url('topic/detail?topic_id=' . $topic->id);
-    // \partials\topic_list_item($topic, $url, false);
-    // }
-    ?>
-    <!-- </ul> -->
-
-
-
     <article class="topic" id="topic">
-        <!-- <ul class="circle-list">
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-            <li class="circle-item"></li>
-        </ul> -->
-
-        <div class="inner">
+        <div class="topic-inner">
             <h2 class="topic-ttl">トピック一覧</h2>
             <ul class="topic-list">
-                <li class="topic-item">
-                    <a href="#">
-                        <div class="topic-body">
-                            <time datetime="2021-06-21">2021.06.21</time>
-                            <p class="topic-txt">
-                                弊社のビジョンと創業時からの企業ステートメント。
-                            </p>
-                        </div>
-                    </a>
-                </li>
+                <?php
+                foreach ($topics as $topic) {
+                    // idをキーにしてtopicの編集画面に飛ぶようにする
+                    // get_urlメソッドでフルパスを作成
+                    // このURLを引数として渡す
+                    $url = get_url('detail?topic_id=' . $topic->id);
+
+                    // publishedが１のときは公開、０のときは非公開
+                    $label = $topic->finish_flg ? '完了' : '未完了';
+
+                    // ラベルのデザインを切り替える
+                    $label_color = $topic->finish_flg ? 'completed' : 'incomplete';
+                ?>
+                    <li class="topic-item">
+                        <a href="<?php echo $url; ?>">
+                            <span class="topic-item-label <?php echo $label_color; ?>"><?php echo $label; ?></span>
+                            <p class="topic-item-ttl"><?php echo $topic->title; ?></p>
+                            <p class="topic-item-body"><?php echo $topic->body; ?></p>
+                            <p class="topic-item-position"><?php echo $topic->position; ?></p>
+                            <time datetime=""><?php echo $topic->created_at; ?></time>
+                        </a>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
-            <a href="#" class="detail-btn">詳しく見る
-                <img src="svg/arrow-black.svg" alt="" />
-            </a>
         </div>
-
     </article>
-
 
 <?php
     \partials\footer();
 }
-?>
