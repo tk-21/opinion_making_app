@@ -1,0 +1,16 @@
+.detail {
+    padding: 60px 0;
+    &-topic {
+        &-list {
+            background: $color-white;
+            padding: 40px;
+            margin-right: 25px;
+        }
+        &-ttl {
+            margin-bottom: 15px;
+        }
+        &-data {
+            margin-bottom: 40px;
+        }
+    }
+}

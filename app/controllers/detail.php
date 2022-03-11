@@ -3,12 +3,12 @@
 namespace controller\detail;
 
 use Throwable;
-use db\CommentQuery;
+use db\ObjectionQuery;
 use db\DataSource;
 use db\TopicQuery;
 use lib\Auth;
 use lib\Msg;
-use model\CommentModel;
+use model\ObjectionModel;
 use model\TopicModel;
 use model\UserModel;
 
@@ -29,11 +29,11 @@ function get()
         redirect('404');
     }
 
-    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付くコメントを取ってくる
-    $comments = CommentQuery::fetchByTopicId($topic);
+    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論を取ってくる
+    $objections = ObjectionQuery::fetchByTopicId($topic);
 
     // トピックが取れてきた場合、viewのdetailのindexにtopicオブジェクトとcommentsオブジェクトを渡して実行
-    \view\detail\index($fetchedTopic, $comments);
+    \view\detail\index($fetchedTopic, $objections);
 }
 
 
@@ -44,7 +44,7 @@ function post()
     Auth::requireLogin();
 
     // コメントモデルの初期化
-    $comment = new CommentModel;
+    $comment = new ObjectionModel;
 
     // postで飛んできた値を格納する
     $comment->topic_id = get_param('topic_id', null);
@@ -68,7 +68,7 @@ function post()
 
         // 賛成反対のインクリメントが成功して、かつコメント入力がされていれば、インサートのクエリを実行する
         if ($is_success && !empty($comment->body)) {
-            $is_success = CommentQuery::insert($comment);
+            $is_success = ObjectionQuery::insert($comment);
         }
     } catch (Throwable $e) {
         Msg::push(Msg::DEBUG, $e->getMessage());

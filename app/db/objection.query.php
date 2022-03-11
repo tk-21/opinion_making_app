@@ -3,9 +3,9 @@
 namespace db;
 
 use db\DataSource;
-use model\CommentModel;
+use model\ObjectionModel;
 
-class CommentQuery
+class ObjectionQuery
 {
     // controllerのdetail.phpで呼び出している
     public static function fetchByTopicId($topic)
@@ -17,16 +17,11 @@ class CommentQuery
 
         $db = new DataSource;
 
-        // commentsテーブルとusersテーブルをinner joinで内部結合している
         $sql = '
-        select c.*, u.nickname FROM comments c
-        inner join users u
-        on c.user_id  = u.id
-        WHERE c.topic_id = :id
-        AND c.body != ""
-        AND c.del_flg != 1
-        AND u.del_flg != 1
-        ORDER BY c.id DESC
+        select * FROM objections
+        WHERE topic_id = :id
+        AND deleted_at IS NULL
+        ORDER BY id DESC
         ';
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
@@ -36,7 +31,7 @@ class CommentQuery
         // $resultにはオブジェクトの配列が格納される
         $result = $db->select($sql, [
             ':id' => $topic->id
-        ], DataSource::CLS, CommentModel::class);
+        ], DataSource::CLS, ObjectionModel::class);
 
         // 結果が取れてくればresultを返す
         return $result;
