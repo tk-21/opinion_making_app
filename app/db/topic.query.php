@@ -76,13 +76,9 @@ class TopicQuery
         // 汎用性を持たせるためwhereの条件に t.published = 1 は入れない （公開非公開は関係なくトピックを取得する）
         // DBに問い合わせるクエリに詳細な条件を書いてしまうと、そのメソッドを使い回すことができない
         $sql = '
-            SELECT t.*, u.nickname FROM topics t
-            inner join users u
-            on t.user_id = u.id
-            WHERE t.id = :id
-            and t.del_flg != 1
-            and u.del_flg != 1
-            order by t.id DESC
+            SELECT * FROM topics
+            WHERE id = :id
+            and deleted_at IS NULL
             ';
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定

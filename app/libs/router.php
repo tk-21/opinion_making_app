@@ -14,7 +14,7 @@ function route($rpath, $method)
         // throw new Error();
 
         // 何もなかったらhomeを入れる
-        if ($rpath === '') {
+        if ($rpath === '/') {
             $rpath = 'home';
         }
 

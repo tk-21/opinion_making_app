@@ -1,19 +1,33 @@
 <?php
 
-namespace view\topic\detail;
+namespace view\detail;
 
 // トピックとコメントが渡ってくる
 function index($topic, $comments)
 {
+    \partials\header();
+
     $topic = escape($topic);
     $comments = escape($comments);
 
-    // ここでトピックを１件表示
-    // トップページから呼ばれるわけではないので、第２引数はfalse（詳細ページへのリンクは付けない）
-    \partials\topic_header_item($topic, false);
-
     // 以下でトピックに紐付くコメントを表示する
 ?>
+
+    <section class="detail">
+        <div class="inner">
+            <dl class="detail-list">
+                <dt class="detail-tit">タイトル</dt>
+                <dd class="detail-data"><?php echo $topic->title; ?></dd>
+                <dt class="detail-tit">内容</dt>
+                <dd class="detail-data"><?php echo $topic->body; ?></dd>
+                <dt class="detail-tit">ポジション</dt>
+                <dd class="detail-data"><?php echo $topic->position; ?></dd>
+            </dl>
+
+        </div>
+    </section>
+
+
 
     <ul class="list-unstyled">
         <?php foreach ($comments as $comment) : ?>
@@ -35,5 +49,5 @@ function index($topic, $comments)
     </ul>
 
 <?php
+    \partials\footer();
 }
-?>

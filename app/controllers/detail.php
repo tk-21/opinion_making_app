@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\topic\detail;
+namespace controller\detail;
 
 use Throwable;
 use db\CommentQuery;
@@ -20,24 +20,22 @@ function get()
     // getから値を取るときは第３引数をfalseにしておく
     $topic->id = get_param('topic_id', null, false);
 
-    // このメソッドを実行することでDBのviewsに１を足す
-    TopicQuery::incrementViewCount($topic);
-
     // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに該当するトピックを１件取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
 
-    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付くコメントを取ってくる
-    $comments = CommentQuery::fetchByTopicId($topic);
-
     // トピックが取れてこなかった場合、またはpublishedの値がfalseの場合（０の場合）は４０４ページにリダイレクト
-    if (empty($fetchedTopic) || !$fetchedTopic->published) {
+    if (empty($fetchedTopic)) {
         Msg::push(Msg::ERROR, 'トピックが見つかりません。');
         redirect('404');
     }
 
+    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付くコメントを取ってくる
+    $comments = CommentQuery::fetchByTopicId($topic);
+
     // トピックが取れてきた場合、viewのdetailのindexにtopicオブジェクトとcommentsオブジェクトを渡して実行
-    \view\topic\detail\index($fetchedTopic, $comments);
+    \view\detail\index($fetchedTopic, $comments);
 }
+
 
 // コメントをフォームから送信するメソッド
 function post()
