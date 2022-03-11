@@ -11,7 +11,7 @@ require_once SOURCE_BASE . 'libs/router.php';
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
 require_once SOURCE_BASE . 'models/topic.model.php';
-// require_once SOURCE_BASE . 'models/comment.model.php';
+require_once SOURCE_BASE . 'models/objection.model.php';
 
 // Message
 require_once SOURCE_BASE . 'libs/message.php';
@@ -21,7 +21,7 @@ require_once SOURCE_BASE . 'db/datasource.php';
 require_once SOURCE_BASE . 'db/db.php';
 require_once SOURCE_BASE . 'db/user.query.php';
 require_once SOURCE_BASE . 'db/topic.query.php';
-// require_once SOURCE_BASE . 'db/comment.query.php';
+require_once SOURCE_BASE . 'db/objection.query.php';
 
 // partials
 require_once SOURCE_BASE . 'partials/header.php';
@@ -45,11 +45,8 @@ try {
     // ヘッダーを共通化して読み込み
     // \partials\header();
 
-    // 以下、動的にコントローラーを呼び出すための処理
-
-    // CURRENT_URIからスラッシュを取り除く
-    $path = parse_url(CURRENT_URI, PHP_URL_PATH);
-    $path = str_replace(BASE_PATH, '', $path);
+    // pathの部分のみを取り出し、スラッシュを除く処理
+    $path = str_replace('/', '', parse_url(CURRENT_URI, PHP_URL_PATH));
 
     // リクエストメソッドを小文字に変換して取得
     $method = strtolower($_SERVER['REQUEST_METHOD']);

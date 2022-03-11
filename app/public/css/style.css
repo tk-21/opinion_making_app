@@ -1057,6 +1057,16 @@ p {
   padding: 0 20px;
 }
 
+.detail-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 #page-top {
   position: fixed;
   right: 10px;
@@ -1253,6 +1263,24 @@ p {
 
 .bg-line li:nth-child(5) {
   left: calc((100% / 4) * 4);
+}
+
+.detail {
+  padding: 60px 0;
+}
+
+.detail-topic-list {
+  background: #fff;
+  padding: 40px;
+  margin-right: 25px;
+}
+
+.detail-topic-ttl {
+  margin-bottom: 15px;
+}
+
+.detail-topic-data {
+  margin-bottom: 40px;
 }
 
 .footer {
