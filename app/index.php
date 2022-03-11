@@ -32,7 +32,7 @@ require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/login.php';
 require_once SOURCE_BASE . 'views/register.php';
 // require_once SOURCE_BASE . 'views/topic/archive.php';
-// require_once SOURCE_BASE . 'views/topic/detail.php';
+require_once SOURCE_BASE . 'views/detail.php';
 // require_once SOURCE_BASE . 'views/topic/edit.php';
 
 // controllerのファイルはrouter.php内で自動的に読み込まれるので、ここに記述する必要はない
@@ -48,14 +48,15 @@ try {
     // 以下、動的にコントローラーを呼び出すための処理
 
     // CURRENT_URIからスラッシュを取り除く
-    $rpath = str_replace('/', '', CURRENT_URI);
+    $path = parse_url(CURRENT_URI, PHP_URL_PATH);
+    $path = str_replace(BASE_PATH, '', $path);
 
     // リクエストメソッドを小文字に変換して取得
     $method = strtolower($_SERVER['REQUEST_METHOD']);
 
     // 渡ってくるパスによってコントローラーを呼び分ける
     // getかpostかによって実行されるメソッドが変わる
-    route($rpath, $method);
+    route($path, $method);
 
     // フッターを共通化して読み込み
     // \partials\footer();
