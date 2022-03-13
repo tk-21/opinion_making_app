@@ -39,7 +39,7 @@ class ObjectionQuery
 
 
     // controller\topic\detailのpostメソッド内で呼び出している
-    public static function insert($comment)
+    public static function insert($objection)
     {
         // 値のチェック
         // DBに接続する前に必ずチェックは終わらせておく
@@ -47,9 +47,9 @@ class ObjectionQuery
         if (
             // ()の中が０の場合にはtrueになり、if文の中が実行される
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($comment->isValidTopicId()
-                * $comment->isValidBody()
-                * $comment->isValidAgree())
+            !($objection->isValidTopicId()
+                * $objection->isValidBody()
+            )
         ) {
             return false;
         }
@@ -57,18 +57,16 @@ class ObjectionQuery
         $db = new DataSource;
 
         $sql = '
-        insert into comments
-            (topic_id, agree, body, user_id)
+        insert into objections
+            (body, topic_id)
         values
-            (:topic_id, :agree, :body, :user_id)
+            (:body, :topic_id)
         ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':topic_id' => $comment->topic_id,
-            ':agree' => $comment->agree,
-            ':body' => $comment->body,
-            ':user_id' => $comment->user_id
+            ':body' => $objection->body,
+            ':topic_id' => $objection->topic_id,
         ]);
     }
 }

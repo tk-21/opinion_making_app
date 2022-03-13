@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\topic\create;
+namespace controller\topic_create;
 
 use db\TopicQuery;
 use lib\Auth;
