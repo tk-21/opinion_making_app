@@ -69,4 +69,17 @@ class ObjectionQuery
             ':topic_id' => $objection->topic_id,
         ]);
     }
+
+
+    public static function delete($id)
+    {
+        $db = new DataSource;
+
+        $sql = 'delete from objections where id = :id;';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':id' => $id
+        ]);
+    }
 }

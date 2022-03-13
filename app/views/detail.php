@@ -35,6 +35,9 @@ function index($topic, $objections, $counterObjections)
                     <?php foreach ($objections as $objection) : ?>
                         <li class="detail-objection-item">
                             <?php echo $objection->body; ?>
+                            <button type="submit" class="delete-btn" data-id="<?php echo $objection->id ?>">
+                                <a href="<?php the_url(sprintf('delete?id=%s', $objection->id)); ?>">削除</a>
+                            </button>
                         </li>
                     <?php endforeach; ?>
                 </ul>

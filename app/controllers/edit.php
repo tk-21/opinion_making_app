@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\topic\edit;
+namespace controller\edit;
 
 use db\TopicQuery;
 use lib\Auth;
