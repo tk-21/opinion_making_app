@@ -5,7 +5,7 @@ namespace db;
 use db\DataSource;
 use model\ObjectionModel;
 
-class ObjectionQuery
+class CounterObjectionQuery
 {
     // controllerのdetail.phpで呼び出している
     public static function fetchByTopicId($topic)
@@ -18,7 +18,7 @@ class ObjectionQuery
         $db = new DataSource;
 
         $sql = '
-        select * FROM objections
+        select * FROM counter_objections
         WHERE topic_id = :id
         AND deleted_at IS NULL
         ORDER BY id DESC
@@ -39,7 +39,7 @@ class ObjectionQuery
 
 
     // controller\topic\detailのpostメソッド内で呼び出している
-    public static function insert($objection)
+    public static function insert($counterObjection)
     {
         // 値のチェック
         // DBに接続する前に必ずチェックは終わらせておく
@@ -47,8 +47,8 @@ class ObjectionQuery
         if (
             // ()の中が０の場合にはtrueになり、if文の中が実行される
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($objection->isValidTopicId()
-                * $objection->isValidBody()
+            !($counterObjection->isValidTopicId()
+                * $counterObjection->isValidBody()
             )
         ) {
             return false;
@@ -57,7 +57,7 @@ class ObjectionQuery
         $db = new DataSource;
 
         $sql = '
-        insert into objections
+        insert into counter_objections
             (body, topic_id)
         values
             (:body, :topic_id)
@@ -65,8 +65,8 @@ class ObjectionQuery
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':body' => $objection->body,
-            ':topic_id' => $objection->topic_id,
+            ':body' => $counterObjection->body,
+            ':topic_id' => $counterObjection->topic_id,
         ]);
     }
 }

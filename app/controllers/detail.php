@@ -4,16 +4,18 @@ namespace controller\detail;
 
 use Throwable;
 use db\ObjectionQuery;
-use db\DataSource;
+use db\CounterObjectionQuery;
 use db\TopicQuery;
 use lib\Auth;
 use lib\Msg;
 use model\ObjectionModel;
 use model\TopicModel;
-use model\UserModel;
 
 function get()
 {
+    // まずログインを要求する
+    Auth::requireLogin();
+
     $topic = new TopicModel;
 
     // $_GET['topic_id']から値を取ってくる
@@ -32,59 +34,39 @@ function get()
     // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論を取ってくる
     $objections = ObjectionQuery::fetchByTopicId($topic);
 
+    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論を取ってくる
+    $counterObjections = CounterObjectionQuery::fetchByTopicId($topic);
+
     // トピックが取れてきた場合、viewのdetailのindexにtopicオブジェクトとcommentsオブジェクトを渡して実行
-    \view\detail\index($fetchedTopic, $objections);
+    \view\detail\index($fetchedTopic, $objections, $counterObjections);
 }
 
 
-// コメントをフォームから送信するメソッド
 function post()
 {
-    // ログインしていないとフォームが出てこないので、ますログインを要求する
-    Auth::requireLogin();
-
-    // コメントモデルの初期化
-    $comment = new ObjectionModel;
+    // 初期化
+    $objection = new ObjectionModel;
 
     // postで飛んできた値を格納する
-    $comment->topic_id = get_param('topic_id', null);
-    $comment->agree = get_param('agree', null);
-    $comment->body = get_param('body', null);
+    $objection->body = get_param('body', null);
+    $objection->topic_id = get_param('topic_id', null);
 
-    // ユーザー情報を取得する
-    $user = UserModel::getSession();
-
-    // user_idをコメントのuser_idに入れる
-    $comment->user_id = $user->id;
+    $formType = get_param('form_type', null);
 
     try {
-        // ２つのテーブルに更新を投げるのでトランザクションを使用する
-        // DB接続
-        $db = new DataSource;
-        $db->begin();
+        // コメント入力がされていれば、インサートのクエリを実行する
+        if (!empty($objection->body)) {
 
-        // コメントのオブジェクトを渡して実行
-        $is_success = TopicQuery::incrementLikesOrDislikes($comment);
-
-        // 賛成反対のインクリメントが成功して、かつコメント入力がされていれば、インサートのクエリを実行する
-        if ($is_success && !empty($comment->body)) {
-            $is_success = ObjectionQuery::insert($comment);
+            if ($formType === OBJECTION) {
+                ObjectionQuery::insert($objection);
+            } else {
+                CounterObjectionQuery::insert($objection);
+            }
         }
     } catch (Throwable $e) {
         Msg::push(Msg::DEBUG, $e->getMessage());
-        $is_success = false;
-    } finally {
-        // 成功した場合はコミットを行い、それ以外の場合はロールバックで切り戻しを行う
-        // finallyブロックで行うことによって、不整合なデータが登録されるのを防ぐ
-        if ($is_success) {
-            $db->commit();
-            Msg::push(Msg::INFO, 'コメントの登録に成功しました。');
-        } else {
-            $db->rollback();
-            Msg::push(Msg::ERROR, 'コメントの登録に失敗しました。');
-        }
     }
 
     // 処理が終了したら画面を移動させる
-    redirect('topic/detail?topic_id=' . $comment->topic_id);
+    redirect('detail?topic_id=' . $objection->topic_id);
 }

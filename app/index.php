@@ -22,6 +22,7 @@ require_once SOURCE_BASE . 'db/db.php';
 require_once SOURCE_BASE . 'db/user_query.php';
 require_once SOURCE_BASE . 'db/topic_query.php';
 require_once SOURCE_BASE . 'db/objection_query.php';
+require_once SOURCE_BASE . 'db/counter_objection_query.php';
 
 // partials
 require_once SOURCE_BASE . 'partials/header.php';

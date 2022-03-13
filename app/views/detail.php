@@ -3,14 +3,14 @@
 namespace view\detail;
 
 // トピックとコメントが渡ってくる
-function index($topic, $objections)
+function index($topic, $objections, $counterObjections)
 {
     \partials\header();
 
     $topic = escape($topic);
     $objections = escape($objections);
+    $counterObjections = escape($counterObjections);
 
-    // 以下でトピックに紐付くコメントを表示する
 ?>
 
     <section class="detail">
@@ -25,11 +25,32 @@ function index($topic, $objections)
             </dl>
 
             <div class="detail-objection">
-                <form action="" method="post"></form>
+                <form action="" method="post">
+                    <textarea name="body" id="body" rows="5" maxlength="100"></textarea>
+                    <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
+                    <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
+                    <button type="submit" class="submit-btn">登録</button>
+                </form>
                 <ul class="detail-objection-list">
                     <?php foreach ($objections as $objection) : ?>
                         <li class="detail-objection-item">
                             <?php echo $objection->body; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <div class="detail-counterObjection">
+                <form action="" method="post">
+                    <textarea name="body" id="body" rows="5" maxlength="100"></textarea>
+                    <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
+                    <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
+                    <button type="submit" class="submit-btn">登録</button>
+                </form>
+                <ul class="detail-counterObjection-list">
+                    <?php foreach ($counterObjections as $counterObjection) : ?>
+                        <li class="detail-counterObjection-item">
+                            <?php echo $counterObjection->body; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
