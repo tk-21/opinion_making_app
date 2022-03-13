@@ -18,7 +18,7 @@ function footer()
     </div>
 
     <!-- jQuery本体 -->
-    <script src="../public/js/jquery.min.js"></script>
+    <script src="../public/js/jquery-3.6.0.min.js"></script>
     <!-- jQueryプラグイン -->
     <!-- js -->
     <script src="../public/js/main.js"></script>
