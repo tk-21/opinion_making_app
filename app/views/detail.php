@@ -3,13 +3,14 @@
 namespace view\detail;
 
 // トピックとコメントが渡ってくる
-function index($topic, $objections, $counterObjections)
+function index($topic, $objections, $counterObjections, $opinion)
 {
     \partials\header();
 
     $topic = escape($topic);
     $objections = escape($objections);
     $counterObjections = escape($counterObjections);
+    $opinion = escape($opinion);
 
 ?>
 
@@ -61,9 +62,9 @@ function index($topic, $objections, $counterObjections)
         <div class="detail-inner">
             <dl class="detail-opinion">
                 <dt class="detail-opinion-ttl">最終的な意見</dt>
-                <dd class="detail-opinion-data"><?php echo $topic->title; ?></dd>
+                <dd class="detail-opinion-data"><?php echo $opinion->opinion; ?></dd>
                 <dt class="detail-opinion-ttl">その理由</dt>
-                <dd class="detail-opinion-data"><?php echo $topic->body; ?></dd>
+                <dd class="detail-opinion-data"><?php echo $opinion->reason; ?></dd>
             </dl>
         </div>
     </section>
