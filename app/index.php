@@ -12,6 +12,7 @@ require_once SOURCE_BASE . 'models/abstract_model.php';
 require_once SOURCE_BASE . 'models/user_model.php';
 require_once SOURCE_BASE . 'models/topic_model.php';
 require_once SOURCE_BASE . 'models/objection_model.php';
+require_once SOURCE_BASE . 'models/opinion_model.php';
 
 // Message
 require_once SOURCE_BASE . 'libs/message.php';

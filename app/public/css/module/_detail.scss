@@ -1,16 +1,43 @@
 .detail {
     padding: 60px 0;
-    &-topic {
-        &-list {
-            background: $color-white;
-            padding: 40px;
-            margin-right: 25px;
+    &-inner {
+        &:first-of-type {
+            margin-bottom: 60px;
         }
+    }
+    &-item {
+        width: calc((100% - 64px) / 3);
+        background: $color-main;
+        padding: 40px;
+        border-radius: 5px;
+        &:not(:nth-child(3n)) {
+            margin-right: 32px;
+            @include mq(sp) {
+                margin-right: 0;
+            }
+        }
+    }
+    &-topic {
         &-ttl {
             margin-bottom: 15px;
         }
         &-data {
             margin-bottom: 40px;
         }
+    }
+    &-form {
+        textarea {
+            background: $color-white;
+            width: 100%;
+            margin-bottom: 20px;
+            resize: none;
+            border: 1px solid $color-line;
+        }
+    }
+    &-opinion {
+        background: $color-main;
+        padding: 40px;
+        width: 100%;
+        border-radius: 5px;
     }
 }
