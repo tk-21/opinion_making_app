@@ -10,9 +10,7 @@ function footer()
 
     <footer class="footer">
         <div class="inner">
-            <div class="copyright">
-                <p class="copyright-txt">© 2020 COPY LIGHT ARUTEGA</p>
-            </div>
+            <p class="footer-txt">© 2020 COPY LIGHT ARUTEGA</p>
         </div>
     </footer>
     </div>

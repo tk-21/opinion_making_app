@@ -75,7 +75,7 @@ class ObjectionQuery
     {
         $db = new DataSource;
 
-        $sql = 'delete from objections where id = :id;';
+        $sql = 'update objections set deleted_at = now() where id = :id;';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [

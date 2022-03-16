@@ -39,7 +39,7 @@ class OpinionQuery
 
 
     // controller\topic\detailのpostメソッド内で呼び出している
-    public static function insert($objection)
+    public static function insert($opinion)
     {
         // 値のチェック
         // DBに接続する前に必ずチェックは終わらせておく
@@ -47,8 +47,9 @@ class OpinionQuery
         if (
             // ()の中が０の場合にはtrueになり、if文の中が実行される
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($objection->isValidTopicId()
-                * $objection->isValidBody()
+            !($opinion->isValidTopicId()
+                * $opinion->isValidOpinion()
+                * $opinion->isValidReason()
             )
         ) {
             return false;
@@ -57,16 +58,17 @@ class OpinionQuery
         $db = new DataSource;
 
         $sql = '
-        insert into objections
-            (body, topic_id)
+        insert into opinions
+            (opinion, reason, topic_id)
         values
-            (:body, :topic_id)
+            (:opinion, :reason, :topic_id)
         ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':body' => $objection->body,
-            ':topic_id' => $objection->topic_id,
+            ':opinion' => $opinion->opinion,
+            ':reason' => $opinion->reason,
+            ':topic_id' => $opinion->topic_id
         ]);
     }
 
@@ -75,7 +77,7 @@ class OpinionQuery
     {
         $db = new DataSource;
 
-        $sql = 'delete from objections where id = :id;';
+        $sql = 'update objections set deleted_at = now() where id = :id;';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [

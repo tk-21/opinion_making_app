@@ -1314,42 +1314,23 @@ p {
 }
 
 .footer {
-  position: relative;
-  z-index: 2;
-  background: #d1cbc3;
   padding: 64px 0 40px;
-  margin-top: auto;
 }
 
 .footer .inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 50px;
 }
 
-@media (max-width: 1119px) {
-  .footer .inner {
-    display: block;
-  }
-}
-
-.footer-logo {
-  width: 80px;
-}
-
-@media (max-width: 1119px) {
-  .footer-logo {
-    margin-bottom: 30px;
-  }
-}
-
-.footer-copyright {
-  text-align: center;
-  color: #fff;
+.footer-txt {
   letter-spacing: 0.1em;
   font-size: 12px;
 }

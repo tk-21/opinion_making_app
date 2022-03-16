@@ -29,21 +29,22 @@ class Auth
 
             $user = UserQuery::fetchByName($name);
 
-            // idからユーザーが取れてきた場合、パスワードの確認（DBに登録されているパスワードとの照合）を行う
-            if (!empty($user) && !$user->deleted_at) {
-
-                // ログインに成功した場合、$is_successにtrueを入れる
-                if (password_verify($password, $user->password)) {
-                    $is_success = true;
-                    // セッションにもユーザーの情報を入れておく
-                    // クラスから生成したユーザー情報の入ったオブジェクトをセッションに格納
-                    UserModel::setSession($user);
-                } else {
-                    Msg::push(Msg::ERROR, 'パスワードが一致しません。');
-                }
-            } else {
+            // nameからユーザーが取れてこなかった場合
+            if (empty($user) || $user->deleted_at) {
                 Msg::push(Msg::ERROR, 'ユーザーがみつかりません。');
             }
+
+            // nameからユーザーが取れてきた場合、
+            // パスワードの確認（DBに登録されているパスワードとの照合）を行う
+            if (!password_verify($password, $user->password)) {
+                Msg::push(Msg::ERROR, 'パスワードが一致しません。');
+            }
+
+            // パスワードが一致した場合、$is_successにtrueを入れる
+            $is_success = true;
+
+            // クラスから生成したユーザー情報の入ったオブジェクトをセッションに格納
+            UserModel::setSession($user);
         } catch (Throwable $e) {
             // 例外が発生した場合はfalseになるようにしておく
             $is_success = false;
