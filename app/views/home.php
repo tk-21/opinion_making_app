@@ -15,12 +15,10 @@ function index($topics)
             <ul class="topic-list">
                 <?php
                 foreach ($topics as $topic) {
-                    // idをキーにしてtopicの編集画面に飛ぶようにする
-                    // get_urlメソッドでフルパスを作成
-                    // このURLを引数として渡す
+                    // 詳細画面にgetで飛ぶときにidを持たせる
                     $url = get_url('detail?topic_id=' . $topic->id);
 
-                    // publishedが１のときは公開、０のときは非公開
+                    // finish_flgが１のときは完了、０のときは未完了を表示させる
                     $label = $topic->finish_flg ? '完了' : '未完了';
 
                     // ラベルのデザインを切り替える

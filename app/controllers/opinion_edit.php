@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\opinion_create;
+namespace controller\opinion_edit;
 
 use db\OpinionQuery;
 use lib\Auth;
@@ -13,6 +13,10 @@ function get()
 {
 
     Auth::requireLogin();
+
+    $opinion = OpinionModel::getSessionAndFlush();
+
+    \view\opinion_edit\index($opinion);
 }
 
 
@@ -36,11 +40,11 @@ function post()
     }
 
     if (!$is_success) {
-        Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
+        Msg::push(Msg::ERROR, '意見の登録に失敗しました。');
         OpinionModel::setSession($opinion);
         redirect(GO_REFERER);
     }
 
-    Msg::push(Msg::INFO, 'トピックを登録しました。');
+    Msg::push(Msg::INFO, '意見を登録しました。');
     redirect(GO_HOME);
 }

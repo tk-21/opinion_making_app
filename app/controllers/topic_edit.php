@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\edit;
+namespace controller\topic_edit;
 
 use db\TopicQuery;
 use lib\Auth;
@@ -21,7 +21,7 @@ function get()
 
     // データが取れてくれば、その値を画面表示し、処理を終了
     if (!empty($topic)) {
-        \view\topic\edit\index($topic, true);
+        \view\topic_edit\index($topic, true);
         return;
     }
 
