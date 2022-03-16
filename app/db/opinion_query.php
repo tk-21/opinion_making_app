@@ -3,9 +3,9 @@
 namespace db;
 
 use db\DataSource;
-use model\ObjectionModel;
+use model\OpinionModel;
 
-class ObjectionQuery
+class OpinionQuery
 {
     // controllerのdetail.phpで呼び出している
     public static function fetchByTopicId($topic)
@@ -18,7 +18,7 @@ class ObjectionQuery
         $db = new DataSource;
 
         $sql = '
-        select * FROM objections
+        select * FROM opinions
         WHERE topic_id = :id
         AND deleted_at IS NULL
         ORDER BY id DESC
@@ -29,9 +29,9 @@ class ObjectionQuery
         // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\TopicModel が返る）
         // ここはselectメソッドなので複数行取れてくる
         // $resultにはオブジェクトの配列が格納される
-        $result = $db->select($sql, [
+        $result = $db->selectOne($sql, [
             ':id' => $topic->id
-        ], DataSource::CLS, ObjectionModel::class);
+        ], DataSource::CLS, OpinionModel::class);
 
         // 結果が取れてくればresultを返す
         return $result;
@@ -39,7 +39,7 @@ class ObjectionQuery
 
 
     // controller\topic\detailのpostメソッド内で呼び出している
-    public static function insert($objection)
+    public static function insert($opinion)
     {
         // 値のチェック
         // DBに接続する前に必ずチェックは終わらせておく
@@ -47,8 +47,9 @@ class ObjectionQuery
         if (
             // ()の中が０の場合にはtrueになり、if文の中が実行される
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($objection->isValidTopicId()
-                * $objection->isValidBody()
+            !($opinion->isValidTopicId()
+                * $opinion->isValidOpinion()
+                * $opinion->isValidReason()
             )
         ) {
             return false;
@@ -57,16 +58,17 @@ class ObjectionQuery
         $db = new DataSource;
 
         $sql = '
-        insert into objections
-            (body, topic_id)
+        insert into opinions
+            (opinion, reason, topic_id)
         values
-            (:body, :topic_id)
+            (:opinion, :reason, :topic_id)
         ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':body' => $objection->body,
-            ':topic_id' => $objection->topic_id,
+            ':opinion' => $opinion->opinion,
+            ':reason' => $opinion->reason,
+            ':topic_id' => $opinion->topic_id
         ]);
     }
 

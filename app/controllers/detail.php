@@ -6,6 +6,7 @@ use Throwable;
 use db\ObjectionQuery;
 use db\CounterObjectionQuery;
 use db\TopicQuery;
+use db\OpinionQuery;
 use lib\Auth;
 use lib\Msg;
 use model\ObjectionModel;
@@ -33,12 +34,11 @@ function get()
 
     // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論を取ってくる
     $objections = ObjectionQuery::fetchByTopicId($topic);
-
-    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論を取ってくる
     $counterObjections = CounterObjectionQuery::fetchByTopicId($topic);
+    $opinion = OpinionQuery::fetchByTopicId($topic);
 
     // トピックが取れてきた場合、viewのdetailのindexにtopicオブジェクトとcommentsオブジェクトを渡して実行
-    \view\detail\index($fetchedTopic, $objections, $counterObjections);
+    \view\detail\index($fetchedTopic, $objections, $counterObjections, $opinion);
 }
 
 

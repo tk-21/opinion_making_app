@@ -6,15 +6,13 @@ function footer()
 {
 ?>
 
-        </main>
+    </main>
 
-        <footer class="footer">
-            <div class="inner">
-                <div class="copyright">
-                    <p class="copyright-txt">© 2020 COPY LIGHT ARUTEGA</p>
-                </div>
-            </div>
-        </footer>
+    <footer class="footer">
+        <div class="inner">
+            <p class="footer-txt">© 2020 COPY LIGHT ARUTEGA</p>
+        </div>
+    </footer>
     </div>
 
     <!-- jQuery本体 -->

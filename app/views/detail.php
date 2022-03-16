@@ -3,19 +3,20 @@
 namespace view\detail;
 
 // トピックとコメントが渡ってくる
-function index($topic, $objections, $counterObjections)
+function index($topic, $objections, $counterObjections, $opinion)
 {
     \partials\header();
 
     $topic = escape($topic);
     $objections = escape($objections);
     $counterObjections = escape($counterObjections);
+    $opinion = escape($opinion);
 
 ?>
 
     <section class="detail">
         <div class="detail-inner">
-            <dl class="detail-topic-list">
+            <dl class="detail-item detail-topic">
                 <dt class="detail-topic-ttl">タイトル</dt>
                 <dd class="detail-topic-data"><?php echo $topic->title; ?></dd>
                 <dt class="detail-topic-ttl">内容</dt>
@@ -24,8 +25,8 @@ function index($topic, $objections, $counterObjections)
                 <dd class="detail-topic-data"><?php echo $topic->position; ?></dd>
             </dl>
 
-            <div class="detail-objection">
-                <form action="" method="post">
+            <div class="detail-item detail-objection">
+                <form class="detail-form" action="" method="post">
                     <textarea name="body" id="body" rows="5" maxlength="100"></textarea>
                     <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                     <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
@@ -41,8 +42,8 @@ function index($topic, $objections, $counterObjections)
                 </ul>
             </div>
 
-            <div class="detail-counterObjection">
-                <form action="" method="post">
+            <div class="detail-item detail-counterObjection">
+                <form class="detail-form" action="" method="post">
                     <textarea name="body" id="body" rows="5" maxlength="100"></textarea>
                     <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                     <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
@@ -56,7 +57,15 @@ function index($topic, $objections, $counterObjections)
                     <?php endforeach; ?>
                 </ul>
             </div>
+        </div>
 
+        <div class="detail-inner">
+            <dl class="detail-opinion">
+                <dt class="detail-opinion-ttl">最終的な意見</dt>
+                <dd class="detail-opinion-data"><?php echo $opinion->opinion; ?></dd>
+                <dt class="detail-opinion-ttl">その理由</dt>
+                <dd class="detail-opinion-data"><?php echo $opinion->reason; ?></dd>
+            </dl>
         </div>
     </section>
 

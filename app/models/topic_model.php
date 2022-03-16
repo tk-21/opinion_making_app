@@ -6,7 +6,6 @@ use lib\Msg;
 
 class TopicModel extends AbstractModel
 {
-    // topicsテーブルとusersテーブルを内部結合したテーブルから取ってきた値を、これらのプロパティに格納する
     public $id;
     public $title;
     public $body;
