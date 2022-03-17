@@ -1,14 +1,16 @@
+.msg {
+    margin-bottom: 20px;
+}
 .msg-info {
     width: fit-content;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     padding: 20px;
     border: 1px solid $color-text;
     color: $color-text;
 }
 .msg-error {
-    // display: inline-block;
     width: fit-content;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     padding: 20px;
     border: 1px solid $color-accent;
     color: $color-accent;

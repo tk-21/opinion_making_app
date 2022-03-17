@@ -1408,11 +1408,15 @@ p {
           align-items: center;
 }
 
+.msg {
+  margin-bottom: 20px;
+}
+
 .msg-info {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   padding: 20px;
   border: 1px solid #3e1300;
   color: #3e1300;
@@ -1422,7 +1426,7 @@ p {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   padding: 20px;
   border: 1px solid #743434;
   color: #743434;

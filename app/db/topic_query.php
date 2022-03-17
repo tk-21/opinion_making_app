@@ -62,8 +62,6 @@ class TopicQuery
 
 
     // idから個別の記事を取ってくるメソッド
-    // controllerのdetail.phpで呼び出している
-    // controllerのedit.phpで呼び出している
     public static function fetchById($topic)
     {
         if (!$topic->isValidId()) {
@@ -72,7 +70,6 @@ class TopicQuery
 
         $db = new DataSource;
 
-        // topicsテーブルとusersテーブルをinner joinで内部結合している
         // 汎用性を持たせるためwhereの条件に t.published = 1 は入れない （公開非公開は関係なくトピックを取得する）
         // DBに問い合わせるクエリに詳細な条件を書いてしまうと、そのメソッドを使い回すことができない
         $sql = '
@@ -90,24 +87,6 @@ class TopicQuery
 
         // 結果が取れてくればresultを返す
         return $result;
-    }
-
-
-    // controller\topic\detail で呼び出している
-    public static function incrementViewCount($topic)
-    {
-        if (!$topic->isValidId()) {
-            return false;
-        }
-
-        $db = new DataSource;
-
-        // topicsテーブルで指定したidのviewに１を足す
-        $sql = 'update topics set views = views + 1 where id = :id;';
-
-        return $db->execute($sql, [
-            ':id' => $topic->id
-        ]);
     }
 
 
@@ -179,51 +158,22 @@ class TopicQuery
         if (
             // ()の中が０の場合にはtrueになり、if文の中が実行される
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($user->isValidId()
-                * $topic->isValidTitle()
-                * $topic->isValidPublished())
+            !($topic->isValidTitle()
+                * $topic->isValidBody()
+                * $topic->isValidPosition())
         ) {
             return false;
         }
 
         $db = new DataSource;
-        $sql = 'insert into topics(title, published, user_id) values(:title, :published, :user_id)';
+        $sql = 'insert into topics(title, body, position, user_id) values(:title, :body, :position, :user_id)';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
             ':title' => $topic->title,
-            ':published' => $topic->published,
+            ':body' => $topic->body,
+            ':position' => $topic->position,
             ':user_id' => $user->id
-        ]);
-    }
-
-    public static function incrementLikesOrDislikes($comment)
-    {
-        // 値のチェック
-        // DBに接続する前に必ずチェックは終わらせておく
-        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元のdetail.phpにfalseを返して登録失敗になる
-        if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($comment->isValidTopicId()
-                * $comment->isValidAgree())
-        ) {
-            return false;
-        }
-
-        $db = new DataSource;
-
-        // 条件によってupdate文を切り替える
-        // agreeが１であればlikeに１を足し、０であればdislikeに１を足す
-        if ($comment->agree) {
-            $sql = 'update topics set likes = likes + 1 where id = :topic_id';
-        } else {
-            $sql = 'update topics set dislikes = dislikes + 1 where id = :topic_id';
-        }
-
-        // 登録に成功すれば、trueが返される
-        return $db->execute($sql, [
-            ':topic_id' => $comment->topic_id
         ]);
     }
 }

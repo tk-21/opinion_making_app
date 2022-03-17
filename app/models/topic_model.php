@@ -68,24 +68,52 @@ class TopicModel extends AbstractModel
     }
 
 
-    public function isValidPublished()
+    public function isValidBody()
     {
-        return static::validatePublished($this->published);
+        return static::validateBody($this->body);
     }
 
-    public static function validatePublished($val)
+    public static function validateBody($val)
     {
         $res = true;
 
-        if (!isset($val)) {
+        if (empty($val)) {
 
-            Msg::push(Msg::ERROR, '公開するか選択してください。');
+            Msg::push(Msg::ERROR, '本文を入力してください。');
             $res = false;
         } else {
-            // 0、または1以外の時
-            if (!($val == 0 || $val == 1)) {
 
-                Msg::push(Msg::ERROR, '公開ステータスが不正です。');
+            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
+            if (mb_strlen($val) > 100) {
+
+                Msg::push(Msg::ERROR, '本文は100文字以内で入力してください。');
+                $res = false;
+            }
+        }
+
+        return $res;
+    }
+
+
+    public function isValidPosition()
+    {
+        return static::validatePosition($this->position);
+    }
+
+    public static function validatePosition($val)
+    {
+        $res = true;
+
+        if (empty($val)) {
+
+            Msg::push(Msg::ERROR, 'ポジションを入力してください。');
+            $res = false;
+        } else {
+
+            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
+            if (mb_strlen($val) > 100) {
+
+                Msg::push(Msg::ERROR, 'ポジションは100文字以内で入力してください。');
                 $res = false;
             }
         }

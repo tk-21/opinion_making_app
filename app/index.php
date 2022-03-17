@@ -35,8 +35,8 @@ require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/login.php';
 require_once SOURCE_BASE . 'views/register.php';
 require_once SOURCE_BASE . 'views/detail.php';
-require_once SOURCE_BASE . 'views/topic_edit.php';
-require_once SOURCE_BASE . 'views/opinion_edit.php';
+require_once SOURCE_BASE . 'views/topic_create.php';
+require_once SOURCE_BASE . 'views/opinion_create.php';
 
 // controllerのファイルはrouter.php内で自動的に読み込まれるので、ここに記述する必要はない
 
