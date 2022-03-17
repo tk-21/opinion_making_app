@@ -9,6 +9,7 @@ use model\TopicModel;
 use model\UserModel;
 use Throwable;
 
+
 function get()
 {
     // ログインしているかどうか確認（管理画面なのでログインは必須）
@@ -22,14 +23,11 @@ function get()
     // データが取れてこなかった場合、TopicModelで初期化を行う
     if (empty($topic)) {
         $topic = new TopicModel;
-        $topic->id = -1;
-        $topic->title = '';
-        $topic->published = 1;
     }
 
     // データが取れてくれば、そのまま画面表示する
     // トピックを渡してviewのindexを表示
-    \view\topic\edit\index($topic, false);
+    \view\topic_create\index($topic, true);
 }
 
 
@@ -42,9 +40,9 @@ function post()
     $topic = new TopicModel;
 
     // POSTで渡ってきた（フォームで飛んできた）値をトピックモデルに格納
-    $topic->id = get_param('topic_id', null);
     $topic->title = get_param('title', null);
-    $topic->published = get_param('published', null);
+    $topic->body = get_param('body', null);
+    $topic->position = get_param('position', null);
 
     // 更新処理
     try {
@@ -60,13 +58,9 @@ function post()
         $is_success = false;
     }
 
-    // trueの場合は、メッセージを出してarchiveに移動
-    if ($is_success) {
-        Msg::push(Msg::INFO, 'トピックの登録に成功しました。');
-        redirect('topic/archive');
-    } else {
-        Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
 
+    if (!$is_success) {
+        Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
         // エラー時の値の復元のための処理
         // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
         TopicModel::setSession($topic);
@@ -75,4 +69,8 @@ function post()
         // このときに再びgetメソッドが呼ばれる
         redirect(GO_REFERER);
     }
+
+
+    Msg::push(Msg::INFO, 'トピックの登録に成功しました。');
+    redirect(GO_HOME);
 }

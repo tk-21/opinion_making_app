@@ -61,7 +61,7 @@ class Msg extends AbstractModel
                 $color = $type === static::INFO ? 'msg-info' : 'msg-error';
 
                 foreach ($msgs as $msg) {
-                    echo "<p class='$color'>{$msg}</p>";
+                    echo sprintf('<p class="msg %s">%s</p>', $color, $msg);
                 }
             }
         } catch (Throwable $e) {

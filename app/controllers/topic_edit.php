@@ -1,6 +1,6 @@
 <?php
 
-namespace controller\edit;
+namespace controller\topic_edit;
 
 use db\TopicQuery;
 use lib\Auth;
@@ -21,7 +21,7 @@ function get()
 
     // データが取れてくれば、その値を画面表示し、処理を終了
     if (!empty($topic)) {
-        \view\topic\edit\index($topic, true);
+        \view\topic_create\index($topic, false);
         return;
     }
 
@@ -31,18 +31,11 @@ function get()
     // GETリクエストから取得したtopic_idをモデルに格納
     $topic->id = get_param('topic_id', null, false);
 
-    // セッションに格納されているユーザー情報のオブジェクトを取ってくる
-    $user = UserModel::getSession();
-
-    // ログイン中のユーザーが記事を編集できるかどうかのチェックする
-    // userモデルに紐づくtopic->idであれば許可する
-    Auth::requirePermission($topic->id, $user);
-
     // idが格納された$topicを渡してそのトピックを取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
 
     // トピックを渡してviewのindexを表示
-    \view\topic\edit\index($fetchedTopic, true);
+    \view\topic_create\index($fetchedTopic, false);
 }
 
 

@@ -58,7 +58,7 @@ function header()
                 </h1>
                 <nav class="gnav">
                     <ul class="gnav-list">
-                        <li class="gnav-item"><a href="<?php the_url('opinion_create'); ?>" class="create-btn">トピック作成</a></li>
+                        <li class="gnav-item"><a href="<?php the_url('topic_create'); ?>" class="create-btn">トピック作成</a></li>
                         <li class="gnav-item"><a href="<?php the_url('logout'); ?>" class="logout-btn">ログアウト</a></li>
                     </ul>
                 </nav>

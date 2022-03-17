@@ -23,6 +23,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                 <dd class="detail-topic-data"><?php echo $topic->body; ?></dd>
                 <dt class="detail-topic-ttl">ポジション</dt>
                 <dd class="detail-topic-data"><?php echo $topic->position; ?></dd>
+                <a class="submit-btn" href="<?php the_url(sprintf('topic_edit?topic_id=%s', $topic->id)); ?>">編集</a>
             </dl>
 
             <div class="detail-item detail-objection">
