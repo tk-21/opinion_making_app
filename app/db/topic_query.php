@@ -9,7 +9,7 @@ class TopicQuery
 {
     // 引数でユーザー情報が渡ってくる
     // ログインしているユーザーに紐付く記事を取得するメソッド
-    public static function fetchByUserName($user)
+    public static function fetchByUserId($user)
     {
         // クエリを発行
         $db = new DataSource;
@@ -131,20 +131,27 @@ class TopicQuery
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
             !($topic->isValidId()
                 * $topic->isValidTitle()
-                * $topic->isValidPublished())
+                * $topic->isValidBody()
+                * $topic->isValidPosition())
         ) {
             return false;
         }
 
-
         $db = new DataSource;
         // idをキーにしてpublishedとtitleを更新
-        $sql = 'update topics set published = :published, title = :title where id = :id';
+        $sql = 'update topics set
+                    title = :title,
+                    body = :body,
+                    position = :position,
+                    finish_flg = :finish_flg
+                where id = :id';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':published' => $topic->published,
             ':title' => $topic->title,
+            ':body' => $topic->body,
+            ':position' => $topic->position,
+            ':finish_flg' => $topic->finish_flg,
             ':id' => $topic->id
         ]);
     }

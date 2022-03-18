@@ -13,7 +13,7 @@ function index($topic, $is_create)
     <section class="create">
         <div class="inner">
             <form class="create-form" action="" method="POST" novalidate>
-                <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
+                <input type="hidden" name="id" value="<?php echo $topic->id; ?>">
 
                 <h2 class="create-ttl"><?php echo $header_title; ?></h2>
 
@@ -35,9 +35,9 @@ function index($topic, $is_create)
                     </dd>
 
                     <?php if (!$is_create) : ?>
-                        <dt class="create-dttl"><label for="status">ステータス</label></dt>
+                        <dt class="create-dttl"><label for="finish_flg">ステータス</label></dt>
                         <dd class="create-item">
-                            <select name="status" id="status" class="form-control">
+                            <select name="finish_flg" id="finish_flg" class="form-control">
                                 <?php //selectedがついているものが、初期表示時に表示されるステータス
                                 // publishedがtrueかfalseかによって初期表示を分ける
                                 ?>

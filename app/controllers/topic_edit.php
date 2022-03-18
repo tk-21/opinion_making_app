@@ -11,12 +11,12 @@ use Throwable;
 
 function get()
 {
-    // ログインしているかどうか確認（管理画面なのでログインは必須）
+    // ログインしているかどうか確認
     Auth::requireLogin();
 
     // バリデーションに引っかかって登録に失敗した場合の処理
     // セッションに保存しておいた値を取ってきて変数に格納する。セッション上のデータは削除する
-    // 必ずデータを取得した時点で、データを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
+    // 必ずデータを取得した時点でデータを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
     $topic = TopicModel::getSessionAndFlush();
 
     // データが取れてくれば、その値を画面表示し、処理を終了
@@ -28,10 +28,10 @@ function get()
     // データが取れてこなかった場合、TopicModelのインスタンスを作成して初期化
     $topic = new TopicModel;
 
-    // GETリクエストから取得したtopic_idをモデルに格納
-    $topic->id = get_param('topic_id', null, false);
+    // GETリクエストから取得したidをモデルに格納
+    $topic->id = get_param('id', null, false);
 
-    // idが格納された$topicを渡してそのトピックを取ってくる
+    // idからトピックの内容を取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
 
     // トピックを渡してviewのindexを表示
@@ -41,23 +41,18 @@ function get()
 
 function post()
 {
-    // ログインしているかどうか確認（管理画面なのでログインは必須）
+    // ログインしているかどうか確認
     Auth::requireLogin();
 
     // TopicModelのインスタンスを作成
     $topic = new TopicModel;
 
     // POSTで渡ってきた値をモデルに格納
-    $topic->id = get_param('topic_id', null);
+    $topic->id = get_param('id', null);
     $topic->title = get_param('title', null);
-    $topic->published = get_param('published', null);
-
-    // セッションに格納されているユーザー情報のオブジェクトを取ってくる
-    $user = UserModel::getSession();
-
-    // ログイン中のユーザーが記事を編集できるかどうかのチェックする
-    // userモデルに紐づくtopic->idであれば許可する
-    Auth::requirePermission($topic->id, $user);
+    $topic->body = get_param('body', null);
+    $topic->position = get_param('position', null);
+    $topic->finish_flg = get_param('finish_flg', null);
 
     // 更新処理
     try {
@@ -70,10 +65,7 @@ function post()
     }
 
     // trueの場合は、メッセージを出してarchiveに移動
-    if ($is_success) {
-        Msg::push(Msg::INFO, 'トピックの更新に成功しました。');
-        redirect('topic/archive');
-    } else {
+    if (!$is_success) {
         Msg::push(Msg::ERROR, 'トピックの更新に失敗しました。');
 
         // エラー時の値の復元のための処理
@@ -84,4 +76,7 @@ function post()
         // このときに再びgetメソッドが呼ばれる
         redirect(GO_REFERER);
     }
+
+    Msg::push(Msg::INFO, 'トピックの更新に成功しました。');
+    redirect(sprintf('detail?id=%d', $topic->id));
 }

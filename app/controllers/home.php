@@ -17,7 +17,7 @@ function get()
     $user = UserModel::getSession();
 
     // ログインしているユーザーに紐付く記事を取得してくる
-    $topics = TopicQuery::fetchByUserName($user);
+    $topics = TopicQuery::fetchByUserId($user);
 
     // ユーザーのセッションが何かおかしい場合は再度ログインしてもらう
     if (!$topics) {
