@@ -21,7 +21,7 @@ function index($topics)
                     $label_color = $topic->finish_flg ? 'completed' : 'incomplete';
                 ?>
                     <li class="topic-item">
-                        <a href="<?php the_url(sprintf('detail?topic_id=%s', $topic->id)); ?>">
+                        <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
                             <span class="topic-item-label <?php echo $label_color; ?>"><?php echo $label; ?></span>
                             <p class="topic-item-ttl"><?php echo $topic->title; ?></p>
                             <p class="topic-item-body"><?php echo $topic->body; ?></p>
