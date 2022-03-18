@@ -14,37 +14,31 @@ class Auth
     {
         try {
             // DBに接続する前にバリデーションは終わらせておく
-            // ここはstaticのメソッドを使う
-            // バリデーションがどれか一つでもfalseで返ってきたら
             if (
                 !(UserModel::validateName($name)
                     * UserModel::validatePassword($password))
             ) {
-                // 呼び出し元のregister.phpにfalseを返して登録失敗になる
                 return false;
             }
-
-            // 関数の実行結果を入れる値。ログインが成功したときはtrueを入れる
-            $is_success = false;
 
             $user = UserQuery::fetchByName($name);
 
             // nameからユーザーが取れてこなかった場合
             if (empty($user) || $user->deleted_at) {
                 Msg::push(Msg::ERROR, 'ユーザーがみつかりません。');
+                return false;
             }
 
             // nameからユーザーが取れてきた場合、
             // パスワードの確認（DBに登録されているパスワードとの照合）を行う
             if (!password_verify($password, $user->password)) {
                 Msg::push(Msg::ERROR, 'パスワードが一致しません。');
+                return false;
             }
 
-            // パスワードが一致した場合、$is_successにtrueを入れる
-            $is_success = true;
-
-            // クラスから生成したユーザー情報の入ったオブジェクトをセッションに格納
+            // パスワードが一致した場合、ユーザー情報の入ったオブジェクトをセッションに格納
             UserModel::setSession($user);
+            $is_success = true;
         } catch (Throwable $e) {
             // 例外が発生した場合はfalseになるようにしておく
             $is_success = false;

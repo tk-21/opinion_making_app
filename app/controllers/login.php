@@ -23,7 +23,7 @@ function post()
     $name = get_param('name', '');
     $password = get_param('password', '');
 
-    // POSTで渡ってきたIDとパスワードでログインに成功した場合、
+    // POSTで渡ってきたユーザーネームとパスワードでログインに成功した場合、
     if (Auth::login($name, $password)) {
         // 登録されたユーザーオブジェクトの情報を取ってくる
         $user = UserModel::getSession();
