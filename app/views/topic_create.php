@@ -49,7 +49,12 @@ function index($topic, $is_create)
                 </dl>
 
                 <button type="submit" class="submit-btn"><?php echo $submit_btn; ?></button>
-                <span class="auth-txt"><a href="<?php the_url(GO_HOME); ?>">ホームへ戻る</a></span>
+
+                <?php if ($is_create) : ?>
+                    <p class="auth-txt"><a href="<?php the_url('/'); ?>">ホームへ戻る</a></p>
+                <?php else : ?>
+                    <p class="auth-txt"><a href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a></p>
+                <?php endif; ?>
 
             </form>
         </div>

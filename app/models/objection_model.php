@@ -18,11 +18,6 @@ class ObjectionModel extends AbstractModel
     protected static $SESSION_NAME = '_objection';
 
 
-    public function isValidBody()
-    {
-        return static::validateBody($this->body);
-    }
-
     public static function validateBody($val)
     {
         $res = true;
@@ -34,6 +29,11 @@ class ObjectionModel extends AbstractModel
         }
 
         return $res;
+    }
+
+    public function isValidBody()
+    {
+        return static::validateBody($this->body);
     }
 
 

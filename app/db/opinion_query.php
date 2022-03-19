@@ -21,7 +21,6 @@ class OpinionQuery
         select * FROM opinions
         WHERE topic_id = :id
         AND deleted_at IS NULL
-        ORDER BY id DESC
         ';
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
