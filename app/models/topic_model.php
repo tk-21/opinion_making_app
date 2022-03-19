@@ -21,12 +21,6 @@ class TopicModel extends AbstractModel
     protected static $SESSION_NAME = '_topic';
 
 
-    // インスタンスメソッドとしてはこのメソッドを使う
-    public function isValidId()
-    {
-        return static::validateId($this->id);
-    }
-
     public static function validateId($val)
     {
         $res = true;
@@ -40,11 +34,11 @@ class TopicModel extends AbstractModel
         return $res;
     }
 
-
-    public function isValidTitle()
+    public function isValidId()
     {
-        return static::validateTitle($this->title);
+        return static::validateId($this->id);
     }
+
 
     public static function validateTitle($val)
     {
@@ -67,11 +61,11 @@ class TopicModel extends AbstractModel
         return $res;
     }
 
-
-    public function isValidBody()
+    public function isValidTitle()
     {
-        return static::validateBody($this->body);
+        return static::validateTitle($this->title);
     }
+
 
     public static function validateBody($val)
     {
@@ -94,11 +88,11 @@ class TopicModel extends AbstractModel
         return $res;
     }
 
-
-    public function isValidPosition()
+    public function isValidBody()
     {
-        return static::validatePosition($this->position);
+        return static::validateBody($this->body);
     }
+
 
     public static function validatePosition($val)
     {
@@ -119,5 +113,10 @@ class TopicModel extends AbstractModel
         }
 
         return $res;
+    }
+
+    public function isValidPosition()
+    {
+        return static::validatePosition($this->position);
     }
 }

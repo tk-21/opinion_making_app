@@ -77,6 +77,6 @@ function post()
         redirect(GO_REFERER);
     }
 
-    Msg::push(Msg::INFO, 'トピックの更新に成功しました。');
+    Msg::push(Msg::INFO, 'トピックを更新しました。');
     redirect(sprintf('detail?id=%d', $topic->id));
 }

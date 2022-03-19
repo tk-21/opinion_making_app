@@ -43,14 +43,12 @@ class UserModel extends AbstractModel
         return $res;
     }
 
-    // インスタンスメソッドとしてはこのメソッドを使う
     public function isValidName()
     {
         return static::validateName($this->name);
     }
 
 
-    // パスワードのバリデーション
     public static function validatePassword($val)
     {
         $res = true;
@@ -78,7 +76,6 @@ class UserModel extends AbstractModel
         return $res;
     }
 
-    // インスタンスメソッドとしてはこのメソッドを使う
     public function isValidPassword()
     {
         return static::validatePassword($this->password);
