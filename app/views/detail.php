@@ -28,8 +28,10 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <dd class="detail-topic-data"><?php echo $topic->body; ?></dd>
                         <dt class="detail-topic-ttl">ポジション</dt>
                         <dd class="detail-topic-data"><?php echo $topic->position; ?></dd>
-                        <a class="submit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
                     </dl>
+                    <a class="submit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
+                    <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', TOPIC, $topic->id)); ?>">削除</a>
+
                 </li>
 
                 <li class="detail-item">
@@ -44,7 +46,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="detail-objection-item">
                                     <?php echo $objection->body; ?>
-                                    <a class="delete-btn" href="<?php the_url(sprintf('delete?id=%s', $objection->id)); ?>">削除</a>
+                                    <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', OBJECTION, $objection->id)); ?>">削除</a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

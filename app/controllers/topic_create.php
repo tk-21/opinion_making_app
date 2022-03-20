@@ -71,6 +71,6 @@ function post()
     }
 
 
-    Msg::push(Msg::INFO, 'トピックの登録に成功しました。');
+    Msg::push(Msg::INFO, 'トピックを登録しました。');
     redirect(GO_HOME);
 }

@@ -20,14 +20,14 @@ function get()
     $topic = new TopicModel;
 
     // $_GET['id']から値を取ってくる
-    // getから値を取るときは第３引数をfalseにしておく
+    // getで値を取るときは第３引数をfalseにしておく
     $topic->id = get_param('id', null, false);
 
-    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに該当するトピックを１件取ってくる
+    // idに該当するトピックを１件取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
 
     // トピックが取れてこなかった場合、またはpublishedの値がfalseの場合（０の場合）は４０４ページにリダイレクト
-    if (empty($fetchedTopic)) {
+    if (empty($fetchedTopic) || isset($fetchedTopic->deleted_at)) {
         Msg::push(Msg::ERROR, 'トピックが見つかりません。');
         redirect('404');
     }
