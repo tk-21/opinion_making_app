@@ -6,7 +6,7 @@ function index($topic, $is_create)
 {
     \partials\header();
 
-    $header_title = $is_create ? 'トピック作成' : 'トピック編集';
+    $header_ttl = $is_create ? 'トピック作成' : 'トピック編集';
     $submit_btn = $is_create ? '登録' : '更新';
 ?>
 
@@ -15,7 +15,7 @@ function index($topic, $is_create)
             <form class="create-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $topic->id; ?>">
 
-                <h2 class="create-ttl"><?php echo $header_title; ?></h2>
+                <h2 class="create-ttl"><?php echo $header_ttl; ?></h2>
 
                 <dl class="create-list">
                     <dt class="create-dttl"><label for="title" onclick="">タイトル</label></dt>

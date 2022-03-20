@@ -72,6 +72,38 @@ class OpinionQuery
     }
 
 
+    public static function update($opinion)
+    {
+        // 値のチェック
+        // DBに接続する前に必ずチェックは終わらせておく
+        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元のedit.phpにfalseを返して登録失敗になる
+        if (
+            // ()の中が０の場合にはtrueになり、if文の中が実行される
+            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
+            !($opinion->isValidId()
+                * $opinion->isValidOpinion()
+                * $opinion->isValidReason()
+            )
+        ) {
+            return false;
+        }
+
+        $db = new DataSource;
+        // idをキーにして更新
+        $sql = 'update opinions set
+                    opinion = :opinion,
+                    reason = :reason
+                where id = :id';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':opinion' => $opinion->opinion,
+            ':reason' => $opinion->reason,
+            ':id' => $opinion->id
+        ]);
+    }
+
+
     public static function delete($id)
     {
         $db = new DataSource;

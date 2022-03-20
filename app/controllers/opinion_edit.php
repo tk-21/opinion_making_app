@@ -2,35 +2,41 @@
 
 namespace controller\opinion_edit;
 
+use db\TopicQuery;
 use db\OpinionQuery;
 use lib\Auth;
 use lib\Msg;
-use model\OpinionModel;
 use model\TopicModel;
 use model\UserModel;
+use model\OpinionModel;
 use Throwable;
+
 
 function get()
 {
-
+    // ログインしているかどうか確認
     Auth::requireLogin();
 
     $topic = new TopicModel;
 
     $topic->id = get_param('id', null, false);
 
+    // バリデーションに引っかかって登録に失敗した場合の処理
+    // セッションに保存しておいた値を取ってきて変数に格納する。セッション上のデータは削除する
+    // 必ずデータを取得した時点でデータを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
     $opinion = OpinionModel::getSessionAndFlush();
 
-    // セッションからデータが取れてきた場合、その値を画面表示して処理を終了
+    // データが取れてくれば、その値を画面表示し、処理を終了
     if (!empty($opinion)) {
-        \view\opinion_edit\index($opinion, $topic);
+        \view\opinion_create\index($opinion, $topic, false);
         return;
     }
 
-    // データが取れてこなかった場合
+    // idからトピックの内容を取ってくる
     $fetchedOpinion = OpinionQuery::fetchByTopicId($topic);
 
-    \view\opinion_edit\index($fetchedOpinion, $topic);
+    // トピックを渡してviewのindexを表示
+    \view\opinion_create\index($fetchedOpinion, $topic, false);
 }
 
 
@@ -41,24 +47,24 @@ function post()
 
     $opinion = new OpinionModel;
 
+    $opinion->id = get_param('id', null);
     $opinion->opinion = get_param('opinion', null);
     $opinion->reason = get_param('reason', null);
     $opinion->topic_id = get_param('id', null, false);
 
-
     try {
-        $is_success = OpinionQuery::insert($opinion);
+        $is_success = OpinionQuery::update($opinion);
     } catch (Throwable $e) {
         Msg::push(Msg::ERROR, $e->getMessage());
         $is_success = false;
     }
 
     if (!$is_success) {
-        Msg::push(Msg::ERROR, '意見の登録に失敗しました。');
+        Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
         OpinionModel::setSession($opinion);
         redirect(GO_REFERER);
     }
 
-    Msg::push(Msg::INFO, '意見を登録しました。');
-    redirect(GO_HOME);
+    Msg::push(Msg::INFO, '意見を更新しました。');
+    redirect(sprintf('detail?id=%s', $opinion->topic_id));
 }
