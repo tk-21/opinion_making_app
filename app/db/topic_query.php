@@ -33,34 +33,6 @@ class TopicQuery
     }
 
 
-    // controllerのhome.phpで呼び出している
-    public static function fetchPublishedTopics()
-    {
-        $db = new DataSource;
-
-        // inner joinで内部結合している
-        $sql = '
-        SELECT t.*, u.nickname FROM topics t
-        inner join users u
-        on t.user_id = u.id
-        WHERE t.del_flg != 1
-        and u.del_flg != 1
-        and t.published = 1
-        order by t.id DESC
-        ';
-        // 第2引数のパラメータは指定しないので、空の配列を渡す
-        // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
-        // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
-        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\TopicModel が返る）
-        // ここはselectメソッドなので複数行取れてくる
-        // $resultにはオブジェクトの配列が格納される
-        $result = $db->select($sql, [], DataSource::CLS, TopicModel::class);
-
-        // 結果が取れてくればresultを返す
-        return $result;
-    }
-
-
     // idから個別の記事を取ってくるメソッド
     public static function fetchById($topic)
     {
@@ -87,37 +59,6 @@ class TopicQuery
 
         // 結果が取れてくればresultを返す
         return $result;
-    }
-
-
-    // ログインしているユーザー自身のトピックかどうかを判定するメソッド
-    // auth.phpのhasPermissionメソッドで呼ばれている
-    public static function isUserOwnTopic($topic_id, $user)
-    {
-        // 渡ってきたtopic_idをstaticメソッドで検査し、userオブジェクトをインスタンスメソッドで検査
-        // どちらもtrueであれば後続の処理を実行する
-        // どちらかがfalseであれば、return falseが実行される
-        if (!(TopicModel::validateId($topic_id) && $user->isValidId())) {
-            return false;
-        }
-
-        $db = new DataSource;
-
-        // topicのidとuser_idの２つの条件で指定して、レコードが取れてくれば、そのユーザーが保持している記事と判断できるので編集可とする
-        $sql = '
-        select COUNT(1) as count FROM pollapp.topics t
-        WHERE t.id = :topic_id
-            AND t.user_id = :user_id
-            AND t.del_flg != 1;
-        ';
-        // 連想配列の形式で結果が返る
-        $result = $db->selectOne($sql, [
-            ':topic_id' => $topic_id,
-            ':user_id' => $user->id
-        ]);
-
-        // 取得した結果が空でないかつcountが０でなかったらtrueを返す
-        return !empty($result) && $result['count'] != 0;
     }
 
 
@@ -181,6 +122,19 @@ class TopicQuery
             ':body' => $topic->body,
             ':position' => $topic->position,
             ':user_id' => $user->id
+        ]);
+    }
+
+
+    public static function delete($id)
+    {
+        $db = new DataSource;
+
+        $sql = 'update topics set deleted_at = now() where id = :id;';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':id' => $id
         ]);
     }
 }

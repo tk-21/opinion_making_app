@@ -143,21 +143,4 @@ class Auth
         // 例外が発生しなかったらtrueを返す
         return true;
     }
-
-
-    // 編集権限があるかどうか確認するメソッド
-    public static function hasPermission($topic_id, $user)
-    {
-        return TopicQuery::isUserOwnTopic($topic_id, $user);
-    }
-
-    // トピックの編集権限がなければ、メッセージを表示してログイン画面にリダイレクトさせるメソッド
-    // controller\topic\edit で呼ばれている
-    public static function requirePermission($topic_id, $user)
-    {
-        if (!static::hasPermission($topic_id, $user)) {
-            Msg::push(Msg::ERROR, '編集権限がありません。ログインして再度試してみてください。');
-            redirect('login');
-        }
-    }
 }

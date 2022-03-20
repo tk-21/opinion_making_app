@@ -34,7 +34,13 @@ function get()
     // idからトピックの内容を取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
 
-    // トピックを渡してviewのindexを表示
+    // トピックが取れてこなかったら４０４ページへリダイレクト
+    if (!$fetchedTopic) {
+        redirect('404');
+        return;
+    }
+
+    // トピックが取れてきたら、トピックを渡してviewのindexを表示
     \view\topic_create\index($fetchedTopic, false);
 }
 
