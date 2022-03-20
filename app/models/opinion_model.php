@@ -19,6 +19,25 @@ class OpinionModel extends AbstractModel
     protected static $SESSION_NAME = '_opinion';
 
 
+    public static function validateId($val)
+    {
+        $res = true;
+
+        if (empty($val) || !is_numeric($val)) {
+
+            Msg::push(Msg::ERROR, 'パラメータが不正です。');
+            $res = false;
+        }
+
+        return $res;
+    }
+
+    public function isValidId()
+    {
+        return static::validateId($this->id);
+    }
+
+
     public function isValidOpinion()
     {
         return static::validateOpinion($this->opinion);

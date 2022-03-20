@@ -12,7 +12,7 @@ function index($topic, $objections, $counterObjections, $opinion)
     $counterObjections = escape($counterObjections);
     $opinion = escape($opinion);
 
-    $opinion_btn = $opinion ? '編集' : '登録';
+    $is_edit = $opinion ? 'edit' : 'create';
 
 ?>
 
@@ -78,9 +78,10 @@ function index($topic, $objections, $counterObjections, $opinion)
                 <dt class="detail-opinion-ttl">その理由</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->reason; ?></dd>
             </dl>
+
             <p class="opinion-txt">
-                <a href="<?php the_url(sprintf('opinion_edit?id=%d', $topic->id)); ?>">
-                    <?php echo $opinion_btn; ?>
+                <a href="<?php the_url(sprintf('opinion_%s?id=%d', $is_edit, $topic->id)); ?>">
+                    編集
                 </a>
             </p>
 

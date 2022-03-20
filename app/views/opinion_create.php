@@ -1,17 +1,21 @@
 <?php
 
-namespace view\opinion_edit;
+namespace view\opinion_create;
 
-function index($opinion, $topic)
+function index($opinion, $topic, $is_create)
 {
     \partials\header();
+
+    $header_ttl = $is_create ? '最終意見の言語化' : '意見の編集';
+    $submit_btn = $is_create ? '登録' : '更新';
 ?>
 
     <section class="opinion">
         <div class="inner">
             <form class="opinion-form" action="" method="POST" novalidate>
+                <input type="hidden" name="id" value="<?php echo $opinion->id; ?>">
 
-                <h2 class="opinion-ttl">最終意見の言語化</h2>
+                <h2 class="opinion-ttl"><?php echo $header_ttl; ?></h2>
 
                 <dl class="opinion-list">
                     <dt class="opinion-dttl"><label for="opinion" onclick="">自分の意見</label></dt>
@@ -26,7 +30,7 @@ function index($opinion, $topic)
                     </dd>
                 </dl>
 
-                <button type="submit" class="submit-btn">登録</button>
+                <button type="submit" class="submit-btn"><?php echo $submit_btn; ?></button>
 
                 <p class="opinion-txt"><a href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a></p>
 
