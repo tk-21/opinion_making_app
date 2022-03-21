@@ -21,7 +21,7 @@ function get()
 
     // データが取れてくれば、その値を画面表示し、処理を終了
     if (!empty($topic)) {
-        \view\topic_create\index($topic, false);
+        \view\topic_create\index($topic, SHOW_EDIT);
         return;
     }
 
@@ -41,7 +41,7 @@ function get()
     }
 
     // トピックが取れてきたら、トピックを渡してviewのindexを表示
-    \view\topic_create\index($fetchedTopic, false);
+    \view\topic_create\index($fetchedTopic, SHOW_EDIT);
 }
 
 

@@ -16,6 +16,10 @@ define('TOPIC', 'topic');
 define('OBJECTION', 'objection');
 define('COUNTER_OBJECTION', 'counter_objection');
 
+define('SHOW_CREATE', 'create');
+define('SHOW_EDIT', 'edit');
+define('SHOW_DELETE', 'delete');
+
 // メッセージを開発環境では出して、本番環境では出さないための定数
 // 開発環境はtrue,本番環境はfalseとすることで、開発のときのみ表示したいメッセージを制御することができる
 define('DEBUG', true);

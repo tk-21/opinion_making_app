@@ -56,9 +56,9 @@ class ObjectionQuery
         $db = new DataSource;
 
         $sql = 'INSERT into objections
-                    (body, topic_id)
+                (body, topic_id)
                 values
-                    (:body, :topic_id)
+                (:body, :topic_id)
                 ';
 
         // 登録に成功すれば、trueが返される
