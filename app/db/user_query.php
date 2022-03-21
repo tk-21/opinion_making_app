@@ -11,7 +11,7 @@ class UserQuery
     {
         $db = new DataSource;
         // プリペアードステートメントを使うのでidはパラメータにしておく
-        $sql = 'SELECT * FROM users WHERE name = :name;';
+        $sql = 'SELECT * FROM users WHERE name = :name';
         // 第2引数にパラメータに、引数で渡ってきた文字列を入れる
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でUserModelまでのパスを取得して、そのクラスを使うように指定
@@ -27,7 +27,10 @@ class UserQuery
     public static function insert($user)
     {
         $db = new DataSource;
-        $sql = 'insert into users(name, password) values(:name, :password)';
+        $sql = 'INSERT into users
+                (name, password)
+                values(:name, :password)
+                ';
 
         // パスワードはハッシュ化を行っておく
         $user->password = password_hash($user->password, PASSWORD_DEFAULT);
