@@ -17,11 +17,10 @@ class OpinionQuery
 
         $db = new DataSource;
 
-        $sql = '
-        select * FROM opinions
-        WHERE topic_id = :id
-        AND deleted_at IS NULL
-        ';
+        $sql = 'SELECT * FROM opinions
+                WHERE topic_id = :id
+                AND deleted_at IS NULL
+                ';
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
@@ -56,12 +55,11 @@ class OpinionQuery
 
         $db = new DataSource;
 
-        $sql = '
-        insert into opinions
-            (opinion, reason, topic_id)
-        values
-            (:opinion, :reason, :topic_id)
-        ';
+        $sql = 'INSERT into opinions
+                    (opinion, reason, topic_id)
+                values
+                    (:opinion, :reason, :topic_id)
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
@@ -90,10 +88,10 @@ class OpinionQuery
 
         $db = new DataSource;
         // idをキーにして更新
-        $sql = 'update opinions set
+        $sql = 'UPDATE opinions set
                     opinion = :opinion,
                     reason = :reason
-                where id = :id';
+                WHERE id = :id';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
@@ -108,7 +106,9 @@ class OpinionQuery
     {
         $db = new DataSource;
 
-        $sql = 'update objections set deleted_at = now() where id = :id;';
+        $sql = 'UPDATE objections
+                set deleted_at = now()
+                where id = :id;';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [

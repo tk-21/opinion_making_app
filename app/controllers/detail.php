@@ -26,7 +26,7 @@ function get()
     // idに該当するトピックを１件取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
 
-    // トピックが取れてこなかった場合、またはpublishedの値がfalseの場合（０の場合）は４０４ページにリダイレクト
+    // トピックが取れてこなかった場合、または削除されている場合は４０４ページにリダイレクト
     if (empty($fetchedTopic) || isset($fetchedTopic->deleted_at)) {
         Msg::push(Msg::ERROR, 'トピックが見つかりません。');
         redirect('404');

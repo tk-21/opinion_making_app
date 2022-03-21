@@ -17,7 +17,10 @@ class TopicQuery
         // プリペアードステートメントを使うのでidはパラメータにしておく
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
-        $sql = 'SELECT * FROM topics WHERE user_id = :id and deleted_at is null order by id desc;';
+        $sql = 'SELECT * FROM topics
+                WHERE user_id = :id and deleted_at is null
+                order by id desc
+                ';
         // 第2引数のパラメータに、引数で渡ってきた文字列を入れる
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
@@ -44,11 +47,10 @@ class TopicQuery
 
         // 汎用性を持たせるためwhereの条件に t.published = 1 は入れない （公開非公開は関係なくトピックを取得する）
         // DBに問い合わせるクエリに詳細な条件を書いてしまうと、そのメソッドを使い回すことができない
-        $sql = '
-            SELECT * FROM topics
-            WHERE id = :id
-            and deleted_at IS NULL
-            ';
+        $sql = 'SELECT * FROM topics
+                WHERE id = :id
+                and deleted_at IS NULL
+                ';
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
         // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\TopicModel が返る）
@@ -80,12 +82,12 @@ class TopicQuery
 
         $db = new DataSource;
         // idをキーにしてpublishedとtitleを更新
-        $sql = 'update topics set
-                    title = :title,
+        $sql = 'UPDATE topics set title = :title,
                     body = :body,
                     position = :position,
                     finish_flg = :finish_flg
-                where id = :id';
+                WHERE id = :id
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
@@ -114,7 +116,12 @@ class TopicQuery
         }
 
         $db = new DataSource;
-        $sql = 'insert into topics(title, body, position, user_id) values(:title, :body, :position, :user_id)';
+
+        $sql = 'INSERT into topics
+                (title, body, position, user_id)
+                values
+                (:title, :body, :position, :user_id)
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
@@ -130,7 +137,10 @@ class TopicQuery
     {
         $db = new DataSource;
 
-        $sql = 'update topics set deleted_at = now() where id = :id;';
+        $sql = 'UPDATE topics
+                SET deleted_at = NOW()
+                WHERE id = :id
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [

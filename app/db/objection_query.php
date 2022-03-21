@@ -17,12 +17,11 @@ class ObjectionQuery
 
         $db = new DataSource;
 
-        $sql = '
-        select * FROM objections
-        WHERE topic_id = :id
-        AND deleted_at IS NULL
-        ORDER BY id DESC
-        ';
+        $sql = 'SELECT * FROM objections
+                WHERE topic_id = :id
+                AND deleted_at IS NULL
+                ORDER BY id DESC
+                ';
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
@@ -56,12 +55,11 @@ class ObjectionQuery
 
         $db = new DataSource;
 
-        $sql = '
-        insert into objections
-            (body, topic_id)
-        values
-            (:body, :topic_id)
-        ';
+        $sql = 'INSERT into objections
+                (body, topic_id)
+                values
+                (:body, :topic_id)
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
@@ -75,7 +73,10 @@ class ObjectionQuery
     {
         $db = new DataSource;
 
-        $sql = 'update objections set deleted_at = now() where id = :id;';
+        $sql = 'UPDATE objections
+                set deleted_at = now()
+                where id = :id
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [

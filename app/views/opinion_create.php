@@ -6,6 +6,8 @@ function index($opinion, $topic, $is_create)
 {
     \partials\header();
 
+    // 意見作成、編集を兼ねているファイル
+    // 意見作成か、意見編集かによって表示内容を変える
     $header_ttl = $is_create ? '最終意見の言語化' : '意見の編集';
     $submit_btn = $is_create ? '登録' : '更新';
 ?>
