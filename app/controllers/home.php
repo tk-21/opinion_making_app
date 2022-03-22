@@ -25,15 +25,38 @@ function get()
         redirect('login');
     }
 
-    // 配列に値が入っていた場合
-    if (count($topics) > 0) {
-        // viewにあるメソッドを呼んでリストを表示する
-        \view\home\index($topics);
-    } else {
-        // 記事がとれてこなかった場合はメッセージを表示
-        echo '<div class="alert alert-primary">トピックを投稿してみよう。</div>';
+    // 記事の件数を取得
+    $topics_num = count($topics);
+
+    // 記事があった場合
+    if ($topics_num > 0) {
+
+        // トータルページ数を取得（ceilで小数点を切り捨てる）
+        $max_page = ceil($topics_num / MAX);
+
+        // 現在のページ（設定されていない場合は１にする）
+        $page = get_param('page', 1, false);
+
+        // 配列の何番目から取得するか
+        $start_no = ($page - 1) * MAX;
+
+        // $start_noからMAXまでの配列を切り出す
+        $topics = array_slice($topics, $start_no, MAX, true);
+
+        // ページネーションを表示させる範囲
+        if ($page === 1 || $page === $max_page) {
+            $range = 4;
+        } elseif ($page === 2 || $page === $max_page - 1) {
+            $range = 3;
+        } else {
+            $range = 2;
+        }
+
+        // viewのindexメソッドを呼んでリストを表示する
+        \view\home\index($topics, $topics_num, $page, $max_page, $range);
+        return;
     }
 
-
-    // echo '<pre>', print_r($topics), '</pre>';
+    // 記事がとれてこなかった場合はメッセージを表示
+    echo '<p class="alert">トピックを投稿してみよう。</p>';
 }
