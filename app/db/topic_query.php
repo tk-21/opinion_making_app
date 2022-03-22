@@ -64,6 +64,19 @@ class TopicQuery
     }
 
 
+    // public static function getTopicCount()
+    // {
+    //     $db = new DataSource;
+
+    //     $sql = 'SELECT COUNT(*)
+    //             as cnt
+    //             FROM topics
+    //             ';
+
+    //     return $db->select($sql);
+    // }
+
+
     public static function update($topic)
     {
         // 値のチェック
