@@ -37,7 +37,7 @@ function get()
         $opinion = new OpinionModel;
     }
 
-    \view\opinion_create\index($opinion, $topic, true);
+    \view\opinion\index($opinion, $topic, true);
 }
 
 

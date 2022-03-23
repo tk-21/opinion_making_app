@@ -1,6 +1,6 @@
 <?php
 
-namespace view\topic_create;
+namespace view\topic;
 
 function index($topic, $type)
 {
@@ -25,37 +25,37 @@ function index($topic, $type)
 
 ?>
 
-    <section class="create">
+    <section class="topic">
         <div class="inner">
-            <form class="create-form" action="" method="POST" novalidate>
+            <form class="topic-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $topic->id; ?>">
 
-                <h2 class="create-ttl"><?php echo $header_ttl; ?></h2>
+                <h2 class="topic-ttl"><?php echo $header_ttl; ?></h2>
 
                 <?php if ($type === 'delete') : ?>
-                    <p class="create-txt">本当に削除してもよろしいですか？</p>
+                    <p class="topic-txt">本当に削除してもよろしいですか？</p>
                 <?php endif; ?>
 
-                <dl class="create-list">
-                    <dt class="create-dttl"><label for="title" onclick="">タイトル</label></dt>
-                    <dd class="create-item">
-                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="create-txt form-control validate-target" maxlength="30" autofocus required <?php echo $disabled; ?>>
+                <dl class="topic-list">
+                    <dt class="topic-dttl"><label for="title" onclick="">タイトル</label></dt>
+                    <dd class="topic-item">
+                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-txt form-control validate-target" maxlength="30" autofocus required <?php echo $disabled; ?>>
                         <p class="invalid-feedback"></p>
                     </dd>
 
-                    <dt class="create-dttl"><label for="body" onclick="">本文</label></dt>
-                    <dd class="create-item">
-                        <input type="text" id="body" name="body" value="<?php echo $topic->body; ?>" class="create-txt form-control validate-target" autofocus required <?php echo $disabled; ?>>
+                    <dt class="topic-dttl"><label for="body" onclick="">本文</label></dt>
+                    <dd class="topic-item">
+                        <input type="text" id="body" name="body" value="<?php echo $topic->body; ?>" class="topic-txt form-control validate-target" autofocus required <?php echo $disabled; ?>>
                     </dd>
 
-                    <dt class="create-dttl"><label for="position" onclick="">ポジション</label></dt>
-                    <dd class="create-item">
-                        <input type="text" id="position" name="position" value="<?php echo $topic->position; ?>" class="create-txt form-control validate-target" autofocus required <?php echo $disabled; ?>>
+                    <dt class="topic-dttl"><label for="position" onclick="">ポジション</label></dt>
+                    <dd class="topic-item">
+                        <input type="text" id="position" name="position" value="<?php echo $topic->position; ?>" class="topic-txt form-control validate-target" autofocus required <?php echo $disabled; ?>>
                     </dd>
 
                     <?php if ($type === 'edit') : ?>
-                        <dt class="create-dttl"><label for="finish_flg">ステータス</label></dt>
-                        <dd class="create-item">
+                        <dt class="topic-dttl"><label for="finish_flg">ステータス</label></dt>
+                        <dd class="topic-item">
                             <select name="finish_flg" id="finish_flg" class="form-control">
                                 <?php //selectedがついているものが、初期表示時に表示されるステータス
                                 // publishedがtrueかfalseかによって初期表示を分ける
