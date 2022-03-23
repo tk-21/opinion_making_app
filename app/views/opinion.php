@@ -1,6 +1,6 @@
 <?php
 
-namespace view\opinion_create;
+namespace view\opinion;
 
 function index($opinion, $topic, $is_create)
 {

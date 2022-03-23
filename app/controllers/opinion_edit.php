@@ -37,7 +37,7 @@ function get()
 
     // データが取れてくれば、その値を画面表示し、処理を終了
     if (!empty($opinion)) {
-        \view\opinion_create\index($opinion, $topic, false);
+        \view\opinion\index($opinion, $topic, false);
         return;
     }
 
@@ -45,7 +45,7 @@ function get()
     $fetchedOpinion = OpinionQuery::fetchByTopicId($topic);
 
     // トピックを渡してviewのindexを表示
-    \view\opinion_create\index($fetchedOpinion, $topic, false);
+    \view\opinion\index($fetchedOpinion, $topic, false);
 }
 
 

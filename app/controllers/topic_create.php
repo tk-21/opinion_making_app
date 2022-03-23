@@ -27,7 +27,7 @@ function get()
 
     // データが取れてくれば、そのまま画面表示する
     // トピックを渡してviewのindexを表示
-    \view\topic_create\index($topic, SHOW_CREATE);
+    \view\topic\index($topic, SHOW_CREATE);
 }
 
 

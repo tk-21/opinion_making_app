@@ -19,7 +19,7 @@ function get()
         // idからトピックの内容を取ってくる
         $fetchedTopic = TopicQuery::fetchById($topic);
         // 削除確認画面を表示
-        \view\topic_create\index($fetchedTopic, SHOW_DELETE);
+        \view\topic\index($fetchedTopic, SHOW_DELETE);
 
         return;
     }
