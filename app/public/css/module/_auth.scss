@@ -1,8 +1,11 @@
-.form {
-    background: $color-main;
-    padding: 50px;
-    margin-bottom: 50px;
-    border-radius: 4px;
+.auth {
+    padding: 100px 0;
+    &-form {
+        background: $color-main;
+        padding: 50px;
+        margin-bottom: 50px;
+        border-radius: 4px;
+    }
     &-ttl {
         font-size: 20px;
         margin-bottom: 20px;
@@ -22,7 +25,7 @@
             color: $color-accent;
         }
     }
-    &-text {
+    &-input {
         height: 2.4em;
         width: 100%;
         padding: 0 16px;
@@ -30,7 +33,10 @@
         box-shadow: 0 0 0 1px #ccc inset;
         &:focus {
             outline: 0;
-            box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+            box-shadow: 0 0 0 2px $color-accent inset;
         }
+    }
+    &-txt {
+        text-align: center;
     }
 }

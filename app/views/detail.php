@@ -12,6 +12,7 @@ function index($topic, $objections, $counterObjections, $opinion)
     $counterObjections = escape($counterObjections);
     $opinion = escape($opinion);
 
+    $complete_flg = $topic->complete_flg ? '完了' : '未完了';
     $is_edit = $opinion ? 'edit' : 'create';
 
 ?>
@@ -28,6 +29,8 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <dd class="detail-topic-data"><?php echo $topic->body; ?></dd>
                         <dt class="detail-topic-ttl">ポジション</dt>
                         <dd class="detail-topic-data"><?php echo $topic->position; ?></dd>
+                        <dt class="detail-topic-ttl">ステータス</dt>
+                        <dd class="detail-topic-data"><?php echo $complete_flg; ?></dd>
                     </dl>
                     <a class="submit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
                     <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', TOPIC, $topic->id)); ?>">削除</a>
@@ -37,7 +40,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                 <li class="detail-item">
                     <div class="detail-objection">
                         <form class="detail-form" action="" method="post">
-                            <textarea name="body" id="body" rows="5" maxlength="100"></textarea>
+                            <textarea class="detail-textarea" name="body"></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
                             <button type="submit" class="submit-btn">登録</button>
@@ -56,7 +59,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                 <li class="detail-item">
                     <div class="detail-counterObjection">
                         <form class="detail-form" action="" method="post">
-                            <textarea name="body" id="body" rows="5" maxlength="100"></textarea>
+                            <textarea class="detail-textarea" name="body" id="body" rows="5" maxlength="100"></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
                             <button type="submit" class="submit-btn">登録</button>

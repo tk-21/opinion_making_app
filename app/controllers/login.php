@@ -12,7 +12,10 @@ use model\UserModel;
 // getでリクエストが来た場合
 function get()
 {
-    // namespace内の関数を呼び出す
+    if (Auth::isLogin()) {
+        redirect(GO_HOME);
+    }
+
     \view\login\index();
 }
 

@@ -39,30 +39,32 @@ function index($topic, $type)
                 <dl class="topic-list">
                     <dt class="topic-dttl"><label for="title" onclick="">タイトル</label></dt>
                     <dd class="topic-item">
-                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-txt form-control validate-target" maxlength="30" autofocus required <?php echo $disabled; ?>>
+                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-input form-control validate-target" maxlength="30" autofocus required <?php echo $disabled; ?>>
                         <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="topic-dttl"><label for="body" onclick="">本文</label></dt>
                     <dd class="topic-item">
-                        <input type="text" id="body" name="body" value="<?php echo $topic->body; ?>" class="topic-txt form-control validate-target" autofocus required <?php echo $disabled; ?>>
+                        <textarea id="body" name="body" class="topic-textarea form-control validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->body; ?></textarea>
                     </dd>
 
                     <dt class="topic-dttl"><label for="position" onclick="">ポジション</label></dt>
                     <dd class="topic-item">
-                        <input type="text" id="position" name="position" value="<?php echo $topic->position; ?>" class="topic-txt form-control validate-target" autofocus required <?php echo $disabled; ?>>
+                        <textarea id="position" name="position" class="topic-textarea form-control validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->position; ?></textarea>
                     </dd>
 
                     <?php if ($type === 'edit') : ?>
-                        <dt class="topic-dttl"><label for="finish_flg">ステータス</label></dt>
+                        <dt class="topic-dttl">ステータス</dt>
+                        <?php //selectedがついているものが、初期表示時に表示されるステータス
+                        // publishedがtrueかfalseかによって初期表示を分ける
+                        ?>
                         <dd class="topic-item">
-                            <select name="finish_flg" id="finish_flg" class="form-control">
-                                <?php //selectedがついているものが、初期表示時に表示されるステータス
-                                // publishedがtrueかfalseかによって初期表示を分ける
-                                ?>
-                                <option value="1" <?php echo $topic->finish_flg ? 'selected' : ''; ?>>完了</option>
-                                <option value="0" <?php echo $topic->finish_flg ? '' : 'selected'; ?>>未完了</option>
-                            </select>
+                            <input class="topic-check" type="radio" id="complete" name="complete_flg" value="1" required <?php echo $topic->complete_flg ? 'checked' : ''; ?>>
+                            <label for="complete" class="topic-label">完了</label>
+                        </dd>
+                        <dd class="topic-item">
+                            <input class="topic-check" type="radio" id="incomplete" name="complete_flg" value="0" required <?php echo $topic->complete_flg ? '' : 'checked'; ?>>
+                            <label for="incomplete" class="topic-label">未完了</label>
                         </dd>
                     <?php endif; ?>
                 </dl>
@@ -71,7 +73,7 @@ function index($topic, $type)
 
                 <?php // トピック作成の場合はホームへ戻る、トピック編集の場合は詳細画面に戻る
                 ?>
-                <p class="auth-txt">
+                <p class="topic-txt">
                     <?php if ($type === 'create') : ?>
                         <a href="<?php the_url('/'); ?>">ホームへ戻る</a>
                     <?php else : ?>

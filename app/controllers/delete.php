@@ -5,10 +5,13 @@ namespace controller\delete;
 use model\TopicModel;
 use db\ObjectionQuery;
 use db\TopicQuery;
+use lib\Auth;
 use lib\Msg;
 
 function get()
 {
+    Auth::requireLogin();
+
     $topic = new TopicModel;
 
     // パラメータから、どれを削除するのかと、トピックのidを取得

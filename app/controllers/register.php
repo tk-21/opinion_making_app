@@ -10,6 +10,10 @@ use model\UserModel;
 // getでリクエストが来た場合
 function get()
 {
+    if (Auth::isLogin()) {
+        redirect(GO_HOME);
+    }
+
     \view\register\index();
 }
 
