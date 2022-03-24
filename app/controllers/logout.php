@@ -2,7 +2,6 @@
 
 namespace controller\logout;
 
-// libの中のAuthクラスをインポートしてくる
 use lib\Auth;
 use lib\Msg;
 

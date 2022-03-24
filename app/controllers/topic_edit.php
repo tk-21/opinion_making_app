@@ -58,7 +58,7 @@ function post()
     $topic->title = get_param('title', null);
     $topic->body = get_param('body', null);
     $topic->position = get_param('position', null);
-    $topic->finish_flg = get_param('finish_flg', null);
+    $topic->complete_flg = get_param('complete_flg', null);
 
     // 更新処理
     try {

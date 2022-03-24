@@ -12,7 +12,6 @@ use Throwable;
 
 function get()
 {
-    // ログインしているかどうか確認（管理画面なのでログインは必須）
     Auth::requireLogin();
 
     // バリデーションに引っかかって登録に失敗した場合の処理

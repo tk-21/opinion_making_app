@@ -17,8 +17,7 @@ class CounterObjectionQuery
 
         $db = new DataSource;
 
-        $sql = '
-        select * FROM counter_objections
+        $sql = 'SELECT * FROM counter_objections
         WHERE topic_id = :id
         AND deleted_at IS NULL
         ORDER BY id DESC
@@ -38,7 +37,6 @@ class CounterObjectionQuery
     }
 
 
-    // controller\topic\detailのpostメソッド内で呼び出している
     public static function insert($counterObjection)
     {
         // 値のチェック
@@ -56,8 +54,7 @@ class CounterObjectionQuery
 
         $db = new DataSource;
 
-        $sql = '
-        insert into counter_objections
+        $sql = 'INSERT into counter_objections
             (body, topic_id)
         values
             (:body, :topic_id)

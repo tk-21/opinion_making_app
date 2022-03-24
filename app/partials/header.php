@@ -52,7 +52,7 @@ function header()
         <div class="wrapper">
             <header class="header">
                 <h1 class="header-logo">
-                    <a href="<?php the_url('home'); ?>">
+                    <a href="<?php the_url('/'); ?>">
                         思考トレーニングアプリ
                     </a>
                 </h1>
@@ -66,7 +66,7 @@ function header()
             <main>
 
             <?php
-            // ここで$_SESSION['_msg']にセットされた配列の値をループで表示している
+            // $_SESSION['_msg']にセットされた配列の値をループで表示
             Msg::flush();
 
             if (Auth::isLogin()) {

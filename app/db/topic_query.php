@@ -98,7 +98,7 @@ class TopicQuery
         $sql = 'UPDATE topics set title = :title,
                     body = :body,
                     position = :position,
-                    finish_flg = :finish_flg
+                    complete_flg = :complete_flg
                 WHERE id = :id
                 ';
 
@@ -107,7 +107,7 @@ class TopicQuery
             ':title' => $topic->title,
             ':body' => $topic->body,
             ':position' => $topic->position,
-            ':finish_flg' => $topic->finish_flg,
+            ':complete_flg' => $topic->complete_flg,
             ':id' => $topic->id
         ]);
     }

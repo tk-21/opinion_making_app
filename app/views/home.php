@@ -16,11 +16,11 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                 <h2 class="home-ttl">トピック一覧</h2>
                 <ul class="home-list">
                     <?php foreach ($topics as $topic) :
-                        // finish_flgが１のときは完了、０のときは未完了を表示させる
-                        $label = $topic->finish_flg ? '完了' : '未完了';
+                        // complete_flgが１のときは完了、０のときは未完了を表示させる
+                        $label = $topic->complete_flg ? '完了' : '未完了';
 
                         // ラベルのデザインを切り替える
-                        $label_color = $topic->finish_flg ? 'completed' : 'incomplete';
+                        $label_color = $topic->complete_flg ? 'complete' : 'incomplete';
                     ?>
                         <li class="home-item">
                             <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">

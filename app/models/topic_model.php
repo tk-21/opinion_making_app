@@ -10,7 +10,7 @@ class TopicModel extends AbstractModel
     public $title;
     public $body;
     public $position;
-    public $finish_flg;
+    public $complete_flg;
     public $user_id;
     public $deleted_at;
     public $created_at;
