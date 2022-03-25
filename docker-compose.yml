@@ -23,6 +23,7 @@ services:
             MYSQL_USER: takuya
             MYSQL_PASSWORD: takuya
             MYSQL_ROOT_PASSWORD: takuya
+            TZ: "Asia/Tokyo"
         ports:
             - "3306:3306"
         volumes:
