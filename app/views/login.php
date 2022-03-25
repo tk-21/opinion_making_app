@@ -25,7 +25,7 @@ function index()
                         <p class="invalid-feedback"></p>
                     </dd>
                 </dl>
-                <button type="submit" class="submit-btn">ログイン</button>
+                <button type="submit" class="register-btn">ログイン</button>
             </form>
             <p class="auth-txt"><a href="<?php the_url('register'); ?>">アカウント登録</a></p>
         </div>

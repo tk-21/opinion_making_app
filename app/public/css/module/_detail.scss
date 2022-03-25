@@ -45,5 +45,11 @@
         width: 100%;
         border-radius: 5px;
         margin-bottom: 40px;
+        &-ttl {
+            margin-bottom: 20px;
+        }
+        &-data {
+            margin-bottom: 20px;
+        }
     }
 }

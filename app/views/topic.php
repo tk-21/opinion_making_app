@@ -69,15 +69,15 @@ function index($topic, $type)
                     <?php endif; ?>
                 </dl>
 
-                <button type="submit" class="submit-btn"><?php echo $submit_btn; ?></button>
+                <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
 
                 <?php // トピック作成の場合はホームへ戻る、トピック編集の場合は詳細画面に戻る
                 ?>
                 <p class="topic-txt">
                     <?php if ($type === 'create') : ?>
-                        <a href="<?php the_url('/'); ?>">ホームへ戻る</a>
+                        <a class="back-btn" href="<?php the_url('/'); ?>">ホームへ戻る</a>
                     <?php else : ?>
-                        <a href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+                        <a class="back-btn" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
                     <?php endif; ?>
                 </p>
 

@@ -32,7 +32,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <dt class="detail-topic-ttl">ステータス</dt>
                         <dd class="detail-topic-data"><?php echo $complete_flg; ?></dd>
                     </dl>
-                    <a class="submit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
+                    <a class="edit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
                     <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', TOPIC, $topic->id)); ?>">削除</a>
 
                 </li>
@@ -43,7 +43,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <textarea class="detail-textarea" name="body"></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
-                            <button type="submit" class="submit-btn">登録</button>
+                            <button type="submit" class="register-btn">登録</button>
                         </form>
                         <ul class="detail-objection-list">
                             <?php foreach ($objections as $objection) : ?>
@@ -62,7 +62,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <textarea class="detail-textarea" name="body" id="body" rows="5" maxlength="100"></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
-                            <button type="submit" class="submit-btn">登録</button>
+                            <button type="submit" class="register-btn">登録</button>
                         </form>
                         <ul class="detail-counterObjection-list">
                             <?php foreach ($counterObjections as $counterObjection) : ?>
@@ -74,25 +74,18 @@ function index($topic, $objections, $counterObjections, $opinion)
                     </div>
                 </li>
             </ul>
-        </div>
 
-        <div class="detail-inner">
             <dl class="detail-opinion">
                 <dt class="detail-opinion-ttl">最終的な意見</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->opinion; ?></dd>
                 <dt class="detail-opinion-ttl">その理由</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->reason; ?></dd>
+                <a class="edit-btn" href="<?php the_url(sprintf('opinion_%s?id=%d', $is_edit, $topic->id)); ?>">編集</a>
             </dl>
 
-            <p class="opinion-txt">
-                <a href="<?php the_url(sprintf('opinion_%s?id=%d', $is_edit, $topic->id)); ?>">
-                    編集
-                </a>
-            </p>
+            <a class="back-btn" href="<?php the_url('/'); ?>">トピック一覧に戻る</a>
 
-            <a class="send-btn" href="<?php the_url('/'); ?>">トピック一覧に戻る</a>
         </div>
-
     </section>
 
 
