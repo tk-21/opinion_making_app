@@ -1,18 +1,26 @@
 <?php
 
-namespace view\login;
+namespace view\auth;
 
-
-// HTMLを関数で囲んでおくと、その関数を呼んだときにHTMLの内容が出力されるようになる
-function index()
+function index($is_login)
 {
     \partials\header();
+
+    if ($is_login) {
+        $header_ttl = 'ログイン';
+        $submit_btn = 'ログイン';
+        $link_btn = 'アカウント登録';
+    } else {
+        $header_ttl = 'アカウント登録';
+        $submit_btn = '登録';
+        $link_btn = 'ログイン画面へ';
+    }
 ?>
 
     <section class="auth">
         <div class="auth-inner">
             <form class="auth-form validate-form" action="<?php echo CURRENT_URI; ?>" method="POST" novalidate>
-                <h2 class="auth-ttl">ログイン</h2>
+                <h2 class="auth-ttl"><?php echo $header_ttl; ?></h2>
                 <dl class="auth-list">
                     <dt class="auth-dttl"><label for="name" onclick="">ユーザーネーム</label></dt>
                     <dd class="auth-item">
@@ -25,9 +33,16 @@ function index()
                         <p class="invalid-feedback"></p>
                     </dd>
                 </dl>
-                <button type="submit" class="register-btn">ログイン</button>
+                <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
             </form>
-            <p class="auth-txt"><a href="<?php the_url('register'); ?>">アカウント登録</a></p>
+            <p class="auth-txt">
+                <?php if ($is_login) : ?>
+                    <a href="<?php the_url('register'); ?>"><?php echo $link_btn; ?></a>
+                <?php else : ?>
+                    <a href="<?php the_url('login'); ?>"><?php echo $link_btn; ?></a>
+                <?php endif; ?>
+
+            </p>
         </div>
     </section>
 

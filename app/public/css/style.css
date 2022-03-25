@@ -676,6 +676,7 @@ p {
 
 .register-btn:disabled {
   background: #ccc;
+  color: #3e1300;
 }
 
 .register-btn:disabled::before {

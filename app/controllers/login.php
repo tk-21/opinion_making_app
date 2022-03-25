@@ -1,8 +1,5 @@
 <?php
 
-// 呼び出す関数を切り替えることによって表示する画面を制御することができる
-// 関数名が重複しそうな場合には、namespaceを指定する
-
 namespace controller\login;
 
 use lib\Auth;
@@ -16,7 +13,7 @@ function get()
         redirect(GO_HOME);
     }
 
-    \view\login\index();
+    \view\auth\index(true);
 }
 
 

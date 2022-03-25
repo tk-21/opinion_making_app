@@ -13,7 +13,7 @@ function get()
         Msg::push(Msg::INFO, 'ログアウトしました。');
         redirect('login');
     } else {
-        Msg::push(Msg::ERROR, 'ログアウトが失敗しました。');
+        Msg::push(Msg::ERROR, 'ログアウトに失敗しました。');
     }
 
 }

@@ -32,8 +32,7 @@ require_once SOURCE_BASE . 'partials/footer.php';
 
 // View
 require_once SOURCE_BASE . 'views/home.php';
-require_once SOURCE_BASE . 'views/login.php';
-require_once SOURCE_BASE . 'views/register.php';
+require_once SOURCE_BASE . 'views/auth.php';
 require_once SOURCE_BASE . 'views/detail.php';
 require_once SOURCE_BASE . 'views/topic.php';
 require_once SOURCE_BASE . 'views/opinion.php';

@@ -2,7 +2,6 @@
 
 namespace controller\register;
 
-// 別の名前空間にあるクラスをインポートする
 use lib\Auth;
 use lib\Msg;
 use model\UserModel;
@@ -14,7 +13,7 @@ function get()
         redirect(GO_HOME);
     }
 
-    \view\register\index();
+    \view\auth\index(false);
 }
 
 // postでリクエストが来た場合
