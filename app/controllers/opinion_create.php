@@ -67,5 +67,5 @@ function post()
     }
 
     Msg::push(Msg::INFO, '意見を登録しました。');
-    redirect(GO_HOME);
+    redirect(sprintf('detail?id=%s', $opinion->topic_id));
 }
