@@ -33,42 +33,48 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                         </li>
                     <?php endforeach; ?>
                 </ul>
+
+
+                <p class="home-txt">全件数：<?php echo $topics_num; ?>件</p>
+
+                <ul class="pagination">
+                    <?php // 現在のページが２以上のときだけ「戻る」にリンクを付ける
+                    ?>
+                    <li class="pagination-item">
+                        <?php if ($page >= 2) : ?>
+                            <a href="<?php the_url(sprintf('home?page=%d', ($page - 1))); ?>" class="page_feed">&laquo;</a>
+                        <?php else : ?>
+                            <span class="first_last_page">&laquo;</span>
+                        <?php endif; ?>
+                    </li>
+
+                    <?php // １〜最大ページまでループさせる。$rangeで表示範囲を５件に絞る
+                    ?>
+                    <?php for ($i = 1; $i <= $max_page; $i++) : ?>
+                        <?php if ($i >= $page - $range && $i <= $page + $range) : ?>
+                            <li class="pagination-item">
+                                <?php if ($i == $page) : ?>
+                                    <span class="now_page_number"><?php echo $i; ?></span>
+                                <?php else : ?>
+                                    <a href="<?php the_url(sprintf('home?page=%d', $i)); ?>" class="page_number"><?php echo $i; ?></a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php // 現在ページが最大ページ数を超えたら「進む」にリンクを付けない
+                    ?>
+                    <li class="pagination-item">
+                        <?php if ($page < $max_page) : ?>
+                            <a href="<?php the_url(sprintf('home?page=%d', $page + 1)); ?>" class="page_feed">&raquo;</a>
+                        <?php else : ?>
+                            <span class="first_last_page">&raquo;</span>
+                        <?php endif; ?>
+                    </li>
+                </ul>
             </div>
         </article>
 
-        <div class="pagination">
-            <div class="inner">
-                <p class="pagination-txt">全件数：<?php echo $topics_num; ?>件</p>
-
-                <?php // 現在のページが２以上のときだけ「戻る」にリンクを付ける
-                ?>
-                <?php if ($page >= 2) : ?>
-                    <a href="<?php the_url(sprintf('home?page=%d', ($page - 1))); ?>" class="page_feed">&laquo;</a>
-                <?php else : ?>
-                    <span class="first_last_page">&laquo;</span>
-                <?php endif; ?>
-
-                <?php // １〜最大ページまでループさせる。$rangeで表示範囲を５件に絞る
-                ?>
-                <?php for ($i = 1; $i <= $max_page; $i++) : ?>
-                    <?php if ($i >= $page - $range && $i <= $page + $range) : ?>
-                        <?php if ($i == $page) : ?>
-                            <span class="now_page_number"><?php echo $i; ?></span>
-                        <?php else : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', $i)); ?>" class="page_number"><?php echo $i; ?></a>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endfor; ?>
-
-                <?php // 現在ページが最大ページ数を超えたら「進む」にリンクを付けない
-                ?>
-                <?php if ($page < $max_page) : ?>
-                    <a href="<?php the_url(sprintf('home?page=%d', $page + 1)); ?>" class="page_feed">&raquo;</a>
-                <?php else : ?>
-                    <span class="first_last_page">&raquo;</span>
-                <?php endif; ?>
-            </div>
-        </div>
 
     <?php else : ?>
 

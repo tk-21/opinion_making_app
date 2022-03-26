@@ -1,5 +1,4 @@
-.auth {
-    padding: 100px 0;
+.opinion {
     &-form {
         background: $color-main;
         padding: 50px;
@@ -8,8 +7,7 @@
     }
     &-ttl {
         font-size: 20px;
-        margin-bottom: 20px;
-        text-align: center;
+        margin-bottom: 30px;
     }
     &-list {
         margin-bottom: 60px;
@@ -26,6 +24,7 @@
         }
     }
     &-input {
+        background: $color-white;
         height: 2.4em;
         width: 100%;
         padding: 0 16px;
@@ -36,10 +35,18 @@
             box-shadow: 0 0 0 2px $color-accent inset;
         }
     }
-    &-btn {
-        display: block;
-        text-align: center;
-        width: 150px;
-        margin: 0 auto;
+    &-textarea {
+        background: $color-white;
+        line-height: 1.5;
+        height: 200px;
+        width: 100%;
+        padding: 16px;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px #ccc inset;
+        resize: none;
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 2px $color-accent inset;
+        }
     }
 }

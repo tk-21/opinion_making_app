@@ -33,16 +33,15 @@ function index($is_login)
                         <p class="invalid-feedback"></p>
                     </dd>
                 </dl>
-                <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
+                <button type="submit" class="register-btn auth-btn"><?php echo $submit_btn; ?></button>
             </form>
-            <p class="auth-txt">
-                <?php if ($is_login) : ?>
-                    <a href="<?php the_url('register'); ?>"><?php echo $link_btn; ?></a>
-                <?php else : ?>
-                    <a href="<?php the_url('login'); ?>"><?php echo $link_btn; ?></a>
-                <?php endif; ?>
 
-            </p>
+            <?php if ($is_login) : ?>
+                <a class="back-btn" href="<?php the_url('register'); ?>"><?php echo $link_btn; ?></a>
+            <?php else : ?>
+                <a class="back-btn" href="<?php the_url('login'); ?>"><?php echo $link_btn; ?></a>
+            <?php endif; ?>
+
         </div>
     </section>
 
