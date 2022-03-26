@@ -48,7 +48,7 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                         <?php endif; ?>
                     </li>
 
-                    <?php // １〜最大ページまでループさせる。$rangeで表示範囲を５件に絞る
+                    <?php // １〜最大ページまでループさせ、$rangeで表示範囲を５件に絞る。現在のページ番号にはリンクを付けない。
                     ?>
                     <?php for ($i = 1; $i <= $max_page; $i++) : ?>
                         <?php if ($i >= $page - $range && $i <= $page + $range) : ?>

@@ -27,30 +27,32 @@ function index($topic, $type)
 
     <section class="topic">
         <div class="inner">
-            <form class="topic-form" action="" method="POST" novalidate>
+            <form class="topic-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $topic->id; ?>">
 
                 <h2 class="topic-ttl"><?php echo $header_ttl; ?></h2>
 
                 <?php if ($type === 'delete') : ?>
-                    <p class="topic-txt">本当に削除してもよろしいですか？</p>
+                    <p class="topic-txt"><span class="marker">本当に削除してもよろしいですか？</span></p>
                 <?php endif; ?>
 
                 <dl class="topic-list">
                     <dt class="topic-dttl"><label for="title" onclick="">タイトル</label></dt>
                     <dd class="topic-item">
-                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-input form-control validate-target" maxlength="30" autofocus required <?php echo $disabled; ?>>
+                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-input validate-target" maxlength="100" autofocus required <?php echo $disabled; ?>>
                         <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="topic-dttl"><label for="body" onclick="">本文</label></dt>
                     <dd class="topic-item">
-                        <textarea id="body" name="body" class="topic-textarea form-control validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->body; ?></textarea>
+                        <textarea id="body" name="body" class="topic-textarea validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->body; ?></textarea>
+                        <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="topic-dttl"><label for="position" onclick="">ポジション</label></dt>
                     <dd class="topic-item">
-                        <textarea id="position" name="position" class="topic-textarea form-control validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->position; ?></textarea>
+                        <textarea id="position" name="position" class="topic-textarea validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->position; ?></textarea>
+                        <p class="invalid-feedback"></p>
                     </dd>
 
                     <?php if ($type === 'edit') : ?>
@@ -73,13 +75,11 @@ function index($topic, $type)
 
                 <?php // トピック作成の場合はホームへ戻る、トピック編集の場合は詳細画面に戻る
                 ?>
-                <p class="topic-txt">
                     <?php if ($type === 'create') : ?>
-                        <a class="back-btn" href="<?php the_url('/'); ?>">ホームへ戻る</a>
+                        <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
                     <?php else : ?>
-                        <a class="back-btn" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+                        <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
                     <?php endif; ?>
-                </p>
 
             </form>
         </div>

@@ -149,9 +149,6 @@
 }
 
 .back-btn {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
     padding-bottom: 7px;
     position: relative;
     &::after {
@@ -169,6 +166,14 @@
             width: 100%;
         }
     }
+}
+._back {
+    margin-left: 50px;
+}
+._home {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .delete-btn {

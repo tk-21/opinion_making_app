@@ -24,12 +24,12 @@ function index($is_login)
                 <dl class="auth-list">
                     <dt class="auth-dttl"><label for="name" onclick="">ユーザーネーム</label></dt>
                     <dd class="auth-item">
-                        <input id="name" type="text" name="name" class="auth-input form-control validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
+                        <input id="name" type="text" name="name" class="auth-input validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
                         <p class="invalid-feedback"></p>
                     </dd>
                     <dt class="auth-dttl"><label for="password" onclick="">パスワード</label></dt>
                     <dd class="auth-item">
-                        <input id="password" type="password" name="password" class="auth-input form-control validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
+                        <input id="password" type="password" name="password" class="auth-input validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
                         <p class="invalid-feedback"></p>
                     </dd>
                 </dl>
@@ -37,9 +37,9 @@ function index($is_login)
             </form>
 
             <?php if ($is_login) : ?>
-                <a class="back-btn" href="<?php the_url('register'); ?>"><?php echo $link_btn; ?></a>
+                <a class="back-btn _home" href="<?php the_url('register'); ?>"><?php echo $link_btn; ?></a>
             <?php else : ?>
-                <a class="back-btn" href="<?php the_url('login'); ?>"><?php echo $link_btn; ?></a>
+                <a class="back-btn _home" href="<?php the_url('login'); ?>"><?php echo $link_btn; ?></a>
             <?php endif; ?>
 
         </div>
