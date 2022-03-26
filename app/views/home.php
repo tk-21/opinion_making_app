@@ -20,15 +20,15 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                         $label = $topic->complete_flg ? '完了' : '未完了';
 
                         // ラベルのデザインを切り替える
-                        $label_color = $topic->complete_flg ? 'complete' : 'incomplete';
+                        $label_style = $topic->complete_flg ? 'complete' : 'incomplete';
                     ?>
                         <li class="home-item">
                             <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
-                                <span class="home-item-label <?php echo $label_color; ?>"><?php echo $label; ?></span>
-                                <p class="home-item-ttl"><?php echo $topic->title; ?></p>
-                                <p class="home-item-body"><?php echo $topic->body; ?></p>
-                                <p class="home-item-position"><?php echo $topic->position; ?></p>
-                                <time datetime=""><?php echo $topic->created_at; ?></time>
+                                <p class="home-item-label home-item-<?php echo $label_style; ?>"><?php echo $label; ?></p>
+                                <div class="home-item-body">
+                                    <time datetime=""><?php echo $topic->created_at; ?></time>
+                                    <p class="home-item-ttl"><?php echo $topic->title; ?></p>
+                                </div>
                             </a>
                         </li>
                     <?php endforeach; ?>
@@ -42,9 +42,9 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                     ?>
                     <li class="pagination-item">
                         <?php if ($page >= 2) : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', ($page - 1))); ?>" class="page_feed">&laquo;</a>
+                            <a href="<?php the_url(sprintf('home?page=%d', ($page - 1))); ?>">&laquo;</a>
                         <?php else : ?>
-                            <span class="first_last_page">&laquo;</span>
+                            <span class="pagination-pre">&laquo;</span>
                         <?php endif; ?>
                     </li>
 
@@ -54,9 +54,9 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                         <?php if ($i >= $page - $range && $i <= $page + $range) : ?>
                             <li class="pagination-item">
                                 <?php if ($i == $page) : ?>
-                                    <span class="now_page_number"><?php echo $i; ?></span>
+                                    <span class="pagination-now"><?php echo $i; ?></span>
                                 <?php else : ?>
-                                    <a href="<?php the_url(sprintf('home?page=%d', $i)); ?>" class="page_number"><?php echo $i; ?></a>
+                                    <a href="<?php the_url(sprintf('home?page=%d', $i)); ?>" class="pagination-num"><?php echo $i; ?></a>
                                 <?php endif; ?>
                             </li>
                         <?php endif; ?>
@@ -66,9 +66,9 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                     ?>
                     <li class="pagination-item">
                         <?php if ($page < $max_page) : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', $page + 1)); ?>" class="page_feed">&raquo;</a>
+                            <a href="<?php the_url(sprintf('home?page=%d', $page + 1)); ?>">&raquo;</a>
                         <?php else : ?>
-                            <span class="first_last_page">&raquo;</span>
+                            <span class="pagination-next">&raquo;</span>
                         <?php endif; ?>
                     </li>
                 </ul>

@@ -18,10 +18,11 @@
     }
     &-topic {
         &-ttl {
+            color: $color-text-thin;
             margin-bottom: 15px;
         }
         &-data {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
     }
     &-textarea {
@@ -46,6 +47,7 @@
         border-radius: 5px;
         margin-bottom: 40px;
         &-ttl {
+            color: $color-text-thin;
             margin-bottom: 20px;
         }
         &-data {

@@ -2,7 +2,6 @@
 
 namespace view\detail;
 
-// トピックとコメントが渡ってくる
 function index($topic, $objections, $counterObjections, $opinion)
 {
     \partials\header();
@@ -76,9 +75,9 @@ function index($topic, $objections, $counterObjections, $opinion)
             </ul>
 
             <dl class="detail-opinion">
-                <dt class="detail-opinion-ttl">最終的な意見</dt>
+                <dt class="detail-opinion-ttl">最終的な意見：</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->opinion; ?></dd>
-                <dt class="detail-opinion-ttl">その理由</dt>
+                <dt class="detail-opinion-ttl">その理由：</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->reason; ?></dd>
                 <a class="edit-btn" href="<?php the_url(sprintf('opinion_%s?id=%d', $is_edit, $topic->id)); ?>">編集</a>
             </dl>
