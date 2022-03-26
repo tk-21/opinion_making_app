@@ -32,12 +32,12 @@ function get()
         redirect('404');
     }
 
-    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論を取ってくる
+    // topic_idが格納されたtopicオブジェクトを渡し、そのtopic_idに紐付く反論、意見を取ってくる
     $objections = ObjectionQuery::fetchByTopicId($topic);
     $counterObjections = CounterObjectionQuery::fetchByTopicId($topic);
     $opinion = OpinionQuery::fetchByTopicId($topic);
 
-    // トピックが取れてきた場合、viewのdetailのindexにtopicオブジェクトとcommentsオブジェクトを渡して実行
+    // 取れてきたものをviewに渡して表示
     \view\detail\index($fetchedTopic, $objections, $counterObjections, $opinion);
 }
 

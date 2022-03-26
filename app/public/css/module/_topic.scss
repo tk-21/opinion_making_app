@@ -9,6 +9,12 @@
         font-size: 20px;
         margin-bottom: 30px;
     }
+    &-txt {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 50px 0;
+    }
     &-list {
         margin-bottom: 60px;
     }
@@ -48,9 +54,5 @@
             outline: 0;
             box-shadow: 0 0 0 2px $color-accent inset;
         }
-    }
-    &-txt {
-        margin-top: 40px;
-        text-align: center;
     }
 }

@@ -149,9 +149,6 @@
 }
 
 .back-btn {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
     padding-bottom: 7px;
     position: relative;
     &::after {
@@ -170,11 +167,26 @@
         }
     }
 }
+._back {
+    margin-left: 50px;
+}
+._home {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
 
 .delete-btn {
-    transition: 0.3s;
-    transform: scale(1);
+    margin-left: 30px;
+    padding: 10px 25px;
+    color: $color-text;
+    transition: 0.3s ease-in-out;
+    background: $color-white;
+    border: 1px solid $color-line;
+    border-radius: 8px;
+    box-shadow: 0px 5px 0 $color-line;
     &:hover {
-        transform: scale(1.1);
+        transform: translate3d(0, 5px, 0);
+        box-shadow: none;
     }
 }

@@ -55,7 +55,7 @@ function validate_form() {
                 // falseの場合、何が問題なのかを判定する
                 if ($target.validity.valueMissing) {
                     // $feedbackのテキストを書き換える
-                    $feedback.textContent = "値の入力が必須です。";
+                    $feedback.textContent = "入力が必須です。";
                 } else if ($target.validity.tooShort) {
                     $feedback.textContent =
                         $target.minLength +

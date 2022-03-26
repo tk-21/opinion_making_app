@@ -14,7 +14,7 @@ function index($opinion, $topic, $is_create)
 
     <section class="opinion">
         <div class="inner">
-            <form class="opinion-form" action="" method="POST" novalidate>
+            <form class="opinion-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $opinion->id; ?>">
 
                 <h2 class="opinion-ttl"><?php echo $header_ttl; ?></h2>
@@ -22,19 +22,20 @@ function index($opinion, $topic, $is_create)
                 <dl class="opinion-list">
                     <dt class="opinion-dttl"><label for="opinion" onclick="">自分の意見</label></dt>
                     <dd class="opinion-item">
-                        <input type="text" id="opinion" name="opinion" value="<?php echo $opinion->opinion; ?>" class="opinion-input form-control validate-target" maxlength="30" autofocus required>
+                        <input type="text" id="opinion" name="opinion" value="<?php echo $opinion->opinion; ?>" class="opinion-input validate-target" autofocus required>
                         <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="opinion-dttl"><label for="reason" onclick="">その理由</label></dt>
                     <dd class="opinion-item">
-                        <textarea id="reason" name="reason" class="opinion-textarea form-control validate-target" autofocus required><?php echo $opinion->reason; ?></textarea>
+                        <textarea id="reason" name="reason" class="opinion-textarea validate-target" autofocus required><?php echo $opinion->reason; ?></textarea>
+                        <p class="invalid-feedback"></p>
                     </dd>
                 </dl>
 
                 <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
 
-                <a class="back-btn" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+                <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
 
             </form>
         </div>

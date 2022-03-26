@@ -2,7 +2,6 @@
 
 namespace view\detail;
 
-// トピックとコメントが渡ってくる
 function index($topic, $objections, $counterObjections, $opinion)
 {
     \partials\header();
@@ -39,8 +38,8 @@ function index($topic, $objections, $counterObjections, $opinion)
 
                 <li class="detail-item">
                     <div class="detail-objection">
-                        <form class="detail-form" action="" method="post">
-                            <textarea class="detail-textarea" name="body"></textarea>
+                        <form class="detail-form validate-form" action="" method="post">
+                            <textarea class="detail-textarea validate-target" name="body" required></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
                             <button type="submit" class="register-btn">登録</button>
@@ -58,8 +57,8 @@ function index($topic, $objections, $counterObjections, $opinion)
 
                 <li class="detail-item">
                     <div class="detail-counterObjection">
-                        <form class="detail-form" action="" method="post">
-                            <textarea class="detail-textarea" name="body" id="body" rows="5" maxlength="100"></textarea>
+                        <form class="detail-form validate-form" action="" method="post">
+                            <textarea class="detail-textarea validate-target" name="body" id="body" rows="5" maxlength="100" required></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
                             <button type="submit" class="register-btn">登録</button>
@@ -76,14 +75,14 @@ function index($topic, $objections, $counterObjections, $opinion)
             </ul>
 
             <dl class="detail-opinion">
-                <dt class="detail-opinion-ttl">最終的な意見</dt>
+                <dt class="detail-opinion-ttl">最終的な意見：</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->opinion; ?></dd>
-                <dt class="detail-opinion-ttl">その理由</dt>
+                <dt class="detail-opinion-ttl">その理由：</dt>
                 <dd class="detail-opinion-data"><?php echo $opinion->reason; ?></dd>
                 <a class="edit-btn" href="<?php the_url(sprintf('opinion_%s?id=%d', $is_edit, $topic->id)); ?>">編集</a>
             </dl>
 
-            <a class="back-btn" href="<?php the_url('/'); ?>">トピック一覧に戻る</a>
+            <a class="back-btn _home" href="<?php the_url('/'); ?>">トピック一覧に戻る</a>
 
         </div>
     </section>
