@@ -2,6 +2,8 @@
 
 namespace view\home;
 
+use DateTime;
+
 // 引数でtopicの配列が渡ってくる
 function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "")
 {
@@ -21,12 +23,15 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
 
                         // ラベルのデザインを切り替える
                         $label_style = $topic->complete_flg ? 'complete' : 'incomplete';
+
+                        // 日時表示をフォーマットするためオブジェクトを作成
+                        $created_at = new DateTime($topic->created_at);
                     ?>
                         <li class="home-item">
                             <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
                                 <p class="home-item-label home-item-<?php echo $label_style; ?>"><?php echo $label; ?></p>
                                 <div class="home-item-body">
-                                    <time datetime=""><?php echo $topic->created_at; ?></time>
+                                    <time datetime=""><?php echo $created_at->format('Y.m.d'); ?></time>
                                     <p class="home-item-ttl"><?php echo $topic->title; ?></p>
                                 </div>
                             </a>
