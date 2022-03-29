@@ -31,7 +31,7 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
                             <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
                                 <p class="home-item-label home-item-<?php echo $label_style; ?>"><?php echo $label; ?></p>
                                 <div class="home-item-body">
-                                    <time datetime=""><?php echo $created_at->format('Y.m.d'); ?></time>
+                                    <time datetime="<?php echo $topic->created_at; ?>"><?php echo $created_at->format('Y.m.d'); ?></time>
                                     <p class="home-item-ttl"><?php echo $topic->title; ?></p>
                                 </div>
                             </a>

@@ -33,6 +33,7 @@
             padding: 10px 0;
             margin: 0 20px 0 10px;
             border-radius: 5px;
+            background: $color-white;
         }
         &-complete {
             color: $color-white;
@@ -46,7 +47,9 @@
         &-body {
             time {
                 display: block;
-                margin-bottom: 5px;
+                margin-bottom: 12px;
+                color: $color-text-thin;
+                font-size: 14px;
             }
         }
     }
