@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @-webkit-keyframes floating {
   0% {
     -webkit-transform: translateY(500px) rotate(0deg);
@@ -17,6 +16,7 @@
     border-radius: 50%;
   }
 }
+
 @keyframes floating {
   0% {
     -webkit-transform: translateY(500px) rotate(0deg);
@@ -597,7 +597,7 @@ th {
 }
 
 body {
-  font-family: "Oswald", "Helvetica Neue", "Helvetica", "Arial", "Hiragino Sans", "游ゴシック", YuGothic, "ヒラギノ角ゴシック", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-family: "futura-pt", "fot-tsukuardgothic-std", sans-serif;
   background: #d1cbc3;
   position: relative;
 }
@@ -1305,6 +1305,10 @@ p {
           align-items: center;
 }
 
+.header-logo {
+  width: 500px;
+}
+
 .home {
   padding: 60px 0;
 }
@@ -1352,6 +1356,7 @@ p {
   padding: 10px 0;
   margin: 0 20px 0 10px;
   border-radius: 5px;
+  background: #fff;
 }
 
 .home-item-complete {
@@ -1367,7 +1372,9 @@ p {
 
 .home-item-body time {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 12px;
+  color: #808080;
+  font-size: 14px;
 }
 
 .msg {

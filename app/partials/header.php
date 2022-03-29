@@ -31,8 +31,6 @@ function header()
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="format-detection" content="telephone=no" />
         <!-- フォントのcss -->
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
         <!-- style.css -->
         <link rel="stylesheet" href="../public/css/style.min.css" />
         <!-- プラグインのcss -->
@@ -53,7 +51,7 @@ function header()
             <header class="header">
                 <h1 class="header-logo">
                     <a href="<?php the_url('/'); ?>">
-                        思考トレーニングアプリ
+                        <img src="../public/img/title.png" alt="思考トレーニングアプリ">
                     </a>
                 </h1>
                 <nav class="gnav">
