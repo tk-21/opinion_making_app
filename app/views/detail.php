@@ -67,6 +67,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php foreach ($counterObjections as $counterObjection) : ?>
                                 <li class="detail-counterObjection-item">
                                     <?php echo $counterObjection->body; ?>
+                                    <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', COUNTER_OBJECTION, $counterObjection->id)); ?>">削除</a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
