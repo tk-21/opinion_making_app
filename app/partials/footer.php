@@ -10,7 +10,7 @@ function footer()
 
     <footer class="footer">
         <div class="inner">
-            <p class="footer-txt">© 2022 COPY LIGHT TAKUYA OKUBO</p>
+            <p class="footer-txt">© 2022 TAKUYA OKUBO</p>
         </div>
     </footer>
     </div>

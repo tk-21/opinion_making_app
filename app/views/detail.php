@@ -58,7 +58,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                 <li class="detail-item">
                     <div class="detail-counterObjection">
                         <form class="detail-form validate-form" action="" method="post">
-                            <textarea class="detail-textarea validate-target" name="body" id="body" rows="5" maxlength="100" required></textarea>
+                            <textarea class="detail-textarea validate-target" name="body" required></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
                             <button type="submit" class="register-btn">登録</button>
