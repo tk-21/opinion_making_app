@@ -18,23 +18,22 @@ class ObjectionModel extends AbstractModel
     protected static $SESSION_NAME = '_objection';
 
 
-    public static function validateBody($val)
+    public static function validateBody($body)
     {
-        $res = true;
 
-        if (mb_strlen($val) > 100) {
-
-            Msg::push(Msg::ERROR, '100文字以内で入力してください。');
-            $res = false;
+        if (empty($body)) {
+            Msg::push(Msg::ERROR, '反論を入力してください。');
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     public function isValidBody()
     {
         return static::validateBody($this->body);
     }
+
 
 
     public function isValidTopicId()

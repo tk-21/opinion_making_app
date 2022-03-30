@@ -19,17 +19,15 @@ class OpinionModel extends AbstractModel
     protected static $SESSION_NAME = '_opinion';
 
 
-    public static function validateId($val)
+    public static function validateId($id)
     {
-        $res = true;
 
-        if (empty($val) || !is_numeric($val)) {
-
+        if (empty($id) || !is_numeric($id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
-            $res = false;
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     public function isValidId()
@@ -38,42 +36,41 @@ class OpinionModel extends AbstractModel
     }
 
 
+
+    public static function validateOpinion($opinion)
+    {
+
+        if (empty($opinion)) {
+            Msg::push(Msg::ERROR, '意見を入力してください。');
+            return false;
+        }
+
+        return true;
+    }
+
     public function isValidOpinion()
     {
         return static::validateOpinion($this->opinion);
     }
 
-    public static function validateOpinion($val)
+
+
+    public static function validateReason($reason)
     {
-        $res = true;
 
-        if (mb_strlen($val) > 100) {
-
-            Msg::push(Msg::ERROR, '100文字以内で入力してください。');
-            $res = false;
+        if (empty($reason)) {
+            Msg::push(Msg::ERROR, '理由を入力してください。');
+            return false;
         }
 
-        return $res;
+        return true;
     }
-
 
     public function isValidReason()
     {
         return static::validateReason($this->reason);
     }
 
-    public static function validateReason($val)
-    {
-        $res = true;
-
-        if (mb_strlen($val) > 100) {
-
-            Msg::push(Msg::ERROR, '100文字以内で入力してください。');
-            $res = false;
-        }
-
-        return $res;
-    }
 
 
     public function isValidTopicId()

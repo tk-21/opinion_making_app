@@ -70,6 +70,5 @@ function post()
     }
 
     // 処理が終了したら画面を移動させる
-    // redirect('detail?topic_id=' . $objection->topic_id);
     redirect(GO_REFERER);
 }
