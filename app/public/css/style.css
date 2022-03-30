@@ -1082,6 +1082,11 @@ span {
           transition-delay: 0.5s;
 }
 
+.invalid-feedback {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
 .auth {
   padding: 100px 0;
 }

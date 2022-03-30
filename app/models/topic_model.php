@@ -91,4 +91,22 @@ class TopicModel extends AbstractModel
     {
         return static::validatePosition($this->position);
     }
+
+
+
+    public static function validateStatus($complete_flg)
+    {
+
+        if ($complete_flg > 1 || $complete_flg < 0) {
+            Msg::push(Msg::ERROR, 'ステータスの値が不正です。');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isValidStatus()
+    {
+        return static::validateStatus($this->complete_flg);
+    }
 }

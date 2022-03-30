@@ -7,7 +7,6 @@ use db\OpinionQuery;
 use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
-use model\UserModel;
 use model\OpinionModel;
 use Throwable;
 
