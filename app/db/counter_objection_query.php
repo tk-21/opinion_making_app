@@ -66,4 +66,20 @@ class CounterObjectionQuery
             ':topic_id' => $counterObjection->topic_id,
         ]);
     }
+
+
+    public static function delete($id)
+    {
+        $db = new DataSource;
+
+        $sql = 'UPDATE counter_objections
+                set deleted_at = now()
+                where id = :id
+                ';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':id' => $id
+        ]);
+    }
 }

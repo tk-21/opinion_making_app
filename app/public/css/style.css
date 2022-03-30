@@ -628,7 +628,9 @@ a {
   color: #3e1300;
 }
 
-p {
+h2,
+p,
+span {
   color: #3e1300;
 }
 

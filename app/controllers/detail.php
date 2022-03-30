@@ -54,12 +54,14 @@ function post()
     $formType = get_param('form_type', null);
 
     try {
-        // コメント入力がされていれば、インサートのクエリを実行する
+        // 反論が入力がされていれば、インサートのクエリを実行する
         if (!empty($objection->body)) {
 
             if ($formType === OBJECTION) {
                 ObjectionQuery::insert($objection);
-            } else {
+            }
+
+            if ($formType === COUNTER_OBJECTION) {
                 CounterObjectionQuery::insert($objection);
             }
         }
@@ -68,6 +70,5 @@ function post()
     }
 
     // 処理が終了したら画面を移動させる
-    // redirect('detail?topic_id=' . $objection->topic_id);
     redirect(GO_REFERER);
 }

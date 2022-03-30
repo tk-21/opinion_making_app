@@ -21,17 +21,15 @@ class TopicModel extends AbstractModel
     protected static $SESSION_NAME = '_topic';
 
 
-    public static function validateId($val)
+    public static function validateId($id)
     {
-        $res = true;
 
-        if (empty($val) || !is_numeric($val)) {
-
+        if (empty($id) || !is_numeric($id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
-            $res = false;
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     public function isValidId()
@@ -40,25 +38,16 @@ class TopicModel extends AbstractModel
     }
 
 
-    public static function validateTitle($val)
+
+    public static function validateTitle($title)
     {
-        $res = true;
 
-        if (empty($val)) {
-
+        if (empty($title)) {
             Msg::push(Msg::ERROR, 'タイトルを入力してください。');
-            $res = false;
-        } else {
-
-            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
-            if (mb_strlen($val) > 30) {
-
-                Msg::push(Msg::ERROR, 'タイトルは30文字以内で入力してください。');
-                $res = false;
-            }
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     public function isValidTitle()
@@ -67,25 +56,17 @@ class TopicModel extends AbstractModel
     }
 
 
-    public static function validateBody($val)
-    {
-        $res = true;
 
-        if (empty($val)) {
+    public static function validateBody($body)
+    {
+
+        if (empty($body)) {
 
             Msg::push(Msg::ERROR, '本文を入力してください。');
-            $res = false;
-        } else {
-
-            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
-            if (mb_strlen($val) > 100) {
-
-                Msg::push(Msg::ERROR, '本文は100文字以内で入力してください。');
-                $res = false;
-            }
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     public function isValidBody()
@@ -94,25 +75,16 @@ class TopicModel extends AbstractModel
     }
 
 
-    public static function validatePosition($val)
+
+    public static function validatePosition($position)
     {
-        $res = true;
 
-        if (empty($val)) {
-
+        if (empty($position)) {
             Msg::push(Msg::ERROR, 'ポジションを入力してください。');
-            $res = false;
-        } else {
-
-            // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
-            if (mb_strlen($val) > 100) {
-
-                Msg::push(Msg::ERROR, 'ポジションは100文字以内で入力してください。');
-                $res = false;
-            }
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     public function isValidPosition()

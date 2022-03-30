@@ -9,11 +9,11 @@ function validate_form() {
     // $はDOMであることの目印として付けている
     // クラスをキーにしてDOMを取ってくる
     // querySelectorAllで該当するものをすべて取ってくる
+    const $forms = document.querySelectorAll(".validate-form");
     const $inputs = document.querySelectorAll(".validate-target");
-    const $form = document.querySelector(".validate-form");
 
     // $formが取れてこなかった場合は関数の処理を終了する
-    if (!$form) {
+    if (!$forms) {
         return;
     }
 
@@ -30,7 +30,9 @@ function validate_form() {
             const $feedback = $target.nextElementSibling;
 
             // イベントリスナーの中で呼ぶ
-            activateSubmitBtn($form);
+            for (const $form of $forms) {
+                activateSubmitBtn($form);
+            }
 
             // $feedbackのクラスにinvalid-feedbackが付いているかどうかを確認しておく
             // もしエラー表示用のタグでない場合は後続の処理を行わないようにする
@@ -76,7 +78,9 @@ function validate_form() {
     }
 
     // ここで呼ぶことによって、初期状態のときにdisabledを付ける
-    activateSubmitBtn($form);
+    for (const $form of $forms) {
+        activateSubmitBtn($form);
+    }
 }
 
 // 入力値に問題がなければボタンを活性化する関数
