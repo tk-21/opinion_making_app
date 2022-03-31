@@ -5,6 +5,7 @@ namespace lib;
 use model\AbstractModel;
 use Throwable;
 
+// リクエストをまたいでエラーが発生したかどうかというのを処理する場合はセッションを使って値を保持する必要がある
 class Msg extends AbstractModel
 {
     protected static $SESSION_NAME = '_msg';

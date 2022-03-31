@@ -3,7 +3,6 @@
 
 namespace lib;
 
-use db\TopicQuery;
 use db\UserQuery;
 use model\UserModel;
 use Throwable;

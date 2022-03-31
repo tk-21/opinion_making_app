@@ -8,7 +8,6 @@ use lib\Auth;
 use lib\Msg;
 use model\OpinionModel;
 use model\TopicModel;
-use model\UserModel;
 use Throwable;
 
 function get()

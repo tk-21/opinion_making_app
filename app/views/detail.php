@@ -47,8 +47,8 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <ul class="detail-objection-list">
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="detail-objection-item">
-                                    <?php echo $objection->body; ?>
-                                    <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', OBJECTION, $objection->id)); ?>">削除</a>
+                                    <span><?php echo $objection->body; ?></span>
+                                    <a class="delete-icon" href="<?php the_url(sprintf('delete?type=%s&id=%s', OBJECTION, $objection->id)); ?>"><img src="../public/img/trash.svg" alt=""></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -63,11 +63,11 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
                             <button type="submit" class="register-btn">登録</button>
                         </form>
-                        <ul class="detail-counterObjection-list">
+                        <ul class="detail-objection-list">
                             <?php foreach ($counterObjections as $counterObjection) : ?>
-                                <li class="detail-counterObjection-item">
+                                <li class="detail-objection-item">
                                     <?php echo $counterObjection->body; ?>
-                                    <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', COUNTER_OBJECTION, $counterObjection->id)); ?>">削除</a>
+                                    <a class="delete-icon" href="<?php the_url(sprintf('delete?type=%s&id=%s', COUNTER_OBJECTION, $counterObjection->id)); ?>"><img src="../public/img/trash.svg" alt=""></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

@@ -25,6 +25,20 @@
             margin-bottom: 50px;
         }
     }
+    &-objection {
+        &-item {
+            word-wrap: break-word;
+            &:not(:last-of-type) {
+                margin-bottom: 12px;
+            }
+            span {
+                line-height: 1.5;
+            }
+        }
+    }
+    &-form {
+        margin-bottom: 24px;
+    }
     &-textarea {
         line-height: 1.5;
         background: $color-white;
@@ -53,5 +67,12 @@
         &-data {
             margin-bottom: 20px;
         }
+    }
+}
+
+.delete-icon {
+    img {
+        width: 17px;
+        vertical-align: middle;
     }
 }

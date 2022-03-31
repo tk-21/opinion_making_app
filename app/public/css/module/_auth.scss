@@ -21,9 +21,6 @@
         &:not(:last-of-type) {
             margin-bottom: 30px;
         }
-        .invalid-feedback {
-            color: $color-accent;
-        }
     }
     &-input {
         height: 2.4em;
