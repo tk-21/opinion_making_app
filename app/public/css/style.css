@@ -1085,6 +1085,7 @@ span {
 .invalid-feedback {
   font-size: 14px;
   margin: 5px 0;
+  color: #743434;
 }
 
 .auth {
@@ -1114,10 +1115,6 @@ span {
 
 .auth-item:not(:last-of-type) {
   margin-bottom: 30px;
-}
-
-.auth-item .invalid-feedback {
-  color: #743434;
 }
 
 .auth-input {
@@ -1225,6 +1222,22 @@ span {
   margin-bottom: 50px;
 }
 
+.detail-objection-item {
+  word-wrap: break-word;
+}
+
+.detail-objection-item:not(:last-of-type) {
+  margin-bottom: 12px;
+}
+
+.detail-objection-item span {
+  line-height: 1.5;
+}
+
+.detail-form {
+  margin-bottom: 24px;
+}
+
 .detail-textarea {
   line-height: 1.5;
   background: #fff;
@@ -1259,6 +1272,11 @@ span {
 
 .detail-opinion-data {
   margin-bottom: 20px;
+}
+
+.delete-icon img {
+  width: 17px;
+  vertical-align: middle;
 }
 
 .footer {
@@ -1426,10 +1444,6 @@ span {
   margin-bottom: 30px;
 }
 
-.opinion-item .invalid-feedback {
-  color: #743434;
-}
-
 .opinion-input {
   background: #fff;
   height: 2.4em;
@@ -1499,10 +1513,6 @@ span {
 
 .topic-item:not(:last-of-type) {
   margin-bottom: 30px;
-}
-
-.topic-item .invalid-feedback {
-  color: #743434;
 }
 
 .topic-input {
