@@ -69,9 +69,8 @@ function index($topic, $objections, $counterObjections, $opinion)
                                 <input type="hidden" name="form_type" value="delete_counterObjection">
                                 <?php foreach ($counterObjections as $counterObjection) : ?>
                                     <li class="detail-objection-item">
-                                        <input type="checkbox" name="delete" value="1">
-                                        <input type="hidden" name="id" value="<?php $counterObjection->id; ?>">
-                                            <p class="detail-objection-txt"><?php echo $counterObjection->body; ?></p>
+                                        <input type="checkbox" name="id" value="<?php $counterObjection->id; ?>">
+                                        <p class="detail-objection-txt"><?php echo $counterObjection->body; ?></p>
                                     </li>
                                 <?php endforeach; ?>
                                 <button type="submit" class="delete-btn">チェックしたものを削除</button>

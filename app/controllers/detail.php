@@ -47,8 +47,8 @@ function post()
     $formType = get_param('form_type', null);
 
     if ($formType === 'delete_counterObjection') {
-        if (!empty(get_param('delete', null))) {
-            $id = get_param('id', null);
+        $id = get_param('id', null);
+        if (!$id) {
             CounterObjectionQuery::delete($id) ? Msg::push(Msg::INFO, '削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
 
             redirect(GO_REFERER);
