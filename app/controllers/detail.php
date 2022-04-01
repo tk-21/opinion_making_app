@@ -44,6 +44,18 @@ function get()
 
 function post()
 {
+    $formType = get_param('form_type', null);
+
+    if ($formType === 'delete_counterObjection') {
+        if (!empty(get_param('delete', null))) {
+            $id = get_param('id', null);
+            CounterObjectionQuery::delete($id) ? Msg::push(Msg::INFO, '削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
+
+            redirect(GO_REFERER);
+            return;
+        }
+    }
+
     // 初期化
     $objection = new ObjectionModel;
 
@@ -51,7 +63,6 @@ function post()
     $objection->body = get_param('body', null);
     $objection->topic_id = get_param('topic_id', null);
 
-    $formType = get_param('form_type', null);
 
     try {
         // 反論が入力がされていれば、インサートのクエリを実行する
