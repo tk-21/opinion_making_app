@@ -46,17 +46,22 @@ function post()
 {
     $formType = get_param('form_type', null);
 
+
+    // 反論を削除する場合の処理
     if ($formType === 'delete_counterObjection') {
-        $id = get_param('id', null);
-        if (!$id) {
-            CounterObjectionQuery::delete($id) ? Msg::push(Msg::INFO, '削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
+
+        $delete_id = get_param('delete_id', null);
+
+        if (isset($delete_id) && is_array($delete_id)) {
+            CounterObjectionQuery::delete($delete_id) ? Msg::push(Msg::INFO, '削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
 
             redirect(GO_REFERER);
             return;
         }
     }
 
-    // 初期化
+
+    // 反論を登録する場合の処理
     $objection = new ObjectionModel;
 
     // postで飛んできた値を格納する
