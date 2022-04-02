@@ -31,38 +31,45 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <dt class="detail-topic-ttl">ステータス</dt>
                         <dd class="detail-topic-data"><?php echo $complete_flg; ?></dd>
                     </dl>
+
                     <a class="edit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
                     <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', TOPIC, $topic->id)); ?>">削除</a>
-
                 </li>
 
                 <li class="detail-item">
-
                     <div class="detail-objection">
+                        <p class="detail-objection-ttl">意見に対する反論</p>
 
                         <form class="detail-form validate-form" action="" method="post">
-                            <textarea class="detail-textarea validate-target" name="body" required autofocus></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
+                            <textarea class="detail-textarea validate-target" name="body" required></textarea>
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
-                        <ul class="detail-objection-list">
-                            <?php foreach ($objections as $objection) : ?>
-                                <li class="detail-objection-item">
-                                    <p class="detail-objection-txt"><?php echo $objection->body; ?></p>
-                                    <a class="delete-icon" href="<?php the_url(sprintf('delete?type=%s&id=%s', OBJECTION, $objection->id)); ?>"><img src="../public/img/trash.svg" alt=""></a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <form action="" method="post">
+                            <input type="hidden" name="form_type" value="delete_objection">
+                            <ul class="detail-objection-list">
+                                <?php foreach ($objections as $objection) : ?>
+                                    <li class="detail-objection-item">
+                                        <input type="checkbox" class="detail-objection-delete" id="<?php echo $objection->id; ?>" name="delete_id[]" value="<?php echo $objection->id; ?>">
+                                        <label for="<?php echo $objection->id; ?>">
+                                            <p class="detail-objection-txt"><?php echo $objection->body; ?></p>
+                                        </label>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if (!empty($objections)) : ?>
+                                <button type="submit" class="delete-btn">チェックした項目を削除</button>
+                            <?php endif; ?>
+                        </form>
 
                     </div>
-
                 </li>
 
                 <li class="detail-item">
-
-                    <div class="detail-counterObjection">
+                    <div class="detail-objection">
+                        <p class="detail-objection-ttl">反論への反論</p>
 
                         <form class="detail-form validate-form" action="" method="post">
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
@@ -71,9 +78,9 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
-                        <ul class="detail-objection-list">
-                            <form action="" method="post">
-                                <input type="hidden" name="form_type" value="delete_counterObjection">
+                        <form action="" method="post">
+                            <input type="hidden" name="form_type" value="delete_counterObjection">
+                            <ul class="detail-objection-list">
                                 <?php foreach ($counterObjections as $counterObjection) : ?>
                                     <li class="detail-objection-item">
                                         <input type="checkbox" class="detail-objection-delete" id="<?php echo $counterObjection->id; ?>" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
@@ -82,12 +89,13 @@ function index($topic, $objections, $counterObjections, $opinion)
                                         </label>
                                     </li>
                                 <?php endforeach; ?>
-                                <button type="submit" class="delete-btn">チェックしたものを削除</button>
-                            </form>
-                        </ul>
+                            </ul>
+                            <?php if (!empty($counterObjections)) : ?>
+                                <button type="submit" class="delete-btn">チェックした項目を削除</button>
+                            <?php endif; ?>
+                        </form>
 
                     </div>
-
                 </li>
             </ul>
 

@@ -69,7 +69,7 @@ class ObjectionQuery
     }
 
 
-    public static function delete($id)
+    public static function delete($delete_id)
     {
         $db = new DataSource;
 
@@ -78,9 +78,16 @@ class ObjectionQuery
                 where id = :id
                 ';
 
-        // 登録に成功すれば、trueが返される
-        return $db->execute($sql, [
-            ':id' => $id
-        ]);
+        foreach ($delete_id as $id) {
+            $result = $db->execute($sql, [
+                ':id' => $id
+            ]);
+
+            if (!$result) {
+                break;
+            }
+        }
+
+        return $result;
     }
 }

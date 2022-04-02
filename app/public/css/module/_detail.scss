@@ -2,6 +2,7 @@
     padding: 60px 0;
     &-list {
         display: flex;
+        flex-wrap: wrap;
         margin-bottom: 60px;
     }
     &-item {
@@ -9,15 +10,21 @@
         background: $color-main;
         padding: 40px;
         border-radius: 5px;
-        &:not(:nth-child(3n)) {
+        &:not(:nth-of-type(3n)) {
             margin-right: 32px;
             @include mq(sp) {
                 margin-right: 0;
             }
         }
+        .edit-btn {
+            margin-right: 24px;
+        }
     }
     &-topic {
         &-ttl {
+            padding: 0.5em 0;
+            border-top: 1px solid $color-text-thin;
+            border-bottom: 1px solid $color-text-thin;
             color: $color-text-thin;
             margin-bottom: 15px;
         }
@@ -26,6 +33,13 @@
         }
     }
     &-objection {
+        &-ttl {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        &-list {
+            margin-bottom: 24px;
+        }
         &-item {
             display: flex;
             align-items: flex-start;
@@ -36,7 +50,7 @@
             }
         }
         &-delete {
-            margin: 5px 3px 0 0;
+            margin: 5px 5px 0 0;
         }
         &-txt {
             display: inline-block;

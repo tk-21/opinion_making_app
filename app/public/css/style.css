@@ -630,7 +630,9 @@ a {
 
 h2,
 p,
-span {
+span,
+dt,
+dd {
   color: #3e1300;
 }
 
@@ -694,7 +696,7 @@ span {
 }
 
 .edit-btn {
-  padding: 12px 40px;
+  padding: 10px 25px;
   border: 1px solid #743434;
   border-radius: 5px;
   letter-spacing: 0.05em;
@@ -867,7 +869,6 @@ span {
 }
 
 .delete-btn {
-  margin-left: 30px;
   padding: 10px 25px;
   color: #3e1300;
   -webkit-transition: 0.3s ease-in-out;
@@ -1193,6 +1194,8 @@ span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-bottom: 60px;
 }
 
@@ -1203,23 +1206,39 @@ span {
   border-radius: 5px;
 }
 
-.detail-item:not(:nth-child(3n)) {
+.detail-item:not(:nth-of-type(3n)) {
   margin-right: 32px;
 }
 
 @media (max-width: 767px) {
-  .detail-item:not(:nth-child(3n)) {
+  .detail-item:not(:nth-of-type(3n)) {
     margin-right: 0;
   }
 }
 
+.detail-item .edit-btn {
+  margin-right: 24px;
+}
+
 .detail-topic-ttl {
+  padding: 0.5em 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #808080;
   color: #808080;
   margin-bottom: 15px;
 }
 
 .detail-topic-data {
   margin-bottom: 50px;
+}
+
+.detail-objection-ttl {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.detail-objection-list {
+  margin-bottom: 24px;
 }
 
 .detail-objection-item {
@@ -1237,7 +1256,7 @@ span {
 }
 
 .detail-objection-delete {
-  margin: 5px 3px 0 0;
+  margin: 5px 5px 0 0;
 }
 
 .detail-objection-txt {

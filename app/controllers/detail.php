@@ -49,7 +49,34 @@ function post()
 
     $delete_id = get_param('delete_id', null);
 
-    // 反論を削除する場合の処理
+    // 「意見に対する反論」の削除処理
+    if ($formType === 'delete_objection' && isset($delete_id)) {
+
+        try {
+
+            $db = new DataSource;
+            $db->begin();
+            $is_success = ObjectionQuery::delete($delete_id);
+        } catch (Throwable $e) {
+
+            Msg::push(Msg::DEBUG, $e->getMessage());
+            $is_success = false;
+        } finally {
+
+            if ($is_success) {
+                $db->commit();
+                Msg::push(Msg::INFO, '削除しました。');
+            } else {
+                $db->rollback();
+                Msg::push(Msg::ERROR, '削除に失敗しました。');
+            }
+
+            redirect(GO_REFERER);
+            return;
+        }
+    }
+
+    // 「反論への反論」の削除処理
     if ($formType === 'delete_counterObjection' && isset($delete_id)) {
 
         try {
@@ -75,6 +102,7 @@ function post()
             return;
         }
     }
+
 
 
     // 反論を登録する場合の処理
