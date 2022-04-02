@@ -81,7 +81,12 @@ class CounterObjectionQuery
             $result = $db->execute($sql, [
                 ':id' => $id
             ]);
+
+            if (!$result) {
+                break;
+            }
         }
+
         return $result;
     }
 }

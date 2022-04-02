@@ -1223,11 +1223,21 @@ span {
 }
 
 .detail-objection-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   word-wrap: break-word;
 }
 
 .detail-objection-item:not(:last-of-type) {
   margin-bottom: 12px;
+}
+
+.detail-objection-delete {
+  margin: 5px 3px 0 0;
 }
 
 .detail-objection-txt {

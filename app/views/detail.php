@@ -37,13 +37,16 @@ function index($topic, $objections, $counterObjections, $opinion)
                 </li>
 
                 <li class="detail-item">
+
                     <div class="detail-objection">
+
                         <form class="detail-form validate-form" action="" method="post">
                             <textarea class="detail-textarea validate-target" name="body" required autofocus></textarea>
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
                             <button type="submit" class="register-btn">登録</button>
                         </form>
+
                         <ul class="detail-objection-list">
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="detail-objection-item">
@@ -52,10 +55,13 @@ function index($topic, $objections, $counterObjections, $opinion)
                                 </li>
                             <?php endforeach; ?>
                         </ul>
+
                     </div>
+
                 </li>
 
                 <li class="detail-item">
+
                     <div class="detail-counterObjection">
 
                         <form class="detail-form validate-form" action="" method="post">
@@ -65,20 +71,23 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
-                        <form action="" method="post">
-                            <ul class="detail-objection-list">
+                        <ul class="detail-objection-list">
+                            <form action="" method="post">
                                 <input type="hidden" name="form_type" value="delete_counterObjection">
                                 <?php foreach ($counterObjections as $counterObjection) : ?>
                                     <li class="detail-objection-item">
-                                        <input type="checkbox" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
-                                        <p class="detail-objection-txt"><?php echo $counterObjection->body; ?></p>
+                                        <input type="checkbox" class="detail-objection-delete" id="<?php echo $counterObjection->id; ?>" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
+                                        <label for="<?php echo $counterObjection->id; ?>">
+                                            <p class="detail-objection-txt"><?php echo $counterObjection->body; ?></p>
+                                        </label>
                                     </li>
                                 <?php endforeach; ?>
                                 <button type="submit" class="delete-btn">チェックしたものを削除</button>
-                            </ul>
-                        </form>
+                            </form>
+                        </ul>
 
                     </div>
+
                 </li>
             </ul>
 
