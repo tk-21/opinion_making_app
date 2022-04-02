@@ -31,9 +31,10 @@
             &:not(:last-of-type) {
                 margin-bottom: 12px;
             }
-            span {
-                line-height: 1.5;
-            }
+        }
+        &-txt {
+            display: inline-block;
+            line-height: 1.5;
         }
     }
     &-form {
