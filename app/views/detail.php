@@ -37,24 +37,24 @@ function index($topic, $objections, $counterObjections, $opinion)
                 </li>
 
                 <li class="detail-item">
-                    <div class="detail-objection">
-                        <p class="detail-objection-ttl">意見に対する反論</p>
+                    <div class="objection">
+                        <p class="objection-ttl">意見に対する反論</p>
 
-                        <form class="detail-form validate-form" action="" method="post">
+                        <form class="objection-form validate-form" action="" method="post">
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
-                            <textarea class="detail-textarea validate-target" name="body" required></textarea>
+                            <textarea class="objection-textarea validate-target" name="body" required></textarea>
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
                         <form action="" method="post">
                             <input type="hidden" name="form_type" value="delete_objection">
-                            <ul class="detail-objection-list">
+                            <ul class="objection-list">
                                 <?php foreach ($objections as $objection) : ?>
-                                    <li class="detail-objection-item">
-                                        <input type="checkbox" class="detail-objection-delete" id="<?php echo $objection->id; ?>" name="delete_id[]" value="<?php echo $objection->id; ?>">
+                                    <li class="objection-item">
+                                        <input type="checkbox" class="objection-delete" id="<?php echo $objection->id; ?>" name="delete_id[]" value="<?php echo $objection->id; ?>">
                                         <label for="<?php echo $objection->id; ?>">
-                                            <p class="detail-objection-txt"><?php echo $objection->body; ?></p>
+                                            <p class="objection-txt"><?php echo $objection->body; ?></p>
                                         </label>
                                     </li>
                                 <?php endforeach; ?>
@@ -68,24 +68,24 @@ function index($topic, $objections, $counterObjections, $opinion)
                 </li>
 
                 <li class="detail-item">
-                    <div class="detail-objection">
-                        <p class="detail-objection-ttl">反論への反論</p>
+                    <div class="objection">
+                        <p class="objection-ttl">反論への反論</p>
 
-                        <form class="detail-form validate-form" action="" method="post">
+                        <form class="objection-form validate-form" action="" method="post">
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
-                            <textarea class="detail-textarea validate-target" name="body" required></textarea>
+                            <textarea class="objection-textarea validate-target" name="body" required></textarea>
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
                         <form action="" method="post">
                             <input type="hidden" name="form_type" value="delete_counterObjection">
-                            <ul class="detail-objection-list">
+                            <ul class="objection-list">
                                 <?php foreach ($counterObjections as $counterObjection) : ?>
-                                    <li class="detail-objection-item">
-                                        <input type="checkbox" class="detail-objection-delete" id="<?php echo $counterObjection->id; ?>" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
+                                    <li class="objection-item">
+                                        <input type="checkbox" class="objection-delete" id="<?php echo $counterObjection->id; ?>" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
                                         <label for="<?php echo $counterObjection->id; ?>">
-                                            <p class="detail-objection-txt"><?php echo $counterObjection->body; ?></p>
+                                            <p class="objection-txt"><?php echo $counterObjection->body; ?></p>
                                         </label>
                                     </li>
                                 <?php endforeach; ?>

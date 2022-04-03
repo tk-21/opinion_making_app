@@ -597,7 +597,7 @@ th {
 }
 
 body {
-  font-family: "futura-pt", "fot-tsukuardgothic-std", sans-serif;
+  font-family: "Roboto", "Noto Sans JP", sans-serif;
   background: #d1cbc3;
   position: relative;
 }
@@ -1232,61 +1232,6 @@ dd {
   margin-bottom: 50px;
 }
 
-.detail-objection-ttl {
-  font-size: 20px;
-  margin-bottom: 16px;
-}
-
-.detail-objection-list {
-  margin-bottom: 24px;
-}
-
-.detail-objection-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  word-wrap: break-word;
-}
-
-.detail-objection-item:not(:last-of-type) {
-  margin-bottom: 12px;
-}
-
-.detail-objection-delete {
-  margin: 5px 5px 0 0;
-}
-
-.detail-objection-txt {
-  display: inline-block;
-  line-height: 1.5;
-}
-
-.detail-form {
-  margin-bottom: 24px;
-}
-
-.detail-textarea {
-  line-height: 1.5;
-  background: #fff;
-  height: 150px;
-  width: 100%;
-  padding: 16px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 1px #ccc inset;
-          box-shadow: 0 0 0 1px #ccc inset;
-  resize: none;
-}
-
-.detail-textarea:focus {
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 2px #743434 inset;
-          box-shadow: 0 0 0 2px #743434 inset;
-}
-
 .detail-opinion {
   background: #f7f4f2;
   padding: 40px;
@@ -1302,11 +1247,6 @@ dd {
 
 .detail-opinion-data {
   margin-bottom: 20px;
-}
-
-.delete-icon img {
-  width: 17px;
-  vertical-align: middle;
 }
 
 .footer {
@@ -1448,6 +1388,61 @@ dd {
 .msg-error {
   border: 1px solid #743434;
   color: #743434;
+}
+
+.objection-ttl {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.objection-list {
+  margin-bottom: 24px;
+}
+
+.objection-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  word-wrap: break-word;
+}
+
+.objection-item:not(:last-of-type) {
+  margin-bottom: 12px;
+}
+
+.objection-delete {
+  margin: 5px 5px 0 0;
+}
+
+.objection-txt {
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.objection-form {
+  margin-bottom: 24px;
+}
+
+.objection-textarea {
+  line-height: 1.5;
+  background: #fff;
+  height: 150px;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 0 1px #ccc inset;
+          box-shadow: 0 0 0 1px #ccc inset;
+  resize: none;
+}
+
+.objection-textarea:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #743434 inset;
+          box-shadow: 0 0 0 2px #743434 inset;
 }
 
 .opinion-form {
