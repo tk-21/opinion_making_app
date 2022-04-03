@@ -6,8 +6,8 @@ function index($topic, $type)
 {
     \partials\header();
 
-    // トピック作成、編集を兼ねているファイル
-    // トピック作成か、トピック編集かによって表示内容を変える
+    // トピック作成、編集、削除確認を兼ねているファイル
+    // タイプによって表示内容を変える
 
     $disabled = '';
 
@@ -57,8 +57,8 @@ function index($topic, $type)
 
                     <?php if ($type === 'edit') : ?>
                         <dt class="topic-dttl">ステータス</dt>
-                        <?php //selectedがついているものが、初期表示時に表示されるステータス
-                        // publishedがtrueかfalseかによって初期表示を分ける
+                        <?php //checkedがついているものが、初期表示時にチェックがついているもの
+                        // complete_flgがtrueかfalseかによって初期表示を分ける
                         ?>
                         <dd class="topic-item">
                             <input class="topic-check" type="radio" id="complete" name="complete_flg" value="1" required <?php echo $topic->complete_flg ? 'checked' : ''; ?>>
@@ -73,13 +73,13 @@ function index($topic, $type)
 
                 <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
 
-                <?php // トピック作成の場合はホームへ戻る、トピック編集の場合は詳細画面に戻る
+                <?php // トピック作成の場合はホームへ戻る、その他の場合は詳細画面に戻る
                 ?>
-                    <?php if ($type === 'create') : ?>
-                        <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
-                    <?php else : ?>
-                        <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
-                    <?php endif; ?>
+                <?php if ($type === 'create') : ?>
+                    <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
+                <?php else : ?>
+                    <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+                <?php endif; ?>
 
             </form>
         </div>

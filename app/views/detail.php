@@ -33,7 +33,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                     </dl>
 
                     <a class="edit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
-                    <a class="delete-btn" href="<?php the_url(sprintf('delete?type=%s&id=%s', TOPIC, $topic->id)); ?>">削除</a>
+                    <a class="delete-btn" href="<?php the_url(sprintf('delete?id=%s', $topic->id)); ?>">削除</a>
                 </li>
 
                 <li class="detail-item">
@@ -52,8 +52,8 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <ul class="objection-list">
                                 <?php foreach ($objections as $objection) : ?>
                                     <li class="objection-item">
-                                        <input type="checkbox" class="objection-delete" id="<?php echo $objection->id; ?>" name="delete_id[]" value="<?php echo $objection->id; ?>">
-                                        <label for="<?php echo $objection->id; ?>">
+                                        <label>
+                                            <input type="checkbox" class="objection-delete" name="delete_id[]" value="<?php echo $objection->id; ?>">
                                             <p class="objection-txt"><?php echo $objection->body; ?></p>
                                         </label>
                                     </li>
@@ -83,8 +83,8 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <ul class="objection-list">
                                 <?php foreach ($counterObjections as $counterObjection) : ?>
                                     <li class="objection-item">
-                                        <input type="checkbox" class="objection-delete" id="<?php echo $counterObjection->id; ?>" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
-                                        <label for="<?php echo $counterObjection->id; ?>">
+                                        <label>
+                                            <input type="checkbox" class="objection-delete" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
                                             <p class="objection-txt"><?php echo $counterObjection->body; ?></p>
                                         </label>
                                     </li>
