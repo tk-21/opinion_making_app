@@ -2,6 +2,7 @@
     padding: 60px 0;
     &-list {
         display: flex;
+        flex-wrap: wrap;
         margin-bottom: 60px;
     }
     &-item {
@@ -9,50 +10,26 @@
         background: $color-main;
         padding: 40px;
         border-radius: 5px;
-        &:not(:nth-child(3n)) {
+        &:not(:nth-of-type(3n)) {
             margin-right: 32px;
             @include mq(sp) {
                 margin-right: 0;
             }
         }
+        .edit-btn {
+            margin-right: 24px;
+        }
     }
     &-topic {
         &-ttl {
+            padding: 0.5em 0;
+            border-top: 1px solid $color-text-thin;
+            border-bottom: 1px solid $color-text-thin;
             color: $color-text-thin;
             margin-bottom: 15px;
         }
         &-data {
             margin-bottom: 50px;
-        }
-    }
-    &-objection {
-        &-item {
-            word-wrap: break-word;
-            &:not(:last-of-type) {
-                margin-bottom: 12px;
-            }
-        }
-        &-txt {
-            display: inline-block;
-            line-height: 1.5;
-        }
-    }
-    &-form {
-        margin-bottom: 24px;
-    }
-    &-textarea {
-        line-height: 1.5;
-        background: $color-white;
-        height: 150px;
-        width: 100%;
-        padding: 16px;
-        margin-bottom: 20px;
-        border-radius: 4px;
-        box-shadow: 0 0 0 1px #ccc inset;
-        resize: none;
-        &:focus {
-            outline: 0;
-            box-shadow: 0 0 0 2px $color-accent inset;
         }
     }
     &-opinion {
@@ -68,12 +45,5 @@
         &-data {
             margin-bottom: 20px;
         }
-    }
-}
-
-.delete-icon {
-    img {
-        width: 17px;
-        vertical-align: middle;
     }
 }

@@ -1,5 +1,5 @@
 body {
-    font-family: "futura-pt", "fot-tsukuardgothic-std", sans-serif;
+    font-family: "Roboto", "Noto Sans JP", sans-serif;
     background: $color-base;
     position: relative;
     .wrapper {
@@ -22,6 +22,8 @@ a {
 }
 h2,
 p,
-span {
+span,
+dt,
+dd {
     color: $color-text;
 }

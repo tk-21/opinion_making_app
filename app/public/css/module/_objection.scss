@@ -1,0 +1,44 @@
+.objection {
+    &-ttl {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+    &-list {
+        margin-bottom: 24px;
+    }
+    &-item {
+        &:not(:last-of-type) {
+            margin-bottom: 12px;
+        }
+        label {
+            display: flex;
+            align-items: flex-start;
+            word-break: break-all;
+        }
+    }
+    &-delete {
+        margin: 5px 5px 0 0;
+    }
+    &-txt {
+        display: inline-block;
+        line-height: 1.5;
+    }
+    &-form {
+        margin-bottom: 24px;
+    }
+    &-textarea {
+        line-height: 1.5;
+        background: $color-white;
+        height: 150px;
+        width: 100%;
+        padding: 16px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px #ccc inset;
+        resize: none;
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 2px $color-accent inset;
+        }
+    }
+}

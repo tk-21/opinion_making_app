@@ -5,6 +5,7 @@ namespace controller\detail;
 use Throwable;
 use db\ObjectionQuery;
 use db\CounterObjectionQuery;
+use db\DataSource;
 use db\TopicQuery;
 use db\OpinionQuery;
 use lib\Auth;
@@ -46,19 +47,62 @@ function post()
 {
     $formType = get_param('form_type', null);
 
+    $delete_id = get_param('delete_id', null);
 
-    // 反論を削除する場合の処理
-    if ($formType === 'delete_counterObjection') {
+    // 「意見に対する反論」の削除処理
+    if ($formType === 'delete_objection' && isset($delete_id)) {
 
-        $delete_id = get_param('delete_id', null);
+        try {
 
-        if (isset($delete_id) && is_array($delete_id)) {
-            CounterObjectionQuery::delete($delete_id) ? Msg::push(Msg::INFO, '削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
+            $db = new DataSource;
+            $db->begin();
+            $is_success = ObjectionQuery::delete($delete_id);
+        } catch (Throwable $e) {
+
+            Msg::push(Msg::DEBUG, $e->getMessage());
+            $is_success = false;
+        } finally {
+
+            if ($is_success) {
+                $db->commit();
+                Msg::push(Msg::INFO, '削除しました。');
+            } else {
+                $db->rollback();
+                Msg::push(Msg::ERROR, '削除に失敗しました。');
+            }
 
             redirect(GO_REFERER);
             return;
         }
     }
+
+    // 「反論への反論」の削除処理
+    if ($formType === 'delete_counterObjection' && isset($delete_id)) {
+
+        try {
+
+            $db = new DataSource;
+            $db->begin();
+            $is_success = CounterObjectionQuery::delete($delete_id);
+        } catch (Throwable $e) {
+
+            Msg::push(Msg::DEBUG, $e->getMessage());
+            $is_success = false;
+        } finally {
+
+            if ($is_success) {
+                $db->commit();
+                Msg::push(Msg::INFO, '削除しました。');
+            } else {
+                $db->rollback();
+                Msg::push(Msg::ERROR, '削除に失敗しました。');
+            }
+
+            redirect(GO_REFERER);
+            return;
+        }
+    }
+
 
 
     // 反論を登録する場合の処理
