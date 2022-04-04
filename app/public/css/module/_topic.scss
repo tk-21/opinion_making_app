@@ -27,29 +27,9 @@
         }
     }
     &-input {
-        background: $color-white;
         height: 2.4em;
-        width: 100%;
-        padding: 0 16px;
-        border-radius: 4px;
-        box-shadow: 0 0 0 1px #ccc inset;
-        &:focus {
-            outline: 0;
-            box-shadow: 0 0 0 2px $color-accent inset;
-        }
     }
     &-textarea {
-        background: $color-white;
-        line-height: 1.5;
         height: 200px;
-        width: 100%;
-        padding: 16px;
-        border-radius: 4px;
-        box-shadow: 0 0 0 1px #ccc inset;
-        resize: none;
-        &:focus {
-            outline: 0;
-            box-shadow: 0 0 0 2px $color-accent inset;
-        }
     }
 }

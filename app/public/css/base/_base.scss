@@ -1,6 +1,7 @@
 body {
     font-family: "Roboto", "Noto Sans JP", sans-serif;
     background: $color-base;
+    color: $color-text;
     position: relative;
     .wrapper {
         display: flex;
@@ -18,12 +19,5 @@ img {
 }
 a {
     display: inline-block;
-    color: $color-text;
-}
-h2,
-p,
-span,
-dt,
-dd {
     color: $color-text;
 }

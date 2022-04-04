@@ -6,8 +6,10 @@
 
 <section class="error">
     <div class="inner">
-        <p>ページが見つかりません。</p>
-        <p>少し時間をおいてから再度試してみてください。</p>
+        <ul class="error-list">
+            <li class="error-item">ページが見つかりません。</li>
+            <li class="error-item">少し時間をおいてから再度試してみてください。</li>
+        </ul>
     </div>
 </section>
 

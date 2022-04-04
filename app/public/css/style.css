@@ -1,6 +1,7 @@
 body {
   font-family: "Roboto", "Noto Sans JP", sans-serif;
   background: #d1cbc3;
+  color: #3e1300;
   position: relative;
 }
 
@@ -27,14 +28,6 @@ img {
 
 a {
   display: inline-block;
-  color: #3e1300;
-}
-
-h2,
-p,
-span,
-dt,
-dd {
   color: #3e1300;
 }
 
@@ -747,6 +740,23 @@ th {
   padding: 0 20px;
 }
 
+.input {
+  background: #fff;
+  line-height: 1.5;
+  width: 100%;
+  padding: 16px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 0 1px #ccc inset;
+          box-shadow: 0 0 0 1px #ccc inset;
+  resize: none;
+}
+
+.input:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #743434 inset;
+          box-shadow: 0 0 0 2px #743434 inset;
+}
+
 .marker {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(75%, transparent), color-stop(75%, #ffadad));
   background: linear-gradient(transparent 75%, #ffadad 75%);
@@ -801,6 +811,12 @@ th {
   font-size: 14px;
   margin: 5px 0;
   color: #743434;
+}
+
+.is-invalid {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #743434 inset;
+          box-shadow: 0 0 0 2px #743434 inset;
 }
 
 .auth {
@@ -961,6 +977,28 @@ th {
 
 .detail-opinion-data {
   margin-bottom: 20px;
+}
+
+.error .inner {
+  height: calc(100vh - 315px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.error-list {
+  font-size: 32px;
+  text-align: center;
+}
+
+.error-item {
+  margin-bottom: 1em;
 }
 
 .footer {
@@ -1137,26 +1175,12 @@ th {
 }
 
 .objection-form {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .objection-textarea {
-  line-height: 1.5;
-  background: #fff;
   height: 150px;
-  width: 100%;
-  padding: 16px;
   margin-bottom: 20px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 1px #ccc inset;
-          box-shadow: 0 0 0 1px #ccc inset;
-  resize: none;
-}
-
-.objection-textarea:focus {
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 2px #743434 inset;
-          box-shadow: 0 0 0 2px #743434 inset;
 }
 
 .opinion-form {
@@ -1184,37 +1208,11 @@ th {
 }
 
 .opinion-input {
-  background: #fff;
   height: 2.4em;
-  width: 100%;
-  padding: 0 16px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 1px #ccc inset;
-          box-shadow: 0 0 0 1px #ccc inset;
-}
-
-.opinion-input:focus {
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 2px #743434 inset;
-          box-shadow: 0 0 0 2px #743434 inset;
 }
 
 .opinion-textarea {
-  background: #fff;
-  line-height: 1.5;
   height: 200px;
-  width: 100%;
-  padding: 16px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 1px #ccc inset;
-          box-shadow: 0 0 0 1px #ccc inset;
-  resize: none;
-}
-
-.opinion-textarea:focus {
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 2px #743434 inset;
-          box-shadow: 0 0 0 2px #743434 inset;
 }
 
 .topic-form {
@@ -1255,36 +1253,10 @@ th {
 }
 
 .topic-input {
-  background: #fff;
   height: 2.4em;
-  width: 100%;
-  padding: 0 16px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 1px #ccc inset;
-          box-shadow: 0 0 0 1px #ccc inset;
-}
-
-.topic-input:focus {
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 2px #743434 inset;
-          box-shadow: 0 0 0 2px #743434 inset;
 }
 
 .topic-textarea {
-  background: #fff;
-  line-height: 1.5;
   height: 200px;
-  width: 100%;
-  padding: 16px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 0 0 1px #ccc inset;
-          box-shadow: 0 0 0 1px #ccc inset;
-  resize: none;
-}
-
-.topic-textarea:focus {
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 2px #743434 inset;
-          box-shadow: 0 0 0 2px #743434 inset;
 }
 /*# sourceMappingURL=style.css.map */

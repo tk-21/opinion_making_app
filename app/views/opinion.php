@@ -25,13 +25,13 @@ function index($opinion, $topic, $is_create)
                 <dl class="opinion-list">
                     <dt class="opinion-dttl"><label for="opinion" onclick="">自分の意見</label></dt>
                     <dd class="opinion-item">
-                        <input type="text" id="opinion" name="opinion" value="<?php echo $opinion->opinion; ?>" class="opinion-input validate-target" autofocus required>
+                        <input type="text" id="opinion" name="opinion" value="<?php echo $opinion->opinion; ?>" class="opinion-input input validate-target" autofocus required>
                         <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="opinion-dttl"><label for="reason" onclick="">その理由</label></dt>
                     <dd class="opinion-item">
-                        <textarea id="reason" name="reason" class="opinion-textarea validate-target" autofocus required><?php echo $opinion->reason; ?></textarea>
+                        <textarea id="reason" name="reason" class="opinion-textarea input validate-target" autofocus required><?php echo $opinion->reason; ?></textarea>
                         <p class="invalid-feedback"></p>
                     </dd>
                 </dl>
