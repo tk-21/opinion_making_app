@@ -39,19 +39,19 @@ function index($topic, $type)
                 <dl class="topic-list">
                     <dt class="topic-dttl"><label for="title" onclick="">タイトル</label></dt>
                     <dd class="topic-item">
-                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-input validate-target" maxlength="100" autofocus required <?php echo $disabled; ?>>
+                        <input type="text" id="title" name="title" value="<?php echo $topic->title; ?>" class="topic-input input validate-target" maxlength="100" autofocus required <?php echo $disabled; ?>>
                         <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="topic-dttl"><label for="body" onclick="">本文</label></dt>
                     <dd class="topic-item">
-                        <textarea id="body" name="body" class="topic-textarea validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->body; ?></textarea>
+                        <textarea id="body" name="body" class="topic-textarea input validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->body; ?></textarea>
                         <p class="invalid-feedback"></p>
                     </dd>
 
                     <dt class="topic-dttl"><label for="position" onclick="">ポジション</label></dt>
                     <dd class="topic-item">
-                        <textarea id="position" name="position" class="topic-textarea validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->position; ?></textarea>
+                        <textarea id="position" name="position" class="topic-textarea input validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->position; ?></textarea>
                         <p class="invalid-feedback"></p>
                     </dd>
 

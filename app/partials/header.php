@@ -70,10 +70,11 @@ function header()
             // $_SESSION['_msg']にセットされた配列の値をループで表示
             Msg::flush();
 
-            if (Auth::isLogin()) {
-                echo 'ログイン中です。';
-            } else {
-                echo 'ログインしていません。';
-            }
+            // 確認用
+            // if (Auth::isLogin()) {
+            //     echo 'ログイン中です。';
+            // } else {
+            //     echo 'ログインしていません。';
+            // }
         }
             ?>
