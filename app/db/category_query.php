@@ -7,10 +7,8 @@ use model\CategoryModel;
 
 class CategoryQuery
 {
-    // controllerのdetail.phpで呼び出している
     public static function fetchByUserId($user)
     {
-        // 渡ってきたトピックオブジェクトのidが正しいか確認
         if (!$user->isValidId()) {
             return false;
         }
@@ -24,7 +22,7 @@ class CategoryQuery
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
-        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\TopicModel が返る）
+        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる
         // ここはselectメソッドなので複数行取れてくる
         // $resultにはオブジェクトの配列が格納される
         $result = $db->select($sql, [
@@ -37,7 +35,7 @@ class CategoryQuery
 
 
     // controller\topic\detailのpostメソッド内で呼び出している
-    public static function insert($opinion)
+    public static function insert($category)
     {
         // 値のチェック
         // DBに接続する前に必ずチェックは終わらせておく
@@ -66,38 +64,6 @@ class CategoryQuery
             ':opinion' => $opinion->opinion,
             ':reason' => $opinion->reason,
             ':topic_id' => $opinion->topic_id
-        ]);
-    }
-
-
-    public static function update($opinion)
-    {
-        // 値のチェック
-        // DBに接続する前に必ずチェックは終わらせておく
-        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元のedit.phpにfalseを返して登録失敗になる
-        if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($opinion->isValidId()
-                * $opinion->isValidOpinion()
-                * $opinion->isValidReason()
-            )
-        ) {
-            return false;
-        }
-
-        $db = new DataSource;
-        // idをキーにして更新
-        $sql = 'UPDATE opinions set
-                    opinion = :opinion,
-                    reason = :reason
-                WHERE id = :id';
-
-        // 登録に成功すれば、trueが返される
-        return $db->execute($sql, [
-            ':opinion' => $opinion->opinion,
-            ':reason' => $opinion->reason,
-            ':id' => $opinion->id
         ]);
     }
 
