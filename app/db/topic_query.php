@@ -36,6 +36,33 @@ class TopicQuery
     }
 
 
+    public static function fetchByCategoryId($category)
+    {
+        // クエリを発行
+        $db = new DataSource;
+
+        // プリペアードステートメントを使うのでidはパラメータにしておく
+        // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
+        // order byで新しい記事から順に表示
+        $sql = 'SELECT * FROM topics
+                WHERE user_id = :id and deleted_at is null
+                order by id desc
+                ';
+        // 第2引数のパラメータに、引数で渡ってきた文字列を入れる
+        // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
+        // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
+        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\TopicModel が返る）
+        // ここはselectメソッドなので複数行取れてくる
+        // $resultにはオブジェクトの配列が格納される
+        $result = $db->select($sql, [
+            ':id' => $category->id
+        ], DataSource::CLS, TopicModel::class);
+
+        // 結果が取れてくればresultを返す
+        return $result;
+    }
+
+
     // idから個別の記事を取ってくるメソッド
     public static function fetchById($topic)
     {
