@@ -17,7 +17,7 @@ class TopicQuery
         // プリペアードステートメントを使うのでidはパラメータにしておく
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
-        $sql = 'SELECT * FROM topics
+        $sql = 'SELECT * FROM topics t
                 WHERE user_id = :id and deleted_at is null
                 order by id desc
                 ';
@@ -44,8 +44,12 @@ class TopicQuery
         // プリペアードステートメントを使うのでidはパラメータにしておく
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
-        $sql = 'SELECT * FROM topics
-                WHERE user_id = :id and deleted_at is null
+        $sql = 'SELECT * FROM topics t
+                INNER JOIN topic_categories tc
+                ON t.id = tc.topic_id
+                INNER JOIN categories c
+                ON tc.category_id = c.id
+                WHERE c.id = :id and deleted_at is null
                 order by id desc
                 ';
         // 第2引数のパラメータに、引数で渡ってきた文字列を入れる
