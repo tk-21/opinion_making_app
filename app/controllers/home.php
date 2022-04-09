@@ -2,6 +2,7 @@
 
 namespace controller\home;
 
+use db\CategoryQuery;
 use db\TopicQuery;
 use lib\Auth;
 use lib\Msg;
@@ -25,10 +26,12 @@ function get()
     // ログインしているユーザーに紐付くトピックを取得してくる
     $topics = TopicQuery::fetchByUserId($user);
 
+    $categories = CategoryQuery::fetchByUserId($user);
+
     // トピックがなかった場合
     if (!$topics) {
         // viewのindexメソッドを呼んでリストを表示する
-        \view\home\index($topics);
+        \view\home\index($topics, $categories);
         return;
     }
 
@@ -58,5 +61,5 @@ function get()
     }
 
     // viewのindexメソッドを呼んでリストを表示する
-    \view\home\index($topics, $topics_num, $max_page, $page, $range);
+    \view\home\index($topics, $categories, $topics_num, $max_page, $page, $range);
 }

@@ -7,7 +7,6 @@ use model\TopicModel;
 
 class TopicQuery
 {
-    // 引数でユーザー情報が渡ってくる
     // ログインしているユーザーに紐付く記事を取得するメソッド
     public static function fetchByUserId($user)
     {
@@ -36,21 +35,27 @@ class TopicQuery
     }
 
 
+    // カテゴリに紐づく記事を取得する
     public static function fetchByCategoryId($category)
     {
+        // 渡ってきたトピックオブジェクトのidが正しいか確認
+        if (!$category->isValidId()) {
+            return false;
+        }
+
         // クエリを発行
         $db = new DataSource;
 
         // プリペアードステートメントを使うのでidはパラメータにしておく
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
-        $sql = 'SELECT * FROM topics t
+        $sql = 'SELECT t.*, c.name FROM topics t
                 INNER JOIN topic_categories tc
                 ON t.id = tc.topic_id
                 INNER JOIN categories c
                 ON tc.category_id = c.id
-                WHERE c.id = :id and deleted_at is null
-                order by id desc
+                WHERE c.id = :id and t.deleted_at is null
+                ORDER BY t.id DESC
                 ';
         // 第2引数のパラメータに、引数で渡ってきた文字列を入れる
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
