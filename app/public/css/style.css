@@ -1141,6 +1141,10 @@ th {
   font-size: 14px;
 }
 
+.home-category-textarea {
+  margin-bottom: 20px;
+}
+
 .msg {
   width: -webkit-fit-content;
   width: -moz-fit-content;

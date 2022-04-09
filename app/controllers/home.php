@@ -7,6 +7,9 @@ use db\TopicQuery;
 use lib\Auth;
 use lib\Msg;
 use model\UserModel;
+use model\CategoryModel;
+use Throwable;
+
 
 function get()
 {
@@ -62,4 +65,35 @@ function get()
 
     // viewのindexメソッドを呼んでリストを表示する
     \view\home\index($topics, $categories, $topics_num, $max_page, $page, $range);
+}
+
+
+function post()
+{
+
+    Auth::requireLogin();
+
+    $user = UserModel::getSession();
+
+    $category = new CategoryModel;
+
+    $category->name = get_param('name', null);
+    $category->user_id = $user->id;
+
+
+    try {
+        $is_success = CategoryQuery::insert($category);
+    } catch (Throwable $e) {
+        Msg::push(Msg::ERROR, $e->getMessage());
+        $is_success = false;
+    }
+
+    if (!$is_success) {
+        Msg::push(Msg::ERROR, 'カテゴリの登録に失敗しました。');
+        CategoryModel::setSession($category);
+        redirect(GO_REFERER);
+    }
+
+    Msg::push(Msg::INFO, 'カテゴリを登録しました。');
+    redirect(GO_HOME);
 }

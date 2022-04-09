@@ -46,9 +46,8 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
                     <li class="home-item">
                         <p class="home-category-ttl">カテゴリ</p>
 
-                        <form class="category-form validate-form" action="" method="post">
-                            <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
-                            <textarea class="category-textarea input validate-target" name="name" required></textarea>
+                        <form class="home-category-form validate-form" action="" method="post">
+                            <textarea class="home-category-textarea input validate-target" name="name" required></textarea>
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
