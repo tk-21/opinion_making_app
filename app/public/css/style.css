@@ -1069,7 +1069,21 @@ th {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-bottom: 50px;
+}
+
+.home-item:not(:last-of-type) {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 50px;
+}
+
+.home-item:last-of-type {
+  width: 200px;
 }
 
 .home-topic-item:not(:last-of-type) {

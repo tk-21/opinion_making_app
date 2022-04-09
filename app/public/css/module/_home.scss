@@ -6,7 +6,17 @@
     }
     &-list {
         display: flex;
+        justify-content: space-between;
         margin-bottom: 50px;
+    }
+    &-item {
+        &:not(:last-of-type) {
+            flex: 1;
+            margin-right: 50px;
+        }
+        &:last-of-type {
+            width: 200px;
+        }
     }
     &-topic {
         &-item {
