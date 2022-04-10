@@ -5,7 +5,7 @@ namespace view\home;
 use DateTime;
 
 // 引数でtopicの配列が渡ってくる
-function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "")
+function index($topics, $categories, $topics_num = "", $max_page = "", $page = "", $range = "")
 {
     \partials\header();
 
@@ -17,26 +17,50 @@ function index($topics, $topics_num = "", $max_page = "", $page = "", $range = "
             <div class="home-inner">
                 <h2 class="home-ttl">トピック一覧</h2>
                 <ul class="home-list">
-                    <?php foreach ($topics as $topic) :
-                        // complete_flgが１のときは完了、０のときは未完了を表示させる
-                        $label = $topic->complete_flg ? '完了' : '未完了';
+                    <li class="home-item">
+                        <ul class="home-topic-list">
+                            <?php foreach ($topics as $topic) :
+                                // complete_flgが１のときは完了、０のときは未完了を表示させる
+                                $label = $topic->complete_flg ? '完了' : '未完了';
 
-                        // ラベルのデザインを切り替える
-                        $label_style = $topic->complete_flg ? 'complete' : 'incomplete';
+                                // ラベルのデザインを切り替える
+                                $label_style = $topic->complete_flg ? 'complete' : 'incomplete';
 
-                        // 日時表示をフォーマットするためオブジェクトを作成
-                        $created_at = new DateTime($topic->created_at);
-                    ?>
-                        <li class="home-item">
-                            <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
-                                <p class="home-item-label home-item-<?php echo $label_style; ?>"><?php echo $label; ?></p>
-                                <div class="home-item-body">
-                                    <time datetime="<?php echo $topic->created_at; ?>"><?php echo $created_at->format('Y.m.d'); ?></time>
-                                    <p class="home-item-ttl"><?php echo $topic->title; ?></p>
-                                </div>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
+                                // 日時表示をフォーマットするためオブジェクトを作成
+                                $created_at = new DateTime($topic->created_at);
+                            ?>
+                                <li class="home-topic-item">
+                                    <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
+                                        <p class="home-topic-label home-topic-<?php echo $label_style; ?>"><?php echo $label; ?></p>
+                                        <div class="home-topic-body">
+                                            <time datetime="<?php echo $topic->created_at; ?>"><?php echo $created_at->format('Y.m.d'); ?></time>
+                                            <p class="home-topic-ttl"><?php echo $topic->title; ?></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+
+                        </ul>
+                    </li>
+
+                    <li class="home-item">
+                        <p class="home-category-ttl">カテゴリ</p>
+
+                        <form class="home-category-form validate-form" action="" method="post">
+                            <textarea class="home-category-textarea input validate-target" name="name" required></textarea>
+                            <button type="submit" class="register-btn">登録</button>
+                        </form>
+
+                        <ul class="home-category-list">
+                            <?php foreach ($categories as $category) : ?>
+                                <li class="home-category-item">
+                                    <a href="<?php the_url(sprintf('category?id=%s', $category->id)); ?>">
+                                        <?php echo $category->name; ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
                 </ul>
 
 

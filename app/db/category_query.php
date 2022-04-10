@@ -9,15 +9,13 @@ class CategoryQuery
 {
     public static function fetchByUserId($user)
     {
-        if (!$user->isValidId()) {
-            return false;
-        }
 
         $db = new DataSource;
 
         $sql = 'SELECT * FROM categories
                 WHERE user_id = :id
                 AND deleted_at IS NULL
+                ORDER BY id DESC
                 ';
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
@@ -34,36 +32,21 @@ class CategoryQuery
     }
 
 
-    // controller\topic\detailのpostメソッド内で呼び出している
     public static function insert($category)
     {
-        // 値のチェック
-        // DBに接続する前に必ずチェックは終わらせておく
-        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元にfalseを返して登録失敗になる
-        if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($opinion->isValidTopicId()
-                * $opinion->isValidOpinion()
-                * $opinion->isValidReason()
-            )
-        ) {
-            return false;
-        }
 
         $db = new DataSource;
 
-        $sql = 'INSERT into opinions
-                    (opinion, reason, topic_id)
+        $sql = 'INSERT INTO categories
+                    (name, user_id)
                 values
-                    (:opinion, :reason, :topic_id)
+                    (:name, :user_id)
                 ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':opinion' => $opinion->opinion,
-            ':reason' => $opinion->reason,
-            ':topic_id' => $opinion->topic_id
+            ':name' => $category->name,
+            ':user_id' => $category->user_id
         ]);
     }
 
@@ -72,7 +55,7 @@ class CategoryQuery
     {
         $db = new DataSource;
 
-        $sql = 'UPDATE objections
+        $sql = 'UPDATE categories
                 set deleted_at = now()
                 where id = :id;';
 

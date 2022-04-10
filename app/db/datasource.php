@@ -45,6 +45,7 @@ class DataSource
 
     // クラス内でなんらかのキーを使う場合は、静的プロパティとして定数を用意する
     public const CLS = 'cls';
+    public const COLUMN = 'column';
 
     // DB接続
     public function __construct($dsn = DSN, $username = USER, $password = PASSWORD)
@@ -84,10 +85,15 @@ class DataSource
         if ($type === static::CLS) {
             // fetchAllの引数でFETCH_CLASSを使うと、第２引数で指定したクラスのプロパティにカラムの値を代入できる。一致するプロパティが存在しない場合は、そのプロパティが作成される。
             return $stmt->fetchAll(PDO::FETCH_CLASS, $cls);
-        } else {
-            // 上でデフォルトモードを連想配列に設定しているので改めてPDO::FETCH_ASSOC記述しなくてもよい
-            return $stmt->fetchAll();
         }
+
+        if ($type === static::COLUMN) {
+            // fetchAllの引数でFETCH_CLASSを使うと、第２引数で指定したクラスのプロパティにカラムの値を代入できる。一致するプロパティが存在しない場合は、そのプロパティが作成される。
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+
+        // 上でデフォルトモードを連想配列に設定しているので改めてPDO::FETCH_ASSOC記述しなくてもよい
+        return $stmt->fetchAll();
     }
 
 
