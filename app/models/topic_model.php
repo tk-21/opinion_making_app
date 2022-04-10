@@ -15,7 +15,7 @@ class TopicModel extends AbstractModel
     public $deleted_at;
     public $created_at;
     public $updated_at;
-    public $name;
+    public $category_id;
 
     // 先頭にアンダースコアがついていれば、何か特定のメソッドを通じて値を取得するものという意味
     // セッションの情報はメソッドを通じて取得してくださいという意味

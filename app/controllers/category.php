@@ -2,25 +2,22 @@
 
 namespace controller\category;
 
-use db\CategoryQuery;
 use db\TopicQuery;
+use db\CategoryQuery;
 use lib\Auth;
-use lib\Msg;
 use model\UserModel;
 use model\CategoryModel;
-use model\TopicModel;
-use Throwable;
 
 function get()
 {
 
     Auth::requireLogin();
 
-    $topic = new TopicModel;
+    $category = new CategoryModel;
 
-    $topic->id = get_param('id', null, false);
+    $category->id = get_param('id', null, false);
 
-    $fetchedTopic = TopicQuery::fetchById($topic);
+    $fetchedTopic = TopicQuery::fetchByCategoryId($category);
 
     // トピックが取れてこなかったら４０４ページへリダイレクト
     if (!$fetchedTopic) {
@@ -28,16 +25,20 @@ function get()
         return;
     }
 
+    $user = UserModel::getSession();
+
+    $categories = CategoryQuery::fetchByUserId($user);
+
     // バリデーションに引っかかって登録に失敗した場合の処理
     // セッションに保存しておいた値を取ってきて変数に格納する。セッション上のデータは削除する
     // 必ずデータを取得した時点でデータを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
-    $opinion = CategoryModel::getSessionAndFlush();
+    // $opinion = CategoryModel::getSessionAndFlush();
 
-    if (empty($opinion)) {
-        $opinion = new CategoryModel;
-    }
+    // if (empty($opinion)) {
+    //     $opinion = new CategoryModel;
+    // }
 
-    \view\opinion\index($opinion, $topic, true);
+    \view\home\index($fetchedTopic, $categories);
 }
 
 

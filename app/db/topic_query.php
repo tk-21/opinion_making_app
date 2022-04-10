@@ -154,7 +154,7 @@ class TopicQuery
 
         $db = new DataSource;
 
-        $sql = 'INSERT into topics
+        $sql = 'INSERT INTO topics
                 (title, body, position, user_id)
                 values
                 (:title, :body, :position, :user_id)
@@ -165,7 +165,9 @@ class TopicQuery
             ':title' => $topic->title,
             ':body' => $topic->body,
             ':position' => $topic->position,
-            ':user_id' => $user->id
+            ':user_id' => $user->id,
+            // ':topic_id' => $topic->id,
+            // ':category_id' => $topic->category_id
         ]);
     }
 
@@ -183,5 +185,16 @@ class TopicQuery
         return $db->execute($sql, [
             ':id' => $id
         ]);
+    }
+
+
+
+    public static function getLastInsertId()
+    {
+        $db = new DataSource;
+
+        $sql = 'SELECT LAST_INSERT_ID()';
+
+        return $db->select($sql, [], 'column');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace view\topic;
 
-function index($topic, $type)
+function index($topic, $categories, $type)
 {
     \partials\header();
 
@@ -53,6 +53,20 @@ function index($topic, $type)
                     <dd class="topic-item">
                         <textarea id="position" name="position" class="topic-textarea input validate-target" autofocus required <?php echo $disabled; ?>><?php echo $topic->position; ?></textarea>
                         <p class="invalid-feedback"></p>
+                    </dd>
+
+                    <dt class="topic-dttl">カテゴリー</dt>
+                    <dd class="topic-item">
+                        <ul class="category-list">
+                            <?php foreach ($categories as $category) : ?>
+                                <li class="category-item">
+                                    <label>
+                                        <input type="checkbox" class="category" name="category_id[]" value="<?php echo $category->id; ?>">
+                                        <p class="category-txt"><?php echo $category->name; ?></p>
+                                    </label>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </dd>
 
                     <?php if ($type === 'edit') : ?>
