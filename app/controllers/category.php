@@ -40,5 +40,3 @@ function get()
 
     \view\home\index($fetchedTopic, $categories);
 }
-
-
