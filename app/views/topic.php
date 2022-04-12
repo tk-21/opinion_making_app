@@ -55,20 +55,6 @@ function index($topic, $categories, $type)
                         <p class="invalid-feedback"></p>
                     </dd>
 
-                    <dt class="topic-dttl">カテゴリー</dt>
-                    <dd class="topic-item">
-                        <ul class="category-list">
-                            <?php foreach ($categories as $category) : ?>
-                                <li class="category-item">
-                                    <label>
-                                        <input type="checkbox" class="category" name="category_id[]" value="<?php echo $category->id; ?>">
-                                        <p class="category-txt"><?php echo $category->name; ?></p>
-                                    </label>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </dd>
-
                     <?php if ($type === 'edit') : ?>
                         <dt class="topic-dttl">ステータス</dt>
                         <?php //checkedがついているものが、初期表示時にチェックがついているもの
@@ -83,6 +69,21 @@ function index($topic, $categories, $type)
                             <label for="incomplete" class="topic-label">未完了</label>
                         </dd>
                     <?php endif; ?>
+
+                    <dt class="topic-dttl">カテゴリー</dt>
+                    <dd class="topic-item">
+                        <ul class="category-list">
+                            <?php foreach ($categories as $category) : ?>
+                                <li class="category-item">
+                                    <label>
+                                        <input type="radio" class="category" name="category_id" value="<?php echo $category->id; ?>">
+                                        <span class="category-txt"><?php echo $category->name; ?></span>
+                                    </label>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </dd>
+
                 </dl>
 
                 <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>

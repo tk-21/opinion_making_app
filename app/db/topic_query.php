@@ -50,10 +50,8 @@ class TopicQuery
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
         $sql = 'SELECT t.*, c.name FROM topics t
-                INNER JOIN topic_categories tc
-                ON t.id = tc.topic_id
                 INNER JOIN categories c
-                ON tc.category_id = c.id
+                ON t.category_id = c.id
                 WHERE c.id = :id and t.deleted_at is null
                 ORDER BY t.id DESC
                 ';
@@ -155,9 +153,9 @@ class TopicQuery
         $db = new DataSource;
 
         $sql = 'INSERT INTO topics
-                (title, body, position, user_id)
+                (title, body, position, category_id, user_id)
                 values
-                (:title, :body, :position, :user_id)
+                (:title, :body, :position, :category_id, :user_id)
                 ';
 
         // 登録に成功すれば、trueが返される
@@ -165,9 +163,8 @@ class TopicQuery
             ':title' => $topic->title,
             ':body' => $topic->body,
             ':position' => $topic->position,
-            ':user_id' => $user->id,
-            // ':topic_id' => $topic->id,
-            // ':category_id' => $topic->category_id
+            ':category_id' => $topic->category_id,
+            ':user_id' => $user->id
         ]);
     }
 

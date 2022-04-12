@@ -40,15 +40,14 @@ function post()
     // ツールなどでもリクエストは投げれるので、必ずPOSTでもログインしているかどうか確認する
     Auth::requireLogin();
 
-    // TopicModelのインスタンスを作成
+    // インスタンスを作成
     $topic = new TopicModel;
-    $category = new CategoryModel;
 
-    // POSTで渡ってきた（フォームで飛んできた）値をトピックモデルに格納
+    // POSTで渡ってきた（フォームで飛んできた）値をモデルに格納
     $topic->title = get_param('title', null);
     $topic->body = get_param('body', null);
     $topic->position = get_param('position', null);
-    $category->id = get_param('category_id', null);
+    $topic->category_id = get_param('category_id', null);
 
     // トランザクションで更新処理
     try {
@@ -63,7 +62,7 @@ function post()
 
         if ($is_success) {
             $last_id = TopicQuery::getLastInsertId();
-            $is_success = TopicCategoriesQuery::insert($category, $last_id);
+            $is_success = CategoryQuery::update($topic, $last_id);
         }
     } catch (Throwable $e) {
         // エラー内容を出力する
