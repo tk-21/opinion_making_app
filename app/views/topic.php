@@ -76,7 +76,7 @@ function index($topic, $categories, $type)
                             <?php foreach ($categories as $category) : ?>
                                 <li class="category-item">
                                     <label>
-                                        <input type="radio" class="category" name="category_id" value="<?php echo $category->id; ?>">
+                                        <input type="radio" class="category" name="category_id" value="<?php echo $category->id; ?>" <?php echo $topic->category_id === $category->id ? 'checked' : ''; ?>>
                                         <span class="category-txt"><?php echo $category->name; ?></span>
                                     </label>
                                 </li>

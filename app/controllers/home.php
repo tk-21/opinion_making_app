@@ -89,11 +89,11 @@ function post()
     }
 
     if (!$is_success) {
-        Msg::push(Msg::ERROR, 'カテゴリの登録に失敗しました。');
+        Msg::push(Msg::ERROR, 'カテゴリの作成に失敗しました。');
         CategoryModel::setSession($category);
         redirect(GO_REFERER);
     }
 
-    Msg::push(Msg::INFO, 'カテゴリを登録しました。');
+    Msg::push(Msg::INFO, 'カテゴリを作成しました。');
     redirect(GO_HOME);
 }

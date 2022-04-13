@@ -5,7 +5,6 @@ namespace controller\topic_create;
 use db\TopicQuery;
 use db\CategoryQuery;
 use db\DataSource;
-use db\TopicCategoriesQuery;
 use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
