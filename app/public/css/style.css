@@ -1145,6 +1145,11 @@ th {
   margin-bottom: 20px;
 }
 
+.home-txt._no {
+  text-align: center;
+  font-size: 24px;
+}
+
 .msg {
   width: -webkit-fit-content;
   width: -moz-fit-content;

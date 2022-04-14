@@ -16,9 +16,12 @@ class TopicQuery
         // プリペアードステートメントを使うのでidはパラメータにしておく
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
-        $sql = 'SELECT * FROM topics t
-                WHERE user_id = :id and deleted_at is null
-                order by id desc
+        $sql = 'SELECT t.*, c.name FROM topics t
+                LEFT JOIN categories c
+                ON t.category_id = c.id
+                WHERE t.user_id = :id
+                AND t.deleted_at is null
+                order by t.id desc
                 ';
         // 第2引数のパラメータに、引数で渡ってきた文字列を入れる
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
@@ -50,11 +53,10 @@ class TopicQuery
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
         $sql = 'SELECT t.*, c.name FROM topics t
-                INNER JOIN topic_categories tc
-                ON t.id = tc.topic_id
-                INNER JOIN categories c
-                ON tc.category_id = c.id
-                WHERE c.id = :id and t.deleted_at is null
+                LEFT JOIN categories c
+                ON t.category_id = c.id
+                WHERE c.id = :id
+                AND t.deleted_at is null
                 ORDER BY t.id DESC
                 ';
         // 第2引数のパラメータに、引数で渡ってきた文字列を入れる
@@ -75,17 +77,17 @@ class TopicQuery
     // idから個別の記事を取ってくるメソッド
     public static function fetchById($topic)
     {
-        if (!$topic->isValidId()) {
-            return false;
-        }
+        // if (!$topic->isValidId()) {
+        //     return false;
+        // }
 
         $db = new DataSource;
 
-        // 汎用性を持たせるためwhereの条件に t.published = 1 は入れない （公開非公開は関係なくトピックを取得する）
-        // DBに問い合わせるクエリに詳細な条件を書いてしまうと、そのメソッドを使い回すことができない
-        $sql = 'SELECT * FROM topics
-                WHERE id = :id
-                and deleted_at IS NULL
+        $sql = 'SELECT t.*, c.name FROM topics t
+                LEFT JOIN categories c
+                ON t.category_id = c.id
+                WHERE t.id = :id
+                and t.deleted_at IS NULL
                 ';
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
@@ -119,10 +121,12 @@ class TopicQuery
 
         $db = new DataSource;
         // idをキーにしてpublishedとtitleを更新
-        $sql = 'UPDATE topics set title = :title,
+        $sql = 'UPDATE topics
+                SET title = :title,
                     body = :body,
                     position = :position,
-                    complete_flg = :complete_flg
+                    complete_flg = :complete_flg,
+                    category_id = :category_id
                 WHERE id = :id
                 ';
 
@@ -132,6 +136,7 @@ class TopicQuery
             ':body' => $topic->body,
             ':position' => $topic->position,
             ':complete_flg' => $topic->complete_flg,
+            ':category_id' => $topic->category_id,
             ':id' => $topic->id
         ]);
     }
@@ -155,9 +160,9 @@ class TopicQuery
         $db = new DataSource;
 
         $sql = 'INSERT INTO topics
-                (title, body, position, user_id)
+                (title, body, position, category_id, user_id)
                 values
-                (:title, :body, :position, :user_id)
+                (:title, :body, :position, :category_id, :user_id)
                 ';
 
         // 登録に成功すれば、trueが返される
@@ -165,9 +170,8 @@ class TopicQuery
             ':title' => $topic->title,
             ':body' => $topic->body,
             ':position' => $topic->position,
-            ':user_id' => $user->id,
-            // ':topic_id' => $topic->id,
-            // ':category_id' => $topic->category_id
+            ':category_id' => $topic->category_id,
+            ':user_id' => $user->id
         ]);
     }
 

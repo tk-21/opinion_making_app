@@ -3,9 +3,11 @@
 namespace controller\topic_edit;
 
 use db\TopicQuery;
+use db\CategoryQuery;
 use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
+use model\UserModel;
 use Throwable;
 
 function get()
@@ -18,9 +20,13 @@ function get()
     // 必ずデータを取得した時点でデータを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
     $topic = TopicModel::getSessionAndFlush();
 
+    $user = UserModel::getSession();
+    $categories = CategoryQuery::fetchByUserId($user);
+
+
     // データが取れてくれば、その値を画面表示し、処理を終了
     if (!empty($topic)) {
-        \view\topic\index($topic, SHOW_EDIT);
+        \view\topic\index($topic, $categories, SHOW_EDIT);
         return;
     }
 
@@ -40,7 +46,7 @@ function get()
     }
 
     // トピックが取れてきたら、トピックを渡してviewのindexを表示
-    \view\topic\index($fetchedTopic, SHOW_EDIT);
+    \view\topic\index($fetchedTopic, $categories, SHOW_EDIT);
 }
 
 
@@ -58,6 +64,7 @@ function post()
     $topic->body = get_param('body', null);
     $topic->position = get_param('position', null);
     $topic->complete_flg = get_param('complete_flg', null);
+    $topic->category_id = get_param('category_id', null);
 
     // 更新処理
     try {

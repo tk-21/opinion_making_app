@@ -30,6 +30,8 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <dd class="detail-topic-data"><?php echo $topic->position; ?></dd>
                         <dt class="detail-topic-ttl">ステータス</dt>
                         <dd class="detail-topic-data"><?php echo $complete_flg; ?></dd>
+                        <dt class="detail-topic-ttl">カテゴリー</dt>
+                        <dd class="detail-topic-data"><?php echo $topic->name; ?></dd>
                     </dl>
 
                     <a class="edit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
