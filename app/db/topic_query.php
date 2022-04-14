@@ -53,7 +53,7 @@ class TopicQuery
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
         $sql = 'SELECT t.*, c.name FROM topics t
-                INNER JOIN categories c
+                LEFT JOIN categories c
                 ON t.category_id = c.id
                 WHERE c.id = :id
                 AND t.deleted_at is null

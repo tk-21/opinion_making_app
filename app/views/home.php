@@ -108,8 +108,8 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
     <?php else : ?>
 
         <section class="home">
-            <div class="inner">
-                <p class="home-txt">トピックが登録されていません。</p>
+            <div class="home-inner">
+                <p class="home-txt _no">トピックがありません。</p>
             </div>
         </section>
 

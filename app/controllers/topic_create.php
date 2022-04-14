@@ -4,11 +4,9 @@ namespace controller\topic_create;
 
 use db\TopicQuery;
 use db\CategoryQuery;
-use db\DataSource;
 use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
-use model\CategoryModel;
 use model\UserModel;
 use Throwable;
 
@@ -48,42 +46,31 @@ function post()
     $topic->position = get_param('position', null);
     $topic->category_id = get_param('category_id', null);
 
-    // トランザクションで更新処理
+    // 更新処理
     try {
-        $db = new DataSource;
-        $db->begin();
-
         // セッションに格納されているユーザー情報のオブジェクトを取ってくる
         $user = UserModel::getSession();
 
         // 更新が成功すればtrue,失敗すればfalseが返ってくる
         $is_success = TopicQuery::insert($topic, $user);
-
-        if ($is_success) {
-            $last_id = TopicQuery::getLastInsertId();
-            $is_success = CategoryQuery::update($topic, $last_id);
-        }
     } catch (Throwable $e) {
         // エラー内容を出力する
         Msg::push(Msg::ERROR, $e->getMessage());
         $is_success = false;
-    } finally {
-        // 失敗した場合
-        if (!$is_success) {
-            $db->rollback();
-            Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
-            // エラー時の値の復元のための処理
-            // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
-            TopicModel::setSession($topic);
-
-            // falseの場合は、メッセージを出して元の画面に戻す
-            // このときに再びgetメソッドが呼ばれる
-            redirect(GO_REFERER);
-        }
-
-        // 成功した場合
-        $db->commit();
-        Msg::push(Msg::INFO, 'トピックを登録しました。');
-        redirect(GO_HOME);
     }
+    // 失敗した場合
+    if (!$is_success) {
+        Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
+        // エラー時の値の復元のための処理
+        // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
+        TopicModel::setSession($topic);
+
+        // falseの場合は、メッセージを出して元の画面に戻す
+        // このときに再びgetメソッドが呼ばれる
+        redirect(GO_REFERER);
+    }
+
+    // 成功した場合
+    Msg::push(Msg::INFO, 'トピックを登録しました。');
+    redirect(GO_HOME);
 }

@@ -51,22 +51,6 @@ class CategoryQuery
     }
 
 
-    public static function update($topic, $last_id)
-    {
-        $db = new DataSource;
-
-        $sql = 'UPDATE categories set
-                    topic_id = :topic_id
-                WHERE id = :id';
-
-        // 登録に成功すれば、trueが返される
-        return $db->execute($sql, [
-            ':topic_id' => $last_id[0],
-            ':id' => $topic->category_id
-        ]);
-    }
-
-
     public static function delete($id)
     {
         $db = new DataSource;

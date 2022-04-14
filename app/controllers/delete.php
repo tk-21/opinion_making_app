@@ -3,7 +3,9 @@
 namespace controller\delete;
 
 use model\TopicModel;
+use model\UserModel;
 use db\TopicQuery;
+use db\CategoryQuery;
 use lib\Auth;
 use lib\Msg;
 
@@ -15,8 +17,12 @@ function get()
     $topic->id = get_param('id', null, false);
     // idからトピックの内容を取ってくる
     $fetchedTopic = TopicQuery::fetchById($topic);
+
+    $user = UserModel::getSession();
+    $categories = CategoryQuery::fetchByUserId($user);
+
     // 削除確認画面を表示
-    \view\topic\index($fetchedTopic, SHOW_DELETE);
+    \view\topic\index($fetchedTopic, $categories, SHOW_DELETE);
 }
 
 
