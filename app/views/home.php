@@ -44,7 +44,7 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
                     </li>
 
                     <li class="home-item">
-                        <p class="home-category-ttl">カテゴリ</p>
+                        <p class="home-category-ttl">カテゴリーの作成</p>
 
                         <form class="home-category-form validate-form" action="" method="post">
                             <textarea class="home-category-textarea input validate-target" name="name" required></textarea>
@@ -110,6 +110,7 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
         <section class="home">
             <div class="home-inner">
                 <p class="home-txt _no">トピックがありません。</p>
+                <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
             </div>
         </section>
 

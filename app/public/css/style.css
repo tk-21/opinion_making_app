@@ -1145,9 +1145,18 @@ th {
   margin-bottom: 20px;
 }
 
+.home-category-list {
+  margin-top: 20px;
+}
+
+.home-category-item {
+  margin-bottom: 10px;
+}
+
 .home-txt._no {
   text-align: center;
   font-size: 24px;
+  margin-bottom: 100px;
 }
 
 .msg {

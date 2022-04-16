@@ -70,11 +70,18 @@
         &-textarea {
             margin-bottom: 20px;
         }
+        &-list {
+            margin-top: 20px;
+        }
+        &-item {
+            margin-bottom: 10px;
+        }
     }
     &-txt {
         &._no {
             text-align: center;
             font-size: 24px;
+            margin-bottom: 100px;
         }
     }
 }
