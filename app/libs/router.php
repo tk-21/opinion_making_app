@@ -2,6 +2,7 @@
 
 namespace lib;
 
+use controllers\TopicController\TopicController;
 use Throwable;
 
 // 渡ってきたパスによって呼び出すコントローラーを変えるメソッド
@@ -18,6 +19,12 @@ function route($path, $method)
             $path = 'home';
         }
 
+        if ($path == 'topic/create') {
+            $topic = new TopicController;
+            $topic->create($method);
+        }
+
+
         // 渡ってきたパスによってコントローラー内のどれかのファイル名を取得
         $targetFile = SOURCE_BASE . "controllers/{$path}.php";
 
@@ -27,20 +34,20 @@ function route($path, $method)
             return;
         }
 
-        // コントローラーの中のどれかのファイルを読み込む
+        // コントローラーの読み込み
         require_once $targetFile;
 
         // 渡ってきたパスの途中にあるスラッシュをバックスラッシュに置き換える
-        $path = str_replace('/', '\\', $path);
+        // $path = str_replace('/', '\\', $path);
 
         // パスとメソッドによって関数を呼び分ける
         // 渡ってきたパスとメソッドに応じてnamespace内の関数（getかpostか）を指定
         // fnはfunctionの略
-        $fn = "\\controller\\{$path}\\{$method}";
+        // $fn = "\\controller\\{$path}\\{$method}";
 
         // それを実行する
         // 文字列で定義したものであっても、関数が見つかれば、末尾に()をつけることによって実行できる
-        $fn();
+        // $fn();
     } catch (Throwable $e) {
         // デバッグで何が起こったか確認できるようにする
         Msg::push(Msg::DEBUG, $e->getMessage());
