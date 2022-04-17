@@ -35,7 +35,7 @@ function header()
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap" rel="stylesheet">
         <!-- style.css -->
-        <link rel="stylesheet" href="../public/css/style.min.css" />
+        <link rel="stylesheet" href="../../public/css/style.min.css" />
         <!-- プラグインのcss -->
     </head>
 
@@ -54,7 +54,7 @@ function header()
             <header class="header">
                 <h1 class="header-logo">
                     <a href="<?php the_url('/'); ?>">
-                        <img src="../public/img/title.png" alt="思考トレーニングアプリ">
+                        <img src="../../public/img/title.png" alt="思考トレーニングアプリ">
                     </a>
                 </h1>
                 <nav class="gnav">

@@ -2,6 +2,7 @@
 
 namespace lib;
 
+use controllers\CategoryController\CategoryController;
 use controllers\TopicController\TopicController;
 use Throwable;
 
@@ -14,28 +15,55 @@ function route($path, $method)
         // この記述を入れるとcatchの方に飛ぶ
         // throw new Error();
 
-        // 何もなかったらhomeを入れる
         if ($path === '') {
-            $path = 'home';
+            if ($method === 'get') {
+                $topic = new TopicController;
+                $topic->index();
+            }
+            if ($method === 'post') {
+                $category = new CategoryController;
+                $category->createCategory();
+            }
         }
 
-        if ($path == 'topic/create') {
+
+        if ($path === 'topic_create') {
             $topic = new TopicController;
-            $topic->create($method);
+
+            if ($method === 'get') {
+                $topic->showCreateForm();
+            }
+
+            if ($method === 'post') {
+                $topic->create();
+            }
+        }
+
+
+        if ($path === 'topic_edit') {
+            $topic = new TopicController;
+
+            if ($method === 'get') {
+                $topic->showEditForm();
+            }
+
+            if ($method === 'post') {
+                $topic->edit();
+            }
         }
 
 
         // 渡ってきたパスによってコントローラー内のどれかのファイル名を取得
-        $targetFile = SOURCE_BASE . "controllers/{$path}.php";
+        // $targetFile = SOURCE_BASE . "controllers/{$path}.php";
 
         // コントローラー内に指定されたファイルが存在しなかったら404ページにとばす
-        if (!file_exists($targetFile)) {
-            require_once SOURCE_BASE . 'views/404.php';
-            return;
-        }
+        // if (!file_exists($targetFile)) {
+        //     require_once SOURCE_BASE . 'views/404.php';
+        //     return;
+        // }
 
         // コントローラーの読み込み
-        require_once $targetFile;
+        // require_once $targetFile;
 
         // 渡ってきたパスの途中にあるスラッシュをバックスラッシュに置き換える
         // $path = str_replace('/', '\\', $path);

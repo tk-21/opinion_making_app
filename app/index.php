@@ -2,6 +2,10 @@
 
 require_once 'config.php';
 
+// controller
+require_once SOURCE_BASE . 'controllers/TopicController.php';
+require_once SOURCE_BASE . 'controllers/CategoryController.php';
+
 // Library
 require_once SOURCE_BASE . 'libs/helper.php';
 require_once SOURCE_BASE . 'libs/auth.php';
@@ -39,7 +43,6 @@ require_once SOURCE_BASE . 'views/detail.php';
 require_once SOURCE_BASE . 'views/topic.php';
 require_once SOURCE_BASE . 'views/opinion.php';
 
-// controllerのファイルはrouter.php内で自動的に読み込まれるので、ここに記述する必要はない
 
 use function lib\route;
 
@@ -49,8 +52,8 @@ try {
     // ヘッダーを共通化して読み込み
     // \partials\header();
 
-    // pathの部分のみを取り出し、スラッシュを除く処理
-    $path = str_replace('/', '', parse_url(CURRENT_URI, PHP_URL_PATH));
+    // pathの部分のみを取り出し、前後のスラッシュを除く
+    $path = trim(parse_url(CURRENT_URI, PHP_URL_PATH), '/');
 
     // リクエストメソッドを小文字に変換して取得
     $method = strtolower($_SERVER['REQUEST_METHOD']);
