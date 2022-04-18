@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers\TopicController;
+namespace controllers;
 
 use db\TopicQuery;
 use db\CategoryQuery;
@@ -107,6 +107,8 @@ class TopicController
         try {
             // セッションに格納されているユーザー情報のオブジェクトを取ってくる
             $user = UserModel::getSession();
+
+            // ここでバリデーション
 
             // 更新が成功すればtrue,失敗すればfalseが返ってくる
             $is_success = TopicQuery::insert($topic, $user);

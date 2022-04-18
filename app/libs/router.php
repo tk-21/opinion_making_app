@@ -2,8 +2,8 @@
 
 namespace lib;
 
-use controllers\CategoryController\CategoryController;
-use controllers\TopicController\TopicController;
+use controllers\CategoryController;
+use controllers\TopicController;
 use Throwable;
 
 // 渡ってきたパスによって呼び出すコントローラーを変えるメソッド

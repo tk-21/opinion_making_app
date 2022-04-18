@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers\CategoryController;
+namespace controllers;
 
 use db\TopicQuery;
 use db\CategoryQuery;
