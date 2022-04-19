@@ -23,26 +23,6 @@ class TopicModel extends AbstractModel
     protected static $SESSION_NAME = '_topic';
 
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-
-
     public static function validateId($id)
     {
 

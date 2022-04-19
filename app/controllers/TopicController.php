@@ -8,8 +8,8 @@ use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
 use model\UserModel;
-use Throwable;
-
+use validation\TopicValidation;
+use Exception;
 
 class TopicController
 {
@@ -94,25 +94,36 @@ class TopicController
         // ツールなどでもリクエストは投げれるので、必ずPOSTでもログインしているかどうか確認する
         Auth::requireLogin();
 
-        // インスタンスを作成
-        $topic = new TopicModel;
+        $data = [
+            'title' => get_param('title', null),
+            'body' => get_param('body', null),
+            'position' => get_param('position', null),
+            'category_id' => get_param('category_id', null)
+        ];
 
-        // POSTで渡ってきた（フォームで飛んできた）値をモデルに格納
-        $topic->title = get_param('title', null);
-        $topic->body = get_param('body', null);
-        $topic->position = get_param('position', null);
-        $topic->category_id = get_param('category_id', null);
-
-        // 更新処理
         try {
             // セッションに格納されているユーザー情報のオブジェクトを取ってくる
             $user = UserModel::getSession();
 
-            // ここでバリデーション
+            $validation = new TopicValidation;
+            $validation->setData($data);
+
+            if (!$validation->check()) {
+                throw new Exception();
+            }
+
+            $valid_data = $validation->getData();
+
+            $topic = new TopicModel;
+            // バリデーションを通った値をモデルに格納
+            $topic->title = $valid_data['title'];
+            $topic->body = $valid_data['body'];
+            $topic->position = $valid_data['position'];
+            $topic->category_id = $valid_data['category_id'];
 
             // 更新が成功すればtrue,失敗すればfalseが返ってくる
             $is_success = TopicQuery::insert($topic, $user);
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
             $is_success = false;
@@ -195,7 +206,7 @@ class TopicController
         try {
             // 更新が成功すればtrue,失敗すればfalseが返ってくる
             $is_success = TopicQuery::update($topic);
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
             $is_success = false;
