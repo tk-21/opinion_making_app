@@ -3,8 +3,10 @@
 require_once 'config.php';
 
 // controller
+require_once SOURCE_BASE . 'controllers/HomeController.php';
 require_once SOURCE_BASE . 'controllers/TopicController.php';
-require_once SOURCE_BASE . 'controllers/CategoryController.php';
+require_once SOURCE_BASE . 'controllers/OpinionController.php';
+require_once SOURCE_BASE . 'controllers/DetailController.php';
 
 // Library
 require_once SOURCE_BASE . 'libs/helper.php';
