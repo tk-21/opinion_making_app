@@ -82,6 +82,11 @@ function route($path, $method)
             if ($method === 'post') {
                 $topic->edit();
             }
+
+
+            if($path === 'detail') {
+                
+            }
         }
 
 

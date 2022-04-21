@@ -50,69 +50,77 @@ class DetailController
     }
 
 
-    public function deleteObjection()
+    public function delete()
     {
-        try {
+        $formType = get_param('form_type', null);
 
-            $db = new DataSource;
-            $db->begin();
-            $is_success = ObjectionQuery::delete($delete_id);
-        } catch (Exception $e) {
+        $delete_id = get_param('delete_id', null);
 
-            Msg::push(Msg::DEBUG, $e->getMessage());
-            $is_success = false;
-        } finally {
+        // 「意見に対する反論」の削除処理
+        if ($formType === 'delete_objection' && isset($delete_id)) {
 
-            if ($is_success) {
-                $db->commit();
-                Msg::push(Msg::INFO, '削除しました。');
-            } else {
-                $db->rollback();
-                Msg::push(Msg::ERROR, '削除に失敗しました。');
+            try {
+
+                $db = new DataSource;
+                $db->begin();
+                $is_success = ObjectionQuery::delete($delete_id);
+            } catch (Exception $e) {
+
+                Msg::push(Msg::DEBUG, $e->getMessage());
+                $is_success = false;
+            } finally {
+
+                if ($is_success) {
+                    $db->commit();
+                    Msg::push(Msg::INFO, '削除しました。');
+                } else {
+                    $db->rollback();
+                    Msg::push(Msg::ERROR, '削除に失敗しました。');
+                }
+
+                redirect(GO_REFERER);
+                return;
             }
+        }
 
-            redirect(GO_REFERER);
-            return;
+        // 「反論への反論」の削除処理
+        if ($formType === 'delete_counterObjection' && isset($delete_id)) {
+
+            try {
+
+                $db = new DataSource;
+                $db->begin();
+                $is_success = CounterObjectionQuery::delete($delete_id);
+            } catch (Exception $e) {
+
+                Msg::push(Msg::DEBUG, $e->getMessage());
+                $is_success = false;
+            } finally {
+
+                if ($is_success) {
+                    $db->commit();
+                    Msg::push(Msg::INFO, '削除しました。');
+                } else {
+                    $db->rollback();
+                    Msg::push(Msg::ERROR, '削除に失敗しました。');
+                }
+
+                redirect(GO_REFERER);
+                return;
+            }
         }
     }
 
 
-    public function deleteCounterObjection()
+    public function create()
     {
-        try {
+        $formType = get_param('form_type', null);
 
-            $db = new DataSource;
-            $db->begin();
-            $is_success = CounterObjectionQuery::delete($delete_id);
-        } catch (Exception $e) {
-
-            Msg::push(Msg::DEBUG, $e->getMessage());
-            $is_success = false;
-        } finally {
-
-            if ($is_success) {
-                $db->commit();
-                Msg::push(Msg::INFO, '削除しました。');
-            } else {
-                $db->rollback();
-                Msg::push(Msg::ERROR, '削除に失敗しました。');
-            }
-
-            redirect(GO_REFERER);
-            return;
-        }
-    }
-
-
-    public function createObjection()
-    {
-        // 反論を登録する場合の処理
         $objection = new ObjectionModel;
 
         // postで飛んできた値を格納する
         $objection->body = get_param('body', null);
         $objection->topic_id = get_param('topic_id', null);
-
 
         try {
             // 反論が入力がされていれば、インサートのクエリを実行する
