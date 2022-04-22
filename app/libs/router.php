@@ -2,9 +2,11 @@
 
 namespace lib;
 
+use controllers\AuthController;
 use controllers\HomeController;
 use controllers\TopicController;
 use controllers\OpinionController;
+use controllers\DetailController;
 use Exception;
 
 
@@ -20,6 +22,56 @@ function route($path, $method)
             }
             if ($method === 'post') {
                 $home->createCategory();
+            }
+        }
+
+
+        if ($path === 'login') {
+            $auth = new AuthController;
+
+            if ($method === 'get') {
+                $auth->showLoginForm();
+            }
+            if ($method === 'post') {
+                $auth->login();
+            }
+        }
+
+
+        if ($path === 'logout') {
+            $auth = new AuthController;
+            $auth->logout();
+        }
+
+
+        if ($path === 'register') {
+            $auth = new AuthController;
+
+            if ($method === 'get') {
+                $auth->showRegisterForm();
+            }
+            if ($method === 'post') {
+                $auth->register();
+            }
+        }
+
+
+        if ($path === 'detail') {
+            $detail = new DetailController;
+
+            if ($method === 'get') {
+                $detail->index();
+            }
+            if ($method === 'post') {
+                $formType = get_param('form_type', null);
+
+                if ($formType === 'delete_objection' || 'delete_counterObjection') {
+                    $detail->delete($formType);
+                }
+
+                if ($formType === 'create_objection' || 'create_counterObjection') {
+                    $detail->create($formType);
+                }
             }
         }
 
@@ -82,11 +134,10 @@ function route($path, $method)
             if ($method === 'post') {
                 $topic->edit();
             }
+        }
 
-
-            if($path === 'detail') {
-                
-            }
+        if($path === 'delete') {
+            
         }
 
 

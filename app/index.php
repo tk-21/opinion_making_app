@@ -3,10 +3,11 @@
 require_once 'config.php';
 
 // controller
-require_once SOURCE_BASE . 'controllers/HomeController.php';
-require_once SOURCE_BASE . 'controllers/TopicController.php';
-require_once SOURCE_BASE . 'controllers/OpinionController.php';
+require_once SOURCE_BASE . 'controllers/AuthController.php';
 require_once SOURCE_BASE . 'controllers/DetailController.php';
+require_once SOURCE_BASE . 'controllers/HomeController.php';
+require_once SOURCE_BASE . 'controllers/OpinionController.php';
+require_once SOURCE_BASE . 'controllers/TopicController.php';
 
 // Library
 require_once SOURCE_BASE . 'libs/helper.php';

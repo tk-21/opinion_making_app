@@ -13,8 +13,6 @@ define('GO_HOME', 'home');
 define('GO_REFERER', 'referer');
 
 define('TOPIC', 'topic');
-define('OBJECTION', 'objection');
-define('COUNTER_OBJECTION', 'counter_objection');
 
 define('SHOW_CREATE', 'create');
 define('SHOW_EDIT', 'edit');

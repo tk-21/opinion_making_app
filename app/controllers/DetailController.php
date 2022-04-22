@@ -50,10 +50,8 @@ class DetailController
     }
 
 
-    public function delete()
+    public function delete($formType)
     {
-        $formType = get_param('form_type', null);
-
         $delete_id = get_param('delete_id', null);
 
         // 「意見に対する反論」の削除処理
@@ -112,10 +110,8 @@ class DetailController
     }
 
 
-    public function create()
+    public function create($formType)
     {
-        $formType = get_param('form_type', null);
-
         $objection = new ObjectionModel;
 
         // postで飛んできた値を格納する
@@ -126,11 +122,11 @@ class DetailController
             // 反論が入力がされていれば、インサートのクエリを実行する
             if (!empty($objection->body)) {
 
-                if ($formType === OBJECTION) {
+                if ($formType === 'create_objection') {
                     ObjectionQuery::insert($objection);
                 }
 
-                if ($formType === COUNTER_OBJECTION) {
+                if ($formType === 'create_counterObjection') {
                     CounterObjectionQuery::insert($objection);
                 }
             }

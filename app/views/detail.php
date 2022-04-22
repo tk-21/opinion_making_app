@@ -44,7 +44,7 @@ function index($topic, $objections, $counterObjections, $opinion)
 
                         <form class="objection-form validate-form" action="" method="post">
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
-                            <input type="hidden" name="form_type" value="<?php echo OBJECTION; ?>">
+                            <input type="hidden" name="form_type" value="create_objection">
                             <textarea class="objection-textarea input validate-target" name="body" required></textarea>
                             <button type="submit" class="register-btn">登録</button>
                         </form>
@@ -75,7 +75,7 @@ function index($topic, $objections, $counterObjections, $opinion)
 
                         <form class="objection-form validate-form" action="" method="post">
                             <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
-                            <input type="hidden" name="form_type" value="<?php echo COUNTER_OBJECTION; ?>">
+                            <input type="hidden" name="form_type" value="create_counterObjection">
                             <textarea class="objection-textarea input validate-target" name="body" required></textarea>
                             <button type="submit" class="register-btn">登録</button>
                         </form>
