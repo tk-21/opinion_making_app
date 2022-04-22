@@ -136,8 +136,17 @@ function route($path, $method)
             }
         }
 
-        if($path === 'delete') {
-            
+
+        if ($path === 'delete') {
+            $topic = new TopicController;
+
+            if ($method === 'get') {
+                $topic->confirmDelete();
+            }
+
+            if ($method === 'post') {
+                $topic->delete();
+            }
         }
 
 
