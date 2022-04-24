@@ -1,5 +1,7 @@
 <?php
 
+use lib\Router;
+
 require_once 'config.php';
 
 // controller
@@ -52,21 +54,18 @@ use function lib\route;
 session_start();
 
 try {
-    // ヘッダーを共通化して読み込み
-    // \partials\header();
-
     // pathの部分のみを取り出し、前後のスラッシュを除く
-    $path = trim(parse_url(CURRENT_URI, PHP_URL_PATH), '/');
+    $path = str_replace('/', '', parse_url(CURRENT_URI, PHP_URL_PATH));
 
     // リクエストメソッドを小文字に変換して取得
     $method = strtolower($_SERVER['REQUEST_METHOD']);
 
-    // 渡ってくるパスによってコントローラーを呼び分ける
     // getかpostかによって実行されるメソッドが変わる
-    route($path, $method);
-
-    // フッターを共通化して読み込み
-    // \partials\footer();
+    // 渡ってくるパスによってコントローラーを呼び分ける
+    if ($method === 'get') {
+        Router::get($path);
+        return;
+    }
 } catch (Throwable $e) {
     // 処理を止める
     die('<h1>何かがすごくおかしいようです。</h1>');

@@ -35,7 +35,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                     </dl>
 
                     <a class="edit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>
-                    <a class="delete-btn" href="<?php the_url(sprintf('delete?id=%s', $topic->id)); ?>">削除</a>
+                    <a class="delete-btn" href="<?php the_url(sprintf('topic_delete?id=%s', $topic->id)); ?>">削除</a>
                 </li>
 
                 <li class="detail-item">
