@@ -82,147 +82,217 @@ class Router
             require_once SOURCE_BASE . 'views/404.php';
         }
     }
+
+
+    public static function post($path)
+    {
+        try {
+            switch ($path) {
+                case '':
+                    $home = new HomeController;
+                    $home->createCategory();
+                    break;
+
+                case 'login':
+                    $auth = new AuthController;
+                    $auth->login();
+                    break;
+
+                case 'register':
+                    $auth = new AuthController;
+                    $auth->register();
+                    break;
+
+                case 'detail':
+                    $detail = new DetailController;
+                    $formType = get_param('form_type', null);
+
+                    if ($formType === 'delete_objection' || 'delete_counterObjection') {
+                        $detail->delete($formType);
+                    }
+
+                    if ($formType === 'create_objection' || 'create_counterObjection') {
+                        $detail->create($formType);
+                    }
+                    break;
+
+                case 'topic_create':
+                    $topic = new TopicController;
+                    $topic->create();
+                    break;
+
+                case 'topic_edit':
+                    $topic = new TopicController;
+                    $topic->edit();
+                    break;
+
+                case 'topic_delete':
+                    $topic = new TopicController;
+                    $topic->delete();
+                    break;
+
+                case 'opinion_create':
+                    $opinion = new OpinionController;
+                    $opinion->create();
+                    break;
+
+                case 'opinion_edit':
+                    $opinion = new OpinionController;
+                    $opinion->edit();
+                    break;
+
+                default:
+                    require_once SOURCE_BASE . 'views/404.php';
+            }
+        } catch (Exception $e) {
+            // デバッグで何が起こったか確認できるようにする
+            Msg::push(Msg::DEBUG, $e->getMessage());
+            Msg::push(Msg::ERROR, '何かがおかしいようです。');
+            // 404ページにとばす
+            require_once SOURCE_BASE . 'views/404.php';
+        }
+    }
 }
 
 
-function route($path, $method)
-{
+// function route($path, $method)
+// {
 
-    if ($path === '') {
-        $home = new HomeController;
+//     if ($path === '') {
+//         $home = new HomeController;
 
-        if ($method === 'get') {
-            $home->index();
-        }
-        if ($method === 'post') {
-            $home->createCategory();
-        }
-    }
-
-
-    if ($path === 'login') {
-        $auth = new AuthController;
-
-        if ($method === 'get') {
-            $auth->showLoginForm();
-        }
-        if ($method === 'post') {
-            $auth->login();
-        }
-    }
+//         if ($method === 'get') {
+//             $home->index();
+//         }
+//         if ($method === 'post') {
+//             $home->createCategory();
+//         }
+//     }
 
 
-    if ($path === 'logout') {
-        $auth = new AuthController;
-        $auth->logout();
-    }
+//     if ($path === 'login') {
+//         $auth = new AuthController;
+
+//         if ($method === 'get') {
+//             $auth->showLoginForm();
+//         }
+//         if ($method === 'post') {
+//             $auth->login();
+//         }
+//     }
 
 
-    if ($path === 'register') {
-        $auth = new AuthController;
-
-        if ($method === 'get') {
-            $auth->showRegisterForm();
-        }
-        if ($method === 'post') {
-            $auth->register();
-        }
-    }
+//     if ($path === 'logout') {
+//         $auth = new AuthController;
+//         $auth->logout();
+//     }
 
 
-    if ($path === 'detail') {
-        $detail = new DetailController;
+//     if ($path === 'register') {
+//         $auth = new AuthController;
 
-        if ($method === 'get') {
-            $detail->index();
-        }
-        if ($method === 'post') {
-            $formType = get_param('form_type', null);
-
-            if ($formType === 'delete_objection' || 'delete_counterObjection') {
-                $detail->delete($formType);
-            }
-
-            if ($formType === 'create_objection' || 'create_counterObjection') {
-                $detail->create($formType);
-            }
-        }
-    }
+//         if ($method === 'get') {
+//             $auth->showRegisterForm();
+//         }
+//         if ($method === 'post') {
+//             $auth->register();
+//         }
+//     }
 
 
-    if ($path === 'category') {
-        $home = new HomeController;
+//     if ($path === 'detail') {
+//         $detail = new DetailController;
 
-        if ($method === 'get') {
-            $home->showTopicByCategory();
-        }
-    }
+//         if ($method === 'get') {
+//             $detail->index();
+//         }
+//         if ($method === 'post') {
+//             $formType = get_param('form_type', null);
 
+//             if ($formType === 'delete_objection' || 'delete_counterObjection') {
+//                 $detail->delete($formType);
+//             }
 
-    if ($path === 'topic_create') {
-        $topic = new TopicController;
-
-        if ($method === 'get') {
-            $topic->showCreateForm();
-        }
-
-        if ($method === 'post') {
-            $topic->create();
-        }
-    }
+//             if ($formType === 'create_objection' || 'create_counterObjection') {
+//                 $detail->create($formType);
+//             }
+//         }
+//     }
 
 
-    if ($path === 'topic_edit') {
-        $topic = new TopicController;
+//     if ($path === 'category') {
+//         $home = new HomeController;
 
-        if ($method === 'get') {
-            $topic->showEditForm();
-        }
-
-        if ($method === 'post') {
-            $topic->edit();
-        }
-    }
+//         if ($method === 'get') {
+//             $home->showTopicByCategory();
+//         }
+//     }
 
 
-    if ($path === 'opinion_create') {
-        $opinion = new OpinionController;
+//     if ($path === 'topic_create') {
+//         $topic = new TopicController;
 
-        if ($method === 'get') {
-            $opinion->showCreateForm();
-        }
+//         if ($method === 'get') {
+//             $topic->showCreateForm();
+//         }
 
-        if ($method === 'post') {
-            $opinion->create();
-        }
-    }
-
-
-    if ($path === 'opinion_edit') {
-        $opinion = new OpinionController;
-
-        if ($method === 'get') {
-            $opinion->showEditForm();
-        }
-
-        if ($method === 'post') {
-            $opinion->edit();
-        }
-    }
+//         if ($method === 'post') {
+//             $topic->create();
+//         }
+//     }
 
 
-    if ($path === 'topic_delete') {
-        $topic = new TopicController;
+//     if ($path === 'topic_edit') {
+//         $topic = new TopicController;
 
-        if ($method === 'get') {
-            $topic->confirmDelete();
-        }
+//         if ($method === 'get') {
+//             $topic->showEditForm();
+//         }
 
-        if ($method === 'post') {
-            $topic->delete();
-        }
-    }
-}
+//         if ($method === 'post') {
+//             $topic->edit();
+//         }
+//     }
+
+
+//     if ($path === 'opinion_create') {
+//         $opinion = new OpinionController;
+
+//         if ($method === 'get') {
+//             $opinion->showCreateForm();
+//         }
+
+//         if ($method === 'post') {
+//             $opinion->create();
+//         }
+//     }
+
+
+//     if ($path === 'opinion_edit') {
+//         $opinion = new OpinionController;
+
+//         if ($method === 'get') {
+//             $opinion->showEditForm();
+//         }
+
+//         if ($method === 'post') {
+//             $opinion->edit();
+//         }
+//     }
+
+
+//     if ($path === 'topic_delete') {
+//         $topic = new TopicController;
+
+//         if ($method === 'get') {
+//             $topic->confirmDelete();
+//         }
+
+//         if ($method === 'post') {
+//             $topic->delete();
+//         }
+//     }
+// }
 
         // 渡ってきたパスによってコントローラー内のどれかのファイル名を取得
         // $targetFile = SOURCE_BASE . "controllers/{$path}.php";

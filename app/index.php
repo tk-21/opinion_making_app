@@ -41,6 +41,9 @@ require_once SOURCE_BASE . 'db/category_query.php';
 require_once SOURCE_BASE . 'partials/header.php';
 require_once SOURCE_BASE . 'partials/footer.php';
 
+// Validation
+require_once SOURCE_BASE . 'validation/TopicValidation.php';
+
 // View
 require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/auth.php';
@@ -54,16 +57,20 @@ use function lib\route;
 session_start();
 
 try {
-    // pathの部分のみを取り出し、前後のスラッシュを除く
-    $path = str_replace('/', '', parse_url(CURRENT_URI, PHP_URL_PATH));
-
     // リクエストメソッドを小文字に変換して取得
     $method = strtolower($_SERVER['REQUEST_METHOD']);
 
-    // getかpostかによって実行されるメソッドが変わる
-    // 渡ってくるパスによってコントローラーを呼び分ける
+    // pathの部分のみを取り出し、前後のスラッシュを除く
+    $path = str_replace('/', '', parse_url(CURRENT_URI, PHP_URL_PATH));
+
+    // メソッドとパスによって実行する処理を変える
     if ($method === 'get') {
         Router::get($path);
+        return;
+    }
+
+    if ($method === 'post') {
+        Router::post($path);
         return;
     }
 } catch (Throwable $e) {
