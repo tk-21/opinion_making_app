@@ -51,23 +51,24 @@ class TopicController
             // セッションに格納されているユーザー情報のオブジェクトを取ってくる
             $user = UserModel::getSession();
 
+            // バリデーションに値をセット
             $validation = new TopicValidation;
             $validation->setData($data);
 
-            if (!$validation->check()) {
-                throw new Exception();
+            if ($validation->check()) {
+                $is_success = false;
             }
-
+            
             $valid_data = $validation->getData();
 
             $topic = new TopicModel;
+
             // バリデーションを通った値をモデルに格納
             $topic->title = $valid_data['title'];
             $topic->body = $valid_data['body'];
             $topic->position = $valid_data['position'];
             $topic->category_id = $valid_data['category_id'];
 
-            // 更新が成功すればtrue,失敗すればfalseが返ってくる
             $is_success = TopicQuery::insert($topic, $user);
         } catch (Exception $e) {
             // エラー内容を出力する

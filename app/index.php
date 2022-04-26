@@ -1,6 +1,7 @@
 <?php
 
 use lib\Router;
+use lib\Msg;
 
 require_once 'config.php';
 
@@ -52,8 +53,6 @@ require_once SOURCE_BASE . 'views/topic.php';
 require_once SOURCE_BASE . 'views/opinion.php';
 
 
-use function lib\route;
-
 session_start();
 
 try {
@@ -73,7 +72,10 @@ try {
         Router::post($path);
         return;
     }
-} catch (Throwable $e) {
-    // 処理を止める
-    die('<h1>何かがすごくおかしいようです。</h1>');
+} catch (Exception $e) {
+    // デバッグで何が起こったか確認できるようにする
+    Msg::push(Msg::DEBUG, $e->getMessage());
+    Msg::push(Msg::ERROR, '何かがおかしいようです。');
+    // 404ページにとばす
+    require_once SOURCE_BASE . 'views/404.php';
 }

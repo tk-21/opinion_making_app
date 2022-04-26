@@ -66,7 +66,7 @@ class TopicValidation
 
     public function validateCategoryId()
     {
-        if (isset($this->data['category_id']) && empty($this->data['category_id'])) {
+        if (empty($this->data['category_id'])) {
             Msg::push(Msg::ERROR, 'カテゴリーを選択してください。');
             return false;
         }
