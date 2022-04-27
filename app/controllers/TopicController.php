@@ -40,56 +40,40 @@ class TopicController
         // ツールなどでもリクエストは投げれるので、必ずPOSTでもログインしているかどうか確認する
         Auth::requireLogin();
 
-        $data = [
-            'title' => get_param('title', null),
-            'body' => get_param('body', null),
-            'position' => get_param('position', null),
-            'category_id' => get_param('category_id', null)
-        ];
+        $topic = new TopicModel;
+
+        // モデルに値をセット
+        $topic->title = get_param('title', null);
+        $topic->body = get_param('body', null);
+        $topic->position = get_param('position', null);
+        $topic->category_id = get_param('category_id', null);
 
         try {
+            $validation = new TopicValidation;
+
+            // バリデーションに引っかかった場合
+            if (!$validation->checkCreate($topic)) {
+                Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
+                // エラー時の値の復元のための処理
+                // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
+                TopicModel::setSession($topic);
+
+                // 元の画面に戻す
+                redirect(GO_REFERER);
+            }
+
+            // バリデーションが問題なかった場合、
             // セッションに格納されているユーザー情報のオブジェクトを取ってくる
             $user = UserModel::getSession();
 
-            // バリデーションに値をセット
-            $validation = new TopicValidation;
-            $validation->setData($data);
+            TopicQuery::insert($topic, $user);
 
-            if ($validation->check()) {
-                $is_success = false;
-            }
-            
-            $valid_data = $validation->getData();
-
-            $topic = new TopicModel;
-
-            // バリデーションを通った値をモデルに格納
-            $topic->title = $valid_data['title'];
-            $topic->body = $valid_data['body'];
-            $topic->position = $valid_data['position'];
-            $topic->category_id = $valid_data['category_id'];
-
-            $is_success = TopicQuery::insert($topic, $user);
+            Msg::push(Msg::INFO, 'トピックを登録しました。');
+            redirect(GO_HOME);
         } catch (Exception $e) {
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
-            $is_success = false;
         }
-        // 失敗した場合
-        if (!$is_success) {
-            Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
-            // エラー時の値の復元のための処理
-            // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
-            TopicModel::setSession($topic);
-
-            // falseの場合は、メッセージを出して元の画面に戻す
-            // このときに再びgetメソッドが呼ばれる
-            redirect(GO_REFERER);
-        }
-
-        // 成功した場合
-        Msg::push(Msg::INFO, 'トピックを登録しました。');
-        redirect(GO_HOME);
     }
 
 
@@ -151,29 +135,27 @@ class TopicController
 
         // 更新処理
         try {
-            // 更新が成功すればtrue,失敗すればfalseが返ってくる
-            $is_success = TopicQuery::update($topic);
+            $validation = new TopicValidation;
+
+            // バリデーションに引っかかった場合
+            if (!$validation->checkEdit($topic)) {
+                Msg::push(Msg::ERROR, 'トピックの更新に失敗しました。');
+                // エラー時の値の復元のための処理
+                // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
+                TopicModel::setSession($topic);
+
+                // 元の画面に戻す
+                redirect(GO_REFERER);
+            }
+
+            TopicQuery::update($topic);
+
+            Msg::push(Msg::INFO, 'トピックを更新しました。');
+            redirect(sprintf('detail?id=%d', $topic->id));
         } catch (Exception $e) {
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
-            $is_success = false;
         }
-
-        // trueの場合は、メッセージを出してarchiveに移動
-        if (!$is_success) {
-            Msg::push(Msg::ERROR, 'トピックの更新に失敗しました。');
-
-            // エラー時の値の復元のための処理
-            // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
-            TopicModel::setSession($topic);
-
-            // falseの場合は、メッセージを出して元の画面に戻す
-            // このときに再びgetメソッドが呼ばれる
-            redirect(GO_REFERER);
-        }
-
-        Msg::push(Msg::INFO, 'トピックを更新しました。');
-        redirect(sprintf('detail?id=%d', $topic->id));
     }
 
 

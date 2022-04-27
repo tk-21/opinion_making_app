@@ -6,26 +6,13 @@ use lib\Msg;
 
 class TopicValidation
 {
-    public $data = [];
-
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
-
-
-    public function check()
+    public function checkCreate($topic)
     {
         if (
-            !($this->validateTitle() *
-                $this->validateBody() *
-                $this->validatePosition() *
-                $this->validateCategoryId())
+            !($this->validateTitle($topic) *
+                $this->validateBody($topic) *
+                $this->validatePosition($topic) *
+                $this->validateCategoryId($topic))
         ) {
             return false;
         }
@@ -34,9 +21,37 @@ class TopicValidation
     }
 
 
-    public function validateTitle()
+    public function checkEdit($topic)
     {
-        if (isset($this->data['title']) && empty($this->data['title'])) {
+        if (
+            !($this->validateId($topic) *
+                $this->validateTitle($topic) *
+                $this->validateBody($topic) *
+                $this->validatePosition($topic) *
+                $this->validateStatus($topic) *
+                $this->validateCategoryId($topic))
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function validateId($topic)
+    {
+        if (empty($topic->id) || !is_numeric($topic->id)) {
+            Msg::push(Msg::ERROR, 'パラメータが不正です。');
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function validateTitle($topic)
+    {
+        if (empty($topic->title)) {
             Msg::push(Msg::ERROR, 'タイトルを入力してください。');
             return false;
         }
@@ -44,9 +59,10 @@ class TopicValidation
         return true;
     }
 
-    public function validateBody()
+
+    public function validateBody($topic)
     {
-        if (isset($this->data['body']) && empty($this->data['body'])) {
+        if (empty($topic->body)) {
             Msg::push(Msg::ERROR, '本文を入力してください。');
             return false;
         }
@@ -54,9 +70,10 @@ class TopicValidation
         return true;
     }
 
-    public function validatePosition()
+
+    public function validatePosition($topic)
     {
-        if (isset($this->data['position']) && empty($this->data['position'])) {
+        if (empty($topic->position)) {
             Msg::push(Msg::ERROR, 'ポジションを入力してください。');
             return false;
         }
@@ -64,9 +81,21 @@ class TopicValidation
         return true;
     }
 
-    public function validateCategoryId()
+
+    public static function validateStatus($topic)
     {
-        if (empty($this->data['category_id'])) {
+        if ($topic->complete_flg > 1 || $topic->complete_flg < 0) {
+            Msg::push(Msg::ERROR, 'ステータスの値が不正です。');
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function validateCategoryId($topic)
+    {
+        if (empty($topic->category_id)) {
             Msg::push(Msg::ERROR, 'カテゴリーを選択してください。');
             return false;
         }
