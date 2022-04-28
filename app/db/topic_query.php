@@ -165,13 +165,34 @@ class TopicQuery
     }
 
 
-
-    public static function getLastInsertId()
+    public static function fetchTopics($user)
     {
-        $db = new DataSource;
+        $topics = static::fetchByUserId($user);
 
-        $sql = 'SELECT LAST_INSERT_ID()';
+        // 記事の件数を取得
+        $topics_num = count($topics);//sqlで件数を取得
 
-        return $db->select($sql, [], 'column');
+        // トータルページ数を取得（ceilで小数点を切り捨てる）
+        $max_page = ceil($topics_num / MAX);
+
+        // 現在のページ（設定されていない場合は１にする）
+        $current_page = get_param('page', 1, false);
+
+        // ページネーションを表示させる範囲
+        if ($current_page === 1 || $current_page === $max_page) {
+            $range = 4;
+        } elseif ($current_page === 2 || $current_page === $max_page - 1) {
+            $range = 3;
+        } else {
+            $range = 2;
+        }
+
+        // 配列の何番目から取得するか
+        $start_no = ($current_page - 1) * MAX;
+
+        // $start_noからMAXまでの配列を切り出す
+        $topics = array_slice($topics, $start_no, MAX, true);
+
+        return [$topics, $topics_num, $max_page, $current_page, $range];
     }
 }

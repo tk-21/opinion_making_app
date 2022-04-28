@@ -73,8 +73,8 @@ class OpinionModel extends AbstractModel
 
 
 
-    public function isValidTopicId()
-    {
-        return TopicModel::validateId($this->topic_id);
-    }
+    // public function isValidTopicId()
+    // {
+    //     return TopicModel::validateId($this->topic_id);
+    // }
 }
