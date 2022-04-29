@@ -165,26 +165,23 @@ class TopicQuery
     }
 
 
-    public static function fetchTopics($user)
+    public static function countTopic($user)
     {
         $topics = static::fetchByUserId($user);
 
         // 記事の件数を取得
-        $topics_num = count($topics);//sqlで件数を取得
+        $topics_num = count($topics); //sqlで件数を取得
 
-        // トータルページ数を取得（ceilで小数点を切り捨てる）
-        $max_page = ceil($topics_num / MAX);
+        return $topics_num;
+    }
 
-        // 現在のページ（設定されていない場合は１にする）
-        $current_page = get_param('page', 1, false);
 
-        // ページネーションを表示させる範囲
-        if ($current_page === 1 || $current_page === $max_page) {
-            $range = 4;
-        } elseif ($current_page === 2 || $current_page === $max_page - 1) {
-            $range = 3;
-        } else {
-            $range = 2;
+    public static function fetchTopicsPartially($user, $current_page)
+    {
+        $topics = static::fetchByUserId($user);
+
+        if (!$topics) {
+            return false;
         }
 
         // 配列の何番目から取得するか
@@ -193,6 +190,6 @@ class TopicQuery
         // $start_noからMAXまでの配列を切り出す
         $topics = array_slice($topics, $start_no, MAX, true);
 
-        return [$topics, $topics_num, $max_page, $current_page, $range];
+        return $topics;
     }
 }

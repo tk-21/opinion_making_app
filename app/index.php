@@ -15,7 +15,7 @@ require_once SOURCE_BASE . 'controllers/TopicController.php';
 // Library
 require_once SOURCE_BASE . 'libs/helper.php';
 require_once SOURCE_BASE . 'libs/auth.php';
-require_once SOURCE_BASE . 'libs/router.php';
+require_once SOURCE_BASE . 'libs/Router.php';
 
 // model
 require_once SOURCE_BASE . 'models/abstract_model.php';

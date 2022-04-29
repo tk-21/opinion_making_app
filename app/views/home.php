@@ -5,7 +5,7 @@ namespace view\home;
 use DateTime;
 
 // 引数でtopicの配列が渡ってくる
-function index($topics, $categories, $topics_num = "", $max_page = "", $current_page = "", $range = "")
+function index($topics, $categories, $topic_num = "", $max_page = "", $current_page = "", $range = "")
 {
     \partials\header();
 
@@ -64,7 +64,7 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $current_
                 </ul>
 
 
-                <p class="home-txt">全件数：<?php echo $topics_num; ?>件</p>
+                <p class="home-txt">全件数：<?php echo $topic_num; ?>件</p>
 
                 <ul class="pagination">
                     <?php // 現在のページが２以上のときだけ「戻る」にリンクを付ける

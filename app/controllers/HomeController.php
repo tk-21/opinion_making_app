@@ -30,20 +30,20 @@ class HomeController
 
         $categories = CategoryQuery::fetchByUserId($user);
 
-        // ログインしているユーザーに紐付くトピックを取得してくる
-        // $topics = TopicQuery::fetchByUserId($user);
+        $topic_num = TopicQuery::countTopic($user);
 
-        // トピックがなかった場合
-        // if (!$topics) {
-        //     // viewのindexメソッドを呼んでリストを表示する
-        //     \view\home\index($topics, $categories);
-        //     return;
-        // }
+        // トータルページ数を取得（ceilで小数点を切り捨てる）
+        $max_page = ceil($topic_num / MAX);
 
-        [$topics, $topics_num, $max_page, $current_page, $range] = TopicQuery::fetchTopics($user);
+        // 現在のページ（設定されていない場合は１にする）
+        $current_page = get_param('page', 1, false);
+
+        $topics = TopicQuery::fetchTopicsPartially($user, $current_page);
+
+        $range = getPaginationRange($current_page, $max_page);
 
         // viewのindexメソッドを呼んでリストを表示する
-        \view\home\index($topics, $categories, $topics_num, $max_page, $current_page, $range);
+        \view\home\index($topics, $categories, $topic_num, $max_page, $current_page, $range);
     }
 
 
