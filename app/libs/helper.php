@@ -16,7 +16,7 @@ function get_param($key, $default_val, $is_post = true)
 }
 
 
-// 渡ってきた値をホスト名以下につなげてURLを返すメソッド
+// 渡ってきた値をホスト名以下につなげてURLを返す関数
 function get_url($path)
 {
     // 両端にスラッシュが含まれていればトリミングする
@@ -24,14 +24,14 @@ function get_url($path)
 }
 
 
-// get_urlで取得したURLを画面表示するメソッド
+// get_urlで取得したURLを画面表示する関数
 function the_url($path)
 {
     echo get_url($path);
 }
 
 
-// 渡ってきた値が含まれるURLに遷移させるメソッド
+// 渡ってきた値が含まれるURLに遷移させる関数
 function redirect($path)
 {
     if ($path === GO_HOME) {
@@ -47,7 +47,7 @@ function redirect($path)
 }
 
 
-// 小文字か大文字の半角英字もしくは数字にマッチするかどうかを判定するメソッド
+// 小文字か大文字の半角英字もしくは数字にマッチするかどうかを判定する関数
 function is_alnum($val)
 {
     return preg_match("/^[a-zA-Z0-9]+$/", $val);
@@ -78,4 +78,19 @@ function escape($data)
     } else {
         return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
     }
+}
+
+
+// ページネーションの表示範囲を返す関数
+function getPaginationRange($current_page, $max_page)
+{
+    if ($current_page === 1 || $current_page === $max_page) {
+        $range = 4;
+    } elseif ($current_page === 2 || $current_page === $max_page - 1) {
+        $range = 3;
+    } else {
+        $range = 2;
+    }
+
+    return $range;
 }

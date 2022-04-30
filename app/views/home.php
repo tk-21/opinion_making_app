@@ -5,7 +5,7 @@ namespace view\home;
 use DateTime;
 
 // 引数でtopicの配列が渡ってくる
-function index($topics, $categories, $topics_num = "", $max_page = "", $page = "", $range = "")
+function index($topics, $categories, $topic_num = "", $max_page = "", $current_page = "", $range = "")
 {
     \partials\header();
 
@@ -64,14 +64,14 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
                 </ul>
 
 
-                <p class="home-txt">全件数：<?php echo $topics_num; ?>件</p>
+                <p class="home-txt">全件数：<?php echo $topic_num; ?>件</p>
 
                 <ul class="pagination">
                     <?php // 現在のページが２以上のときだけ「戻る」にリンクを付ける
                     ?>
                     <li class="pagination-item">
-                        <?php if ($page >= 2) : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', ($page - 1))); ?>">&laquo;</a>
+                        <?php if ($current_page >= 2) : ?>
+                            <a href="<?php the_url(sprintf('home?page=%d', ($current_page - 1))); ?>">&laquo;</a>
                         <?php else : ?>
                             <span class="pagination-pre">&laquo;</span>
                         <?php endif; ?>
@@ -80,9 +80,9 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
                     <?php // １〜最大ページまでループさせ、$rangeで表示範囲を５件に絞る。現在のページ番号にはリンクを付けない。
                     ?>
                     <?php for ($i = 1; $i <= $max_page; $i++) : ?>
-                        <?php if ($i >= $page - $range && $i <= $page + $range) : ?>
+                        <?php if ($i >= $current_page - $range && $i <= $current_page + $range) : ?>
                             <li class="pagination-item">
-                                <?php if ($i == $page) : ?>
+                                <?php if ($i == $current_page) : ?>
                                     <span class="pagination-now"><?php echo $i; ?></span>
                                 <?php else : ?>
                                     <a href="<?php the_url(sprintf('home?page=%d', $i)); ?>" class="pagination-num"><?php echo $i; ?></a>
@@ -94,8 +94,8 @@ function index($topics, $categories, $topics_num = "", $max_page = "", $page = "
                     <?php // 現在ページが最大ページ数を超えたら「進む」にリンクを付けない
                     ?>
                     <li class="pagination-item">
-                        <?php if ($page < $max_page) : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', $page + 1)); ?>">&raquo;</a>
+                        <?php if ($current_page < $max_page) : ?>
+                            <a href="<?php the_url(sprintf('home?page=%d', $current_page + 1)); ?>">&raquo;</a>
                         <?php else : ?>
                             <span class="pagination-next">&raquo;</span>
                         <?php endif; ?>

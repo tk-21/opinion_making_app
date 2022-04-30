@@ -104,23 +104,8 @@ class TopicQuery
 
     public static function update($topic)
     {
-        // 値のチェック
-        // DBに接続する前に必ずチェックは終わらせておく
-        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元のedit.phpにfalseを返して登録失敗になる
-        if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($topic->isValidId()
-                * $topic->isValidTitle()
-                * $topic->isValidBody()
-                * $topic->isValidPosition()
-                * $topic->isValidStatus())
-        ) {
-            return false;
-        }
-
         $db = new DataSource;
-        // idをキーにしてpublishedとtitleを更新
+
         $sql = 'UPDATE topics
                 SET title = :title,
                     body = :body,
@@ -144,18 +129,6 @@ class TopicQuery
 
     public static function insert($topic, $user)
     {
-        // 値のチェック
-        // DBに接続する前に必ずチェックは終わらせておく
-        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元のedit.phpにfalseを返して登録失敗になる
-        if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($topic->isValidTitle()
-                * $topic->isValidBody()
-                * $topic->isValidPosition())
-        ) {
-            return false;
-        }
 
         $db = new DataSource;
 
@@ -192,13 +165,38 @@ class TopicQuery
     }
 
 
-
-    public static function getLastInsertId()
+    public static function countTopic($user)
     {
         $db = new DataSource;
 
-        $sql = 'SELECT LAST_INSERT_ID()';
+        $sql = 'SELECT count(*) AS topic_num
+                FROM topics
+                WHERE user_id = :id
+                AND deleted_at is null
+                ';
 
-        return $db->select($sql, [], 'column');
+        $result = $db->selectOne($sql, [
+            ':id' => $user->id
+        ]);
+
+        return $result['topic_num'];
+    }
+
+
+    public static function fetchTopicsPartially($user, $current_page)
+    {
+        $topics = static::fetchByUserId($user);
+
+        if (!$topics) {
+            return false;
+        }
+
+        // 配列の何番目から取得するか
+        $start_no = ($current_page - 1) * MAX;
+
+        // $start_noからMAXまでの配列を切り出す
+        $topics = array_slice($topics, $start_no, MAX, true);
+
+        return $topics;
     }
 }
