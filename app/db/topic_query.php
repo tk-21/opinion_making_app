@@ -167,12 +167,19 @@ class TopicQuery
 
     public static function countTopic($user)
     {
-        $topics = static::fetchByUserId($user);
+        $db = new DataSource;
 
-        // 記事の件数を取得
-        $topics_num = count($topics); //sqlで件数を取得
+        $sql = 'SELECT count(*) AS topic_num
+                FROM topics
+                WHERE user_id = :id
+                AND deleted_at is null
+                ';
 
-        return $topics_num;
+        $result = $db->selectOne($sql, [
+            ':id' => $user->id
+        ]);
+
+        return $result['topic_num'];
     }
 
 

@@ -30,14 +30,16 @@ class HomeController
 
         $categories = CategoryQuery::fetchByUserId($user);
 
+        // ユーザーに紐づくトピックの数を数える
         $topic_num = TopicQuery::countTopic($user);
 
-        // トータルページ数を取得（ceilで小数点を切り捨てる）
+        // 必要なページ数を取得（ceilで小数点を切り捨てる）
         $max_page = ceil($topic_num / MAX);
 
-        // 現在のページ（設定されていない場合は１にする）
+        // 現在のページを取得（設定されていない場合は１にする）
         $current_page = get_param('page', 1, false);
 
+        // 現在のページ番号を元に、表示するトピックを部分的に取得
         $topics = TopicQuery::fetchTopicsPartially($user, $current_page);
 
         $range = getPaginationRange($current_page, $max_page);
