@@ -5,11 +5,13 @@ namespace view\home;
 use DateTime;
 
 // 引数でtopicの配列が渡ってくる
-function index($topics, $categories, $topic_num = "", $max_page = "", $current_page = "", $range = "")
+function index($topic_num = "", $max_page = "", $current_page = "", $range = "", $topics, $categories, $is_home)
 {
     \partials\header();
 
     $topics = escape($topics);
+
+    $path = $is_home ? 'home' : 'category';
 ?>
 
     <?php if ($topics) : ?>
@@ -66,12 +68,14 @@ function index($topics, $categories, $topic_num = "", $max_page = "", $current_p
 
                 <p class="home-txt">全件数：<?php echo $topic_num; ?>件</p>
 
+                <?php $category_id = get_param('id', null, false) ?>
+
                 <ul class="pagination">
                     <?php // 現在のページが２以上のときだけ「戻る」にリンクを付ける
                     ?>
                     <li class="pagination-item">
                         <?php if ($current_page >= 2) : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', ($current_page - 1))); ?>">&laquo;</a>
+                            <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, ($current_page - 1))); ?>">&laquo;</a>
                         <?php else : ?>
                             <span class="pagination-pre">&laquo;</span>
                         <?php endif; ?>
@@ -85,7 +89,7 @@ function index($topics, $categories, $topic_num = "", $max_page = "", $current_p
                                 <?php if ($i == $current_page) : ?>
                                     <span class="pagination-now"><?php echo $i; ?></span>
                                 <?php else : ?>
-                                    <a href="<?php the_url(sprintf('home?page=%d', $i)); ?>" class="pagination-num"><?php echo $i; ?></a>
+                                    <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, $i)); ?>" class="pagination-num"><?php echo $i; ?></a>
                                 <?php endif; ?>
                             </li>
                         <?php endif; ?>
@@ -95,7 +99,7 @@ function index($topics, $categories, $topic_num = "", $max_page = "", $current_p
                     ?>
                     <li class="pagination-item">
                         <?php if ($current_page < $max_page) : ?>
-                            <a href="<?php the_url(sprintf('home?page=%d', $current_page + 1)); ?>">&raquo;</a>
+                            <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, ($current_page + 1))); ?>">&raquo;</a>
                         <?php else : ?>
                             <span class="pagination-next">&raquo;</span>
                         <?php endif; ?>

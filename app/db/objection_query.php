@@ -11,9 +11,9 @@ class ObjectionQuery
     public static function fetchByTopicId($topic)
     {
         // 渡ってきたトピックオブジェクトのidが正しいか確認
-        if (!$topic->isValidId()) {
-            return false;
-        }
+        // if (!$topic->isValidId()) {
+        //     return false;
+        // }
 
         $db = new DataSource;
 
@@ -43,15 +43,15 @@ class ObjectionQuery
         // 値のチェック
         // DBに接続する前に必ずチェックは終わらせておく
         // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元にfalseを返して登録失敗になる
-        if (
+        // if (
             // ()の中が０の場合にはtrueになり、if文の中が実行される
             // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-            !($objection->isValidTopicId()
-                * $objection->isValidBody()
-            )
-        ) {
-            return false;
-        }
+        //     !($objection->isValidTopicId()
+        //         * $objection->isValidBody()
+        //     )
+        // ) {
+        //     return false;
+        // }
 
         $db = new DataSource;
 

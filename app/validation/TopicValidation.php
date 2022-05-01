@@ -6,38 +6,6 @@ use lib\Msg;
 
 class TopicValidation
 {
-    public function checkCreate($topic)
-    {
-        if (
-            !($this->validateTitle($topic) *
-                $this->validateBody($topic) *
-                $this->validatePosition($topic) *
-                $this->validateCategoryId($topic))
-        ) {
-            return false;
-        }
-
-        return true;
-    }
-
-
-    public function checkEdit($topic)
-    {
-        if (
-            !($this->validateId($topic) *
-                $this->validateTitle($topic) *
-                $this->validateBody($topic) *
-                $this->validatePosition($topic) *
-                $this->validateStatus($topic) *
-                $this->validateCategoryId($topic))
-        ) {
-            return false;
-        }
-
-        return true;
-    }
-
-
     public function validateId($topic)
     {
         if (empty($topic->id) || !is_numeric($topic->id)) {
@@ -97,6 +65,38 @@ class TopicValidation
     {
         if (empty($topic->category_id)) {
             Msg::push(Msg::ERROR, 'カテゴリーを選択してください。');
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function checkCreate($topic)
+    {
+        if (
+            !($this->validateTitle($topic) *
+                $this->validateBody($topic) *
+                $this->validatePosition($topic) *
+                $this->validateCategoryId($topic))
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function checkEdit($topic)
+    {
+        if (
+            !($this->validateId($topic) *
+                $this->validateTitle($topic) *
+                $this->validateBody($topic) *
+                $this->validatePosition($topic) *
+                $this->validateStatus($topic) *
+                $this->validateCategoryId($topic))
+        ) {
             return false;
         }
 

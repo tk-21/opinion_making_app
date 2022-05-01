@@ -103,6 +103,12 @@ class TopicController
         // GETリクエストから取得したidをモデルに格納
         $topic->id = get_param('id', null, false);
 
+        // バリデーションが失敗した場合は、画面遷移させない
+        $validation = new TopicValidation;
+        if (!$validation->validateId($topic)) {
+            redirect(GO_REFERER);
+        };
+
         // idからトピックの内容を取ってくる
         $fetchedTopic = TopicQuery::fetchById($topic);
 
@@ -165,6 +171,12 @@ class TopicController
 
         $topic = new TopicModel;
         $topic->id = get_param('id', null, false);
+
+        $validation = new TopicValidation;
+        if (!$validation->validateId($topic)) {
+            redirect(GO_REFERER);
+        };
+
         // idからトピックの内容を取ってくる
         $fetchedTopic = TopicQuery::fetchById($topic);
 
@@ -178,8 +190,15 @@ class TopicController
 
     public function delete()
     {
-        $id = get_param('id', null);
-        TopicQuery::delete($id) ? Msg::push(Msg::INFO, 'トピックを削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
+        $topic = new TopicModel;
+        $topic->id = get_param('id', null);
+
+        $validation = new TopicValidation;
+        if (!$validation->validateId($topic)) {
+            redirect(GO_REFERER);
+        };
+
+        TopicQuery::delete($topic) ? Msg::push(Msg::INFO, 'トピックを削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
 
         redirect(GO_HOME);
     }
