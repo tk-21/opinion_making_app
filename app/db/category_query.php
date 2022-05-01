@@ -17,6 +17,7 @@ class CategoryQuery
                 AND deleted_at IS NULL
                 ORDER BY id DESC
                 ';
+
         // 第2引数のパラメータは指定しないので、空の配列を渡す
         // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
         // 第4引数でTopicModelまでのパスを取得して、そのクラスを使うように指定
