@@ -28,8 +28,8 @@ class HomeController
             redirect('login');
         }
 
-        // ページネーション機能に必要な要素を取得
-        [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getPagination($user);
+        // ページング機能に必要な要素を取得
+        [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getTopicsByUserId($user);
 
         // ユーザーに紐付くカテゴリーを取得
         $categories = CategoryQuery::fetchByUserId($user);
@@ -39,7 +39,7 @@ class HomeController
     }
 
 
-    public function showTopicByCategory()
+    public function showTopicsByCategory()
     {
 
         Auth::requireLogin();
@@ -48,8 +48,8 @@ class HomeController
 
         $category->id = get_param('id', null, false);
 
-        // ページネーション機能に必要な要素を取得
-        [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getPaginationByCategory($category);
+        // ページング機能に必要な要素を取得
+        [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getTopicsByCategoryId($category);
 
         $user = UserModel::getSession();
         $categories = CategoryQuery::fetchByUserId($user);

@@ -70,14 +70,14 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
 
                 <?php $category_id = get_param('id', null, false) ?>
 
-                <ul class="pagination">
+                <ul class="paging">
                     <?php // 現在のページが２以上のときだけ「戻る」にリンクを付ける
                     ?>
-                    <li class="pagination-item">
+                    <li class="paging-item">
                         <?php if ($current_page >= 2) : ?>
                             <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, ($current_page - 1))); ?>">&laquo;</a>
                         <?php else : ?>
-                            <span class="pagination-pre">&laquo;</span>
+                            <span class="paging-pre">&laquo;</span>
                         <?php endif; ?>
                     </li>
 
@@ -85,11 +85,11 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                     ?>
                     <?php for ($i = 1; $i <= $max_page; $i++) : ?>
                         <?php if ($i >= $current_page - $range && $i <= $current_page + $range) : ?>
-                            <li class="pagination-item">
+                            <li class="paging-item">
                                 <?php if ($i == $current_page) : ?>
-                                    <span class="pagination-now"><?php echo $i; ?></span>
+                                    <span class="paging-now"><?php echo $i; ?></span>
                                 <?php else : ?>
-                                    <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, $i)); ?>" class="pagination-num"><?php echo $i; ?></a>
+                                    <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, $i)); ?>" class="paging-num"><?php echo $i; ?></a>
                                 <?php endif; ?>
                             </li>
                         <?php endif; ?>
@@ -97,11 +97,11 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
 
                     <?php // 現在ページが最大ページ数を超えたら「進む」にリンクを付けない
                     ?>
-                    <li class="pagination-item">
+                    <li class="paging-item">
                         <?php if ($current_page < $max_page) : ?>
                             <a href="<?php the_url(sprintf('%s?id=%s&page=%d', $path, $category_id, ($current_page + 1))); ?>">&raquo;</a>
                         <?php else : ?>
-                            <span class="pagination-next">&raquo;</span>
+                            <span class="paging-next">&raquo;</span>
                         <?php endif; ?>
                     </li>
                 </ul>

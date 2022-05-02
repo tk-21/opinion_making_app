@@ -81,8 +81,8 @@ function escape($data)
 }
 
 
-// ページネーションの表示範囲を返す関数
-function getPaginationRange($current_page, $max_page)
+// ページングの表示範囲を返す関数
+function getPagingRange($current_page, $max_page)
 {
     if ($current_page === 1 || $current_page === $max_page) {
         $range = 4;

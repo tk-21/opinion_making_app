@@ -15,10 +15,6 @@ class Router
     {
         switch ($path) {
             case '':
-                $home = new HomeController;
-                $home->index();
-                break;
-
             case 'home':
                 $home = new HomeController;
                 $home->index();
@@ -46,7 +42,7 @@ class Router
 
             case 'category':
                 $home = new HomeController;
-                $home->showTopicByCategory();
+                $home->showTopicsByCategory();
                 break;
 
             case 'topic_create':

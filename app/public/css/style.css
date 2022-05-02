@@ -763,7 +763,7 @@ th {
   font-weight: bold;
 }
 
-.pagination {
+.paging {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -772,12 +772,12 @@ th {
           justify-content: center;
 }
 
-.pagination-item:not(:last-of-type) {
+.paging-item:not(:last-of-type) {
   margin-right: 30px;
 }
 
-.pagination-item a,
-.pagination-item span {
+.paging-item a,
+.paging-item span {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -792,17 +792,17 @@ th {
           justify-content: center;
 }
 
-.pagination-item a {
+.paging-item a {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-.pagination-item a:hover {
+.paging-item a:hover {
   color: #fff;
   background: #743434;
 }
 
-.pagination-now {
+.paging-now {
   color: #fff;
   background: #743434;
 }
