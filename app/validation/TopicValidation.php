@@ -72,6 +72,7 @@ class TopicValidation
     }
 
 
+    // トピック作成のときに実行するメソッド
     public function checkCreate($topic)
     {
         if (
@@ -87,6 +88,7 @@ class TopicValidation
     }
 
 
+    // トピック編集のときに実行するメソッド
     public function checkEdit($topic)
     {
         if (

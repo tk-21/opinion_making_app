@@ -14,6 +14,7 @@ class AuthController
             redirect(GO_HOME);
         }
 
+        // ログイン画面を表示
         \view\auth\index(true);
     }
 
@@ -58,6 +59,7 @@ class AuthController
             redirect(GO_HOME);
         }
 
+        // 登録画面を表示
         \view\auth\index(false);
     }
 
