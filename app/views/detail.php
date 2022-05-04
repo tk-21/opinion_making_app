@@ -12,6 +12,7 @@ function index($topic, $objections, $counterObjections, $opinion)
     $opinion = escape($opinion);
 
     $complete_flg = $topic->complete_flg ? '完了' : '未完了';
+    $category_name = $topic->name ? $topic->name : '分類なし';
     $is_edit = $opinion ? 'edit' : 'create';
 
 ?>
@@ -31,7 +32,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <dt class="detail-topic-ttl">ステータス</dt>
                         <dd class="detail-topic-data"><?php echo $complete_flg; ?></dd>
                         <dt class="detail-topic-ttl">カテゴリー</dt>
-                        <dd class="detail-topic-data"><?php echo $topic->name; ?></dd>
+                        <dd class="detail-topic-data"><?php echo $category_name; ?></dd>
                     </dl>
 
                     <a class="edit-btn" href="<?php the_url(sprintf('topic_edit?id=%s', $topic->id)); ?>">編集</a>

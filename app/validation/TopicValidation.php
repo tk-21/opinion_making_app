@@ -78,8 +78,7 @@ class TopicValidation
         if (
             !($this->validateTitle($topic) *
                 $this->validateBody($topic) *
-                $this->validatePosition($topic) *
-                $this->validateCategoryId($topic))
+                $this->validatePosition($topic))
         ) {
             return false;
         }
@@ -96,8 +95,7 @@ class TopicValidation
                 $this->validateTitle($topic) *
                 $this->validateBody($topic) *
                 $this->validatePosition($topic) *
-                $this->validateStatus($topic) *
-                $this->validateCategoryId($topic))
+                $this->validateStatus($topic))
         ) {
             return false;
         }

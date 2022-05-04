@@ -44,6 +44,7 @@ require_once SOURCE_BASE . 'partials/footer.php';
 
 // Validation
 require_once SOURCE_BASE . 'validation/TopicValidation.php';
+require_once SOURCE_BASE . 'validation/UserValidation.php';
 
 // View
 require_once SOURCE_BASE . 'views/home.php';

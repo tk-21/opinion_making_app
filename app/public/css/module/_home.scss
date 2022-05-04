@@ -78,7 +78,12 @@
         }
     }
     &-txt {
-        &._no {
+        &._top {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 50px;
+        }
+        &._bottom {
             text-align: center;
             font-size: 24px;
             margin-bottom: 100px;

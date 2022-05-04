@@ -113,7 +113,12 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
 
         <section class="home">
             <div class="home-inner">
-                <p class="home-txt _no">トピックがありません。</p>
+                <?php if ($path === 'category') : ?>
+                    <p class="home-txt _bottom">このカテゴリーに分類されているトピックがありません。</p>
+                <?php else : ?>
+                    <p class="home-txt _top">まだトピックがありません。</p>
+                    <p class="home-txt _bottom">トピックを作成してみましょう！</p>
+                <?php endif; ?>
                 <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
             </div>
         </section>

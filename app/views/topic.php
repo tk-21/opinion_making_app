@@ -70,19 +70,21 @@ function index($topic, $categories, $type)
                         </dd>
                     <?php endif; ?>
 
-                    <dt class="topic-dttl">カテゴリー</dt>
-                    <dd class="topic-item">
-                        <ul class="category-list">
-                            <?php foreach ($categories as $category) : ?>
-                                <li class="category-item">
-                                    <label>
-                                        <input type="radio" class="category" name="category_id" value="<?php echo $category->id; ?>" <?php echo $topic->category_id === $category->id ? 'checked' : ''; ?> <?php echo $disabled; ?>>
-                                        <span class="category-txt"><?php echo $category->name; ?></span>
-                                    </label>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </dd>
+                    <?php if ($categories) : ?>
+                        <dt class="topic-dttl">カテゴリー</dt>
+                        <dd class="topic-item">
+                            <ul class="category-list">
+                                <?php foreach ($categories as $category) : ?>
+                                    <li class="category-item">
+                                        <label>
+                                            <input type="radio" class="category" name="category_id" value="<?php echo $category->id; ?>" <?php echo $topic->category_id === $category->id ? 'checked' : ''; ?> <?php echo $disabled; ?>>
+                                            <span class="category-txt"><?php echo $category->name; ?></span>
+                                        </label>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </dd>
+                    <?php endif; ?>
 
                 </dl>
 

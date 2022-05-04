@@ -1153,7 +1153,13 @@ th {
   margin-bottom: 10px;
 }
 
-.home-txt._no {
+.home-txt._top {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.home-txt._bottom {
   text-align: center;
   font-size: 24px;
   margin-bottom: 100px;
