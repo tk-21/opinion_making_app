@@ -128,16 +128,17 @@ class OpinionController
         $opinion->topic_id = get_param('id', null, false);
 
         try {
+            $validation = new OpinionValidation;
+            if(!$validation->checkEdit($opinion)) {
+                Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
+                OpinionModel::setSession($opinion);
+                redirect(GO_REFERER);
+            }
+
             $is_success = OpinionQuery::update($opinion);
         } catch (Exception $e) {
             Msg::push(Msg::ERROR, $e->getMessage());
             $is_success = false;
-        }
-
-        if (!$is_success) {
-            Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
-            OpinionModel::setSession($opinion);
-            redirect(GO_REFERER);
         }
 
         Msg::push(Msg::INFO, '意見を更新しました。');
