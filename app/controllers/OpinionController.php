@@ -12,7 +12,7 @@ use model\OpinionModel;
 use model\UserModel;
 use validation\TopicValidation;
 use Exception;
-
+use validation\OpinionValidation;
 
 class OpinionController
 {
@@ -59,20 +59,22 @@ class OpinionController
 
 
         try {
-            $is_success = OpinionQuery::insert($opinion);
+            $validation = new OpinionValidation;
+
+            if (!$validation->checkCreate($opinion)) {
+                Msg::push(Msg::ERROR, '意見の登録に失敗しました。');
+
+                OpinionModel::setSession($opinion);
+
+                redirect(GO_REFERER);
+            }
+
+            OpinionQuery::insert($opinion) ? Msg::push(Msg::INFO, '意見を登録しました。') : Msg::push(Msg::INFO, '登録に失敗しました。');
+
+            redirect(sprintf('detail?id=%s', $opinion->topic_id));
         } catch (Exception $e) {
             Msg::push(Msg::ERROR, $e->getMessage());
-            $is_success = false;
         }
-
-        if (!$is_success) {
-            Msg::push(Msg::ERROR, '意見の登録に失敗しました。');
-            OpinionModel::setSession($opinion);
-            redirect(GO_REFERER);
-        }
-
-        Msg::push(Msg::INFO, '意見を登録しました。');
-        redirect(sprintf('detail?id=%s', $opinion->topic_id));
     }
 
 
@@ -126,16 +128,17 @@ class OpinionController
         $opinion->topic_id = get_param('id', null, false);
 
         try {
+            $validation = new OpinionValidation;
+            if(!$validation->checkEdit($opinion)) {
+                Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
+                OpinionModel::setSession($opinion);
+                redirect(GO_REFERER);
+            }
+
             $is_success = OpinionQuery::update($opinion);
         } catch (Exception $e) {
             Msg::push(Msg::ERROR, $e->getMessage());
             $is_success = false;
-        }
-
-        if (!$is_success) {
-            Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
-            OpinionModel::setSession($opinion);
-            redirect(GO_REFERER);
         }
 
         Msg::push(Msg::INFO, '意見を更新しました。');

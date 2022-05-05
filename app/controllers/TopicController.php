@@ -66,9 +66,9 @@ class TopicController
             // セッションに格納されているユーザー情報のオブジェクトを取ってくる
             $user = UserModel::getSession();
 
-            TopicQuery::insert($topic, $user);
+            // オブジェクトを渡してクエリを実行
+            TopicQuery::insert($topic, $user) ? Msg::push(Msg::INFO, 'トピックを登録しました。') : Msg::push(Msg::ERROR, '登録に失敗しました。');
 
-            Msg::push(Msg::INFO, 'トピックを登録しました。');
             redirect(GO_HOME);
         } catch (Exception $e) {
             // エラー内容を出力する
@@ -154,9 +154,9 @@ class TopicController
                 redirect(GO_REFERER);
             }
 
-            TopicQuery::update($topic);
+            // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
+            TopicQuery::update($topic) ? Msg::push(Msg::INFO, 'トピックを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
 
-            Msg::push(Msg::INFO, 'トピックを更新しました。');
             redirect(sprintf('detail?id=%d', $topic->id));
         } catch (Exception $e) {
             // エラー内容を出力する

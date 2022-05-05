@@ -179,7 +179,7 @@ class TopicQuery
     }
 
 
-    // トピックを部分的に取得するメソッド
+    // ユーザーIDに紐付くトピックを部分的に取得するメソッド
     public static function fetchByUserIdPartially($user, $current_page)
     {
         // 配列の何番目から取得するか
@@ -205,6 +205,7 @@ class TopicQuery
     }
 
 
+    // カテゴリーIDに紐付くトピックを部分的に取得するメソッド
     public static function fetchByCategoryIdPartially($category, $current_page)
     {
         // 配列の何番目から取得するか
@@ -230,7 +231,8 @@ class TopicQuery
     }
 
 
-    public static function getPagination($user)
+    // ページング付きのトピック表示に必要な値を返すメソッド
+    public static function getTopicsByUserId($user)
     {
         // ユーザーに紐づくトピックの数を取得
         $topic_num = static::countByUserId($user);
@@ -241,8 +243,8 @@ class TopicQuery
         // 現在のページを取得（設定されていない場合は１にする）
         $current_page = get_param('page', 1, false);
 
-        // ページネーションの表示範囲を取得
-        $range = getPaginationRange($current_page, $max_page);
+        // ページングの表示範囲を取得
+        $range = getPagingRange($current_page, $max_page);
 
         // 現在のページ番号を元に、表示するトピックを部分的に取得
         $topics = static::fetchByUserIdPartially($user, $current_page);
@@ -251,7 +253,8 @@ class TopicQuery
     }
 
 
-    public static function getPaginationByCategory($category)
+    // ページング付きのトピック表示に必要な値を返すメソッド
+    public static function getTopicsByCategoryId($category)
     {
         // カテゴリーに紐づくトピックの数を取得
         $topic_num = static::countByCategoryId($category);
@@ -262,8 +265,8 @@ class TopicQuery
         // 現在のページを取得（設定されていない場合は１にする）
         $current_page = get_param('page', 1, false);
 
-        // ページネーションの表示範囲を取得
-        $range = getPaginationRange($current_page, $max_page);
+        // ページングの表示範囲を取得
+        $range = getPagingRange($current_page, $max_page);
 
         // 現在のページ番号を元に、表示するトピックを部分的に取得
         $topics = static::fetchByCategoryIdPartially($category, $current_page);

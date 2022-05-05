@@ -5,6 +5,7 @@ namespace controllers;
 use lib\Auth;
 use lib\Msg;
 use model\UserModel;
+use validation\UserValidation;
 
 class AuthController
 {
@@ -14,14 +15,26 @@ class AuthController
             redirect(GO_HOME);
         }
 
+        // ログイン画面を表示
         \view\auth\index(true);
     }
 
 
     public function login()
     {
+        // 値の取得
         $name = get_param('name', '');
         $password = get_param('password', '');
+
+        // バリデーション
+        $validation = new UserValidation;
+
+        if (
+            !($validation->validateName($name)
+                * $validation->validatePassword($password))
+        ) {
+            redirect(GO_REFERER);
+        }
 
         // POSTで渡ってきたユーザーネームとパスワードでログインに成功した場合、
         if (Auth::login($name, $password)) {
@@ -58,22 +71,30 @@ class AuthController
             redirect(GO_HOME);
         }
 
+        // 登録画面を表示
         \view\auth\index(false);
     }
 
 
     public function register()
     {
-        $user = new UserModel;
-        // $_POST['id']に値が設定されていればその値を$user->idに代入し、設定されていなければ、空文字を代入する
-        $user->name = get_param('name', '');
-        $user->password = get_param('password', '');
+        // 値の取得
+        $name = get_param('name', '');
+        $password = get_param('password', '');
 
-        // POSTで渡ってきた値をインスタンスのプロパティに代入した後、Userオブジェクトをregistに渡してあげる
-        // 引数をある特定のモデルとすることで引数の記述を簡略化できる
-        // 引数が多くなる場合もあるので、モデル自体を渡してやるとスッキリする
-        if (Auth::regist($user)) {
-            Msg::push(Msg::INFO, "{$user->name}さん、ようこそ。");
+        // バリデーション
+        $validation = new UserValidation;
+
+        if (
+            !($validation->validateName($name)
+                * $validation->validatePassword($password))
+        ) {
+            redirect(GO_REFERER);
+        }
+
+        // 登録処理
+        if (Auth::regist($name, $password)) {
+            Msg::push(Msg::INFO, "{$name}さん、ようこそ。");
             redirect(GO_HOME);
         } else {
             redirect(GO_REFERER);

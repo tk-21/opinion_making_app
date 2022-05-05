@@ -5,21 +5,14 @@ namespace lib;
 
 use db\UserQuery;
 use model\UserModel;
-use Throwable;
+use Exception;
 
 class Auth
 {
     public static function login($name, $password)
     {
         try {
-            // DBに接続する前にバリデーションは終わらせておく
-            if (
-                !(UserModel::validateName($name)
-                    * UserModel::validatePassword($password))
-            ) {
-                return false;
-            }
-
+            // nameからユーザーを取得
             $user = UserQuery::fetchByName($name);
 
             // nameからユーザーが取れてこなかった場合
@@ -38,7 +31,7 @@ class Auth
             // パスワードが一致した場合、ユーザー情報の入ったオブジェクトをセッションに格納
             UserModel::setSession($user);
             $is_success = true;
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             // 例外が発生した場合はfalseになるようにしておく
             $is_success = false;
             Msg::push(Msg::DEBUG, $e->getMessage());
@@ -49,28 +42,21 @@ class Auth
     }
 
 
-    // POSTで送られてきた値が入ったUserオブジェクト($user)が引数で渡ってくる
-    public static function regist($user)
+    public static function regist($name, $password)
     {
         try {
-            // DBに接続する前に必ずチェックは終わらせておく
-            // バリデーションがどれか一つでもfalseで返ってきたら
-            if (
-                // ()の中が０の場合にはtrueになり、if文の中が実行される
-                // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-                !($user->isValidName()
-                    * $user->isValidPassword())
-            ) {
-                // 呼び出し元のregister.phpにfalseを返して登録失敗になる
-                return false;
-            }
+            // 同じユーザーが存在するかどうかを確認
+            $exist_user = UserQuery::fetchByName($name);
 
-            // まずは同じユーザーが存在するかどうかの確認
-            $exist_user = UserQuery::fetchByName($user->name);
             if (!empty($exist_user)) {
                 Msg::push(Msg::ERROR, 'すでにユーザーが存在します。');
                 return false;
             }
+
+            // モデルに格納
+            $user = new UserModel;
+            $user->name = $name;
+            $user->password = $password;
 
             // 処理が成功したかどうかのフラグ。初期値はfalse。ログインが成功したときはtrueを入れる
             $is_success = false;
@@ -82,7 +68,7 @@ class Auth
                 // 登録が成功すれば、そのユーザー情報をセッションに入れる（$_SESSION[_user] = $user）
                 UserModel::setSession($user);
             }
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             // 例外が発生した場合はfalseになるようにしておく
             $is_success = false;
             Msg::push(Msg::DEBUG, $e->getMessage());
@@ -99,7 +85,7 @@ class Auth
     {
         try {
             $user = UserModel::getSession();
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             // ユーザー認証に関わるので、例外が発生した場合はユーザーをログアウトさせる
             UserModel::clearSession();
             Msg::push(Msg::DEBUG, $e->getMessage());
@@ -133,7 +119,7 @@ class Auth
         try {
             // ユーザープロパティのセッション情報が削除される
             UserModel::clearSession();
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             Msg::push(Msg::DEBUG, $e->getMessage());
             // 例外が発生した時点でfalseを返す
             return false;

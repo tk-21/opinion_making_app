@@ -72,13 +72,13 @@ class TopicValidation
     }
 
 
+    // トピック作成のときに実行するメソッド
     public function checkCreate($topic)
     {
         if (
             !($this->validateTitle($topic) *
                 $this->validateBody($topic) *
-                $this->validatePosition($topic) *
-                $this->validateCategoryId($topic))
+                $this->validatePosition($topic))
         ) {
             return false;
         }
@@ -87,6 +87,7 @@ class TopicValidation
     }
 
 
+    // トピック編集のときに実行するメソッド
     public function checkEdit($topic)
     {
         if (
@@ -94,8 +95,7 @@ class TopicValidation
                 $this->validateTitle($topic) *
                 $this->validateBody($topic) *
                 $this->validatePosition($topic) *
-                $this->validateStatus($topic) *
-                $this->validateCategoryId($topic))
+                $this->validateStatus($topic))
         ) {
             return false;
         }
