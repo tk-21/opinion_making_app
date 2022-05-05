@@ -43,6 +43,9 @@ require_once SOURCE_BASE . 'partials/header.php';
 require_once SOURCE_BASE . 'partials/footer.php';
 
 // Validation
+require_once SOURCE_BASE . 'validation/CategoryValidation.php';
+require_once SOURCE_BASE . 'validation/ObjectionValidation.php';
+require_once SOURCE_BASE . 'validation/OpinionValidation.php';
 require_once SOURCE_BASE . 'validation/TopicValidation.php';
 require_once SOURCE_BASE . 'validation/UserValidation.php';
 
