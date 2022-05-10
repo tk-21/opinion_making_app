@@ -8,10 +8,10 @@ class CategoryValidation
 {
 
 
-    public static function validateId($objection)
+    public static function validateId($category)
     {
 
-        if (empty($objection->id) || !is_numeric($objection->id)) {
+        if (empty($category->id) || !is_numeric($category->id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
             return false;
         }
@@ -21,11 +21,11 @@ class CategoryValidation
 
 
 
-    public static function validateBody($objection)
+    public static function validateName($category)
     {
 
-        if (empty($objection->body)) {
-            Msg::push(Msg::ERROR, '反論を入力してください。');
+        if (empty($category->name)) {
+            Msg::push(Msg::ERROR, 'カテゴリー名を入力してください。');
             return false;
         }
 

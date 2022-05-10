@@ -26,7 +26,7 @@ class TopicController
         // 必ずデータを取得した時点で、データを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
         $topic = TopicModel::getSessionAndFlush();
 
-        // データが取れてこなかった場合、TopicModelで初期化を行う
+        // データが取れてこなかった場合、初期化して表示
         if (empty($topic)) {
             $topic = new TopicModel;
         }

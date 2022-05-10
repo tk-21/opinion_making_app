@@ -11,6 +11,7 @@ use model\UserModel;
 use model\CategoryModel;
 use validation\TopicValidation;
 use Exception;
+use validation\CategoryValidation;
 
 class HomeController
 {
@@ -66,24 +67,23 @@ class HomeController
 
         $category = new CategoryModel;
 
-        $category->name = get_param('name', null);
         $category->user_id = $user->id;
-
+        $category->name = get_param('name', null);
 
         try {
-            $is_success = CategoryQuery::insert($category);
+            $validation = new CategoryValidation;
+
+            if (!$validation->validateName($category)) {
+                Msg::push(Msg::ERROR, 'カテゴリーの作成に失敗しました。');
+                CategoryModel::setSession($category);
+                redirect(GO_REFERER);
+            }
+
+            CategoryQuery::insert($category) ? Msg::push(Msg::INFO, 'カテゴリーを作成しました。') : Msg::push(Msg::ERROR, 'カテゴリーの作成に失敗しました。');
+
+            redirect(GO_HOME);
         } catch (Exception $e) {
             Msg::push(Msg::ERROR, $e->getMessage());
-            $is_success = false;
         }
-
-        if (!$is_success) {
-            Msg::push(Msg::ERROR, 'カテゴリの作成に失敗しました。');
-            CategoryModel::setSession($category);
-            redirect(GO_REFERER);
-        }
-
-        Msg::push(Msg::INFO, 'カテゴリを作成しました。');
-        redirect(GO_HOME);
     }
 }
