@@ -60,14 +60,13 @@ class OpinionValidation
 
 
     // 意見編集のときに実行するメソッド
-    public function checkEdit($topic)
+    public function checkEdit($opinion)
     {
         if (
-            !($this->validateId($topic) *
-                $this->validateTitle($topic) *
-                $this->validateBody($topic) *
-                $this->validatePosition($topic) *
-                $this->validateStatus($topic))
+            !($this->validateId($opinion) *
+                $this->validateOpinion($opinion) *
+                $this->validateReason($opinion)
+            )
         ) {
             return false;
         }
