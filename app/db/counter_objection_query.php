@@ -43,8 +43,8 @@ class CounterObjectionQuery
         // DBに接続する前に必ずチェックは終わらせておく
         // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元にfalseを返して登録失敗になる
         // if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
+        // ()の中が０の場合にはtrueになり、if文の中が実行される
+        // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
         //     !($counterObjection->isValidTopicId()
         //         * $counterObjection->isValidBody()
         //     )
@@ -68,7 +68,7 @@ class CounterObjectionQuery
     }
 
 
-    public static function delete($delete_id)
+    public static function delete($id)
     {
         $db = new DataSource;
 
@@ -77,15 +77,9 @@ class CounterObjectionQuery
                 where id = :id
                 ';
 
-        foreach ($delete_id as $id) {
-            $result = $db->execute($sql, [
-                ':id' => $id
-            ]);
-
-            if (!$result) {
-                break;
-            }
-        }
+        $result = $db->execute($sql, [
+            ':id' => $id
+        ]);
 
         return $result;
     }

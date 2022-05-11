@@ -20,7 +20,6 @@ class CategoryValidation
     }
 
 
-
     public static function validateName($category)
     {
 

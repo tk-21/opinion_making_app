@@ -20,7 +20,6 @@ class ObjectionValidation
     }
 
 
-
     public static function validateBody($objection)
     {
 

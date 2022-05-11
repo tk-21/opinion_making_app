@@ -7,14 +7,10 @@ use db\TopicQuery;
 use db\OpinionQuery;
 use db\ObjectionQuery;
 use db\CounterObjectionQuery;
-use db\CategoryQuery;
 use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
 use model\ObjectionModel;
-use model\OpinionModel;
-use model\UserModel;
-use validation\TopicValidation;
 use Exception;
 use validation\ObjectionValidation;
 
@@ -52,17 +48,24 @@ class DetailController
 
     public function delete($formType)
     {
-        // チェックボックスから削除する項目のIDを配列で受け取る
+        // チェックボックスから、削除する項目のIDを配列で受け取る
         $delete_id = get_param('delete_id', null);
 
-        // 「意見に対する反論」の削除処理
+        // 「意見に対する反論」の場合の削除処理
         if ($formType === 'delete_objection' && isset($delete_id)) {
 
             try {
-
                 $db = new DataSource;
                 $db->begin();
-                $is_success = ObjectionQuery::delete($delete_id);
+
+                foreach ($delete_id as $id) {
+                    $is_success = ObjectionQuery::delete($id);
+
+                    if (!$is_success) {
+                        // 削除失敗の場合、ループを抜ける
+                        break;
+                    }
+                }
             } catch (Exception $e) {
 
                 Msg::push(Msg::DEBUG, $e->getMessage());
@@ -82,14 +85,22 @@ class DetailController
             }
         }
 
-        // 「反論への反論」の削除処理
+        // 「反論への反論」の場合の削除処理
         if ($formType === 'delete_counterObjection' && isset($delete_id)) {
 
             try {
 
                 $db = new DataSource;
                 $db->begin();
-                $is_success = CounterObjectionQuery::delete($delete_id);
+
+                foreach ($delete_id as $id) {
+                    $is_success = CounterObjectionQuery::delete($id);
+
+                    if (!$is_success) {
+                        // 削除失敗の場合、ループを抜ける
+                        break;
+                    }
+                }
             } catch (Exception $e) {
 
                 Msg::push(Msg::DEBUG, $e->getMessage());
@@ -126,10 +137,12 @@ class DetailController
                 redirect(GO_REFERER);
             }
 
+            // 「意見に対する反論」の場合の登録処理
             if ($formType === 'create_objection') {
                 ObjectionQuery::insert($objection);
             }
 
+            // 「反論への反論」の場合の登録処理
             if ($formType === 'create_counterObjection') {
                 CounterObjectionQuery::insert($objection);
             }

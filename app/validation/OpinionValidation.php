@@ -20,7 +20,6 @@ class OpinionValidation
     }
 
 
-
     public static function validateOpinion($opinion)
     {
 
