@@ -10,6 +10,7 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
     \partials\header();
 
     $topics = escape($topics);
+    $categories = escape($categories);
 
     $path = $is_home ? 'home' : 'category';
 ?>

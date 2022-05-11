@@ -6,6 +6,9 @@ function index($topic, $categories, $type)
 {
     \partials\header();
 
+    $topic = escape($topic);
+    $categories = escape($categories);
+
     // トピック作成、編集、削除確認を兼ねているファイル
     // タイプによって表示内容を変える
 
