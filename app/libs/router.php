@@ -100,6 +100,7 @@ class Router
 
                 if ($formType === 'delete_objection' || 'delete_counterObjection') {
                     $detail->delete($formType);
+                    return;
                 }
 
                 if ($formType === 'create_objection' || 'create_counterObjection') {
