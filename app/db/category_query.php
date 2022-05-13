@@ -33,6 +33,23 @@ class CategoryQuery
     }
 
 
+    // idから個別のカテゴリーを取ってくるメソッド
+    public static function fetchById($id)
+    {
+        $db = new DataSource;
+
+        $sql = 'SELECT * FROM categories
+                WHERE id = :id
+                and deleted_at IS NULL
+                ';
+
+        return $db->selectOne($sql, [
+            ':id' => $id
+        ], DataSource::CLS, CategoryModel::class);
+    }
+
+
+
     public static function insert($category)
     {
 

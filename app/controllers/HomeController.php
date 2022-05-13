@@ -36,7 +36,7 @@ class HomeController
         $categories = CategoryQuery::fetchByUserId($user);
 
         // viewのindexメソッドを呼んで一覧を表示する
-        \view\home\index($topic_num, $max_page, $current_page, $range, $topics, $categories, true);
+        \view\home\index($topic_num, $max_page, $current_page, $range, $topics, $categories, true, null);
     }
 
 
@@ -45,17 +45,18 @@ class HomeController
 
         Auth::requireLogin();
 
-        $category = new CategoryModel;
+        $id = get_param('id', null, false);
 
-        $category->id = get_param('id', null, false);
+        $fetchedCategory = CategoryQuery::fetchById($id);
 
         // ページング機能に必要な要素を取得
-        [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getTopicsByCategoryId($category);
+        [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getTopicsByCategoryId($fetchedCategory);
 
+        // ユーザーに紐付くカテゴリー一覧を取得
         $user = UserModel::getSession();
         $categories = CategoryQuery::fetchByUserId($user);
 
-        \view\home\index($topic_num, $max_page, $current_page, $range, $topics, $categories, false);
+        \view\home\index($topic_num, $max_page, $current_page, $range, $topics, $categories, false, $fetchedCategory);
     }
 
 

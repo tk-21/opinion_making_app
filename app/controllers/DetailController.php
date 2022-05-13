@@ -51,8 +51,13 @@ class DetailController
         // チェックボックスから、削除する項目のIDを配列で受け取る
         $delete_id = get_param('delete_id', null);
 
+        if (empty($delete_id)) {
+            Msg::push(Msg::ERROR, '削除する項目にチェックを入れてください。');
+            redirect(GO_REFERER);
+        }
+
         // 「意見に対する反論」の場合の削除処理
-        if ($formType === 'delete_objection' && isset($delete_id)) {
+        if ($formType === 'delete_objection') {
 
             try {
                 $db = new DataSource;
@@ -86,7 +91,7 @@ class DetailController
         }
 
         // 「反論への反論」の場合の削除処理
-        if ($formType === 'delete_counterObjection' && isset($delete_id)) {
+        if ($formType === 'delete_counterObjection') {
 
             try {
 

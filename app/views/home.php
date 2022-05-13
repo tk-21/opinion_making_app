@@ -4,21 +4,21 @@ namespace view\home;
 
 use DateTime;
 
-// 引数でtopicの配列が渡ってくる
-function index($topic_num = "", $max_page = "", $current_page = "", $range = "", $topics, $categories, $is_home)
+function index($topic_num = "", $max_page = "", $current_page = "", $range = "", $topics, $categories, $is_home, $fetchedCategory)
 {
     \partials\header();
 
     $topics = escape($topics);
     $categories = escape($categories);
 
+    $title = $is_home ? 'トピック一覧' : sprintf('カテゴリー名：%s', $fetchedCategory->name);
     $path = $is_home ? 'home' : 'category';
 ?>
 
     <?php if ($topics) : ?>
         <article class="home" id="home">
             <div class="home-inner">
-                <h2 class="home-ttl">トピック一覧</h2>
+                <h2 class="home-ttl"><?php echo $title; ?></h2>
                 <ul class="home-list">
                     <li class="home-item">
                         <ul class="home-topic-list">
