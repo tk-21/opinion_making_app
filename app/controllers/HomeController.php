@@ -6,10 +6,8 @@ use db\TopicQuery;
 use db\CategoryQuery;
 use lib\Auth;
 use lib\Msg;
-use model\TopicModel;
 use model\UserModel;
 use model\CategoryModel;
-use validation\TopicValidation;
 use Exception;
 use validation\CategoryValidation;
 

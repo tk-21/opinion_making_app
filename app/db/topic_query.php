@@ -253,7 +253,7 @@ class TopicQuery
     }
 
 
-    // ページング付きのトピック表示に必要な値を返すメソッド
+    // ページング付きのトピック表示に必要な値を返すメソッド（カテゴリーごとのトピック表示の場合）
     public static function getTopicsByCategoryId($category)
     {
         // カテゴリーに紐づくトピックの数を取得
