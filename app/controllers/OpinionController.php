@@ -4,13 +4,10 @@ namespace controllers;
 
 use db\TopicQuery;
 use db\OpinionQuery;
-use db\CategoryQuery;
 use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
 use model\OpinionModel;
-use model\UserModel;
-use validation\TopicValidation;
 use Exception;
 use validation\OpinionValidation;
 
