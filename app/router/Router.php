@@ -1,6 +1,6 @@
 <?php
 
-namespace lib;
+namespace router;
 
 use controllers\AuthController;
 use controllers\HomeController;
