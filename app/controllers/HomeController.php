@@ -13,13 +13,18 @@ use validation\CategoryValidation;
 
 class HomeController
 {
-    public function index()
+    // インスタンス生成時にログインを確認する
+    public function __construct()
     {
         Auth::requireLogin();
+    }
 
+
+    // ユーザーに紐付くトピックス、カテゴリーを表示する
+    public function index()
+    {
         // セッションからユーザー情報を取得
         $user = UserModel::getSession();
-
 
         // ユーザーのセッションが何かおかしい場合は再度ログインしてもらう
         if (!$user) {
@@ -38,11 +43,9 @@ class HomeController
     }
 
 
+    // カテゴリーに紐付くトピックスを表示する
     public function showTopicsByCategory()
     {
-
-        Auth::requireLogin();
-
         $id = get_param('id', null, false);
 
         $fetchedCategory = CategoryQuery::fetchById($id);
@@ -58,10 +61,9 @@ class HomeController
     }
 
 
+    // カテゴリーの作成
     public function createCategory()
     {
-        Auth::requireLogin();
-
         $user = UserModel::getSession();
 
         $category = new CategoryModel;
