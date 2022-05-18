@@ -13,11 +13,16 @@ use validation\OpinionValidation;
 
 class OpinionController
 {
+    // インスタンス生成時にログイン確認を実行
+    public function __construct()
+    {
+        Auth::requireLogin();
+    }
+
+
+    // 意見作成フォームを表示する
     public function showCreateForm()
     {
-
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         $topic->id = get_param('id', null, false);
@@ -43,11 +48,9 @@ class OpinionController
     }
 
 
+    // 意見の登録処理
     public function create()
     {
-
-        Auth::requireLogin();
-
         $opinion = new OpinionModel;
 
         $opinion->opinion = get_param('opinion', null);
@@ -75,11 +78,9 @@ class OpinionController
     }
 
 
+    // 意見の編集画面を表示する
     public function showEditForm()
     {
-        // ログインしているかどうか確認
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         $topic->id = get_param('id', null, false);
@@ -112,11 +113,9 @@ class OpinionController
     }
 
 
+    // 意見の更新処理
     public function edit()
     {
-
-        Auth::requireLogin();
-
         $opinion = new OpinionModel;
 
         $opinion->id = get_param('id', null);
