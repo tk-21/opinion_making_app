@@ -13,7 +13,7 @@ use validation\CategoryValidation;
 
 class HomeController
 {
-    // インスタンス生成時にログインを確認する
+    // インスタンス生成時にログイン確認を実行
     public function __construct()
     {
         Auth::requireLogin();
