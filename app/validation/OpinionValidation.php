@@ -6,12 +6,23 @@ use lib\Msg;
 
 class OpinionValidation
 {
+    public $opinion;
+
+    public function setData($opinion)
+    {
+        $this->opinion = $opinion;
+    }
+
+    public function getValidData()
+    {
+        return $this->opinion;
+    }
 
 
-    public static function validateId($opinion)
+    public function validateId()
     {
 
-        if (empty($opinion->id) || !is_numeric($opinion->id)) {
+        if (empty($this->opinion->id) || !is_numeric($this->opinion->id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
             return false;
         }
@@ -20,10 +31,10 @@ class OpinionValidation
     }
 
 
-    public static function validateOpinion($opinion)
+    public function validateOpinion()
     {
 
-        if (empty($opinion->opinion)) {
+        if (empty($this->opinion->opinion)) {
             Msg::push(Msg::ERROR, '意見を入力してください。');
             return false;
         }
@@ -32,10 +43,10 @@ class OpinionValidation
     }
 
 
-    public static function validateReason($opinion)
+    public function validateReason()
     {
 
-        if (empty($opinion->reason)) {
+        if (empty($this->opinion->reason)) {
             Msg::push(Msg::ERROR, '理由を入力してください。');
             return false;
         }
@@ -45,11 +56,11 @@ class OpinionValidation
 
 
     // 意見作成のときに実行するメソッド
-    public function checkCreate($opinion)
+    public function checkCreate()
     {
         if (
-            !($this->validateOpinion($opinion) *
-                $this->validateReason($opinion))
+            !($this->validateOpinion() *
+                $this->validateReason())
         ) {
             return false;
         }
@@ -59,12 +70,12 @@ class OpinionValidation
 
 
     // 意見編集のときに実行するメソッド
-    public function checkEdit($opinion)
+    public function checkEdit()
     {
         if (
-            !($this->validateId($opinion) *
-                $this->validateOpinion($opinion) *
-                $this->validateReason($opinion)
+            !($this->validateId() *
+                $this->validateOpinion() *
+                $this->validateReason()
             )
         ) {
             return false;
