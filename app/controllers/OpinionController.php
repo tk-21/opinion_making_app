@@ -13,11 +13,16 @@ use validation\OpinionValidation;
 
 class OpinionController
 {
+    // インスタンス生成時にログイン確認を実行
+    public function __construct()
+    {
+        Auth::requireLogin();
+    }
+
+
+    // 意見作成フォームを表示する
     public function showCreateForm()
     {
-
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         $topic->id = get_param('id', null, false);
@@ -43,11 +48,9 @@ class OpinionController
     }
 
 
+    // 意見の登録処理
     public function create()
     {
-
-        Auth::requireLogin();
-
         $opinion = new OpinionModel;
 
         $opinion->opinion = get_param('opinion', null);
@@ -58,7 +61,9 @@ class OpinionController
         try {
             $validation = new OpinionValidation;
 
-            if (!$validation->checkCreate($opinion)) {
+            $validation->setData($opinion);
+
+            if (!$validation->checkCreate()) {
                 Msg::push(Msg::ERROR, '意見の登録に失敗しました。');
 
                 OpinionModel::setSession($opinion);
@@ -66,7 +71,9 @@ class OpinionController
                 redirect(GO_REFERER);
             }
 
-            OpinionQuery::insert($opinion) ? Msg::push(Msg::INFO, '意見を登録しました。') : Msg::push(Msg::INFO, '登録に失敗しました。');
+            $valid_data = $validation->getValidData();
+
+            OpinionQuery::insert($valid_data) ? Msg::push(Msg::INFO, '意見を登録しました。') : Msg::push(Msg::INFO, '登録に失敗しました。');
 
             redirect(sprintf('detail?id=%s', $opinion->topic_id));
         } catch (Exception $e) {
@@ -75,11 +82,9 @@ class OpinionController
     }
 
 
+    // 意見の編集画面を表示する
     public function showEditForm()
     {
-        // ログインしているかどうか確認
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         $topic->id = get_param('id', null, false);
@@ -112,11 +117,9 @@ class OpinionController
     }
 
 
+    // 意見の更新処理
     public function edit()
     {
-
-        Auth::requireLogin();
-
         $opinion = new OpinionModel;
 
         $opinion->id = get_param('id', null);
@@ -126,13 +129,18 @@ class OpinionController
 
         try {
             $validation = new OpinionValidation;
-            if (!$validation->checkEdit($opinion)) {
+
+            $validation->setData($opinion);
+
+            if (!$validation->checkEdit()) {
                 Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
                 OpinionModel::setSession($opinion);
                 redirect(GO_REFERER);
             }
 
-            OpinionQuery::update($opinion) ? Msg::push(Msg::INFO, '意見を更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+            $valid_data = $validation->getValidData();
+
+            OpinionQuery::update($valid_data) ? Msg::push(Msg::INFO, '意見を更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
 
             redirect(sprintf('detail?id=%s', $opinion->topic_id));
         } catch (Exception $e) {

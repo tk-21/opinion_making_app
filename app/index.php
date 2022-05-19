@@ -1,6 +1,6 @@
 <?php
 
-use lib\Router;
+use router\Router;
 use lib\Msg;
 
 require_once 'config.php';
@@ -15,7 +15,6 @@ require_once SOURCE_BASE . 'controllers/TopicController.php';
 // Library
 require_once SOURCE_BASE . 'libs/helper.php';
 require_once SOURCE_BASE . 'libs/auth.php';
-require_once SOURCE_BASE . 'libs/Router.php';
 
 // model
 require_once SOURCE_BASE . 'models/abstract_model.php';
@@ -41,6 +40,9 @@ require_once SOURCE_BASE . 'db/category_query.php';
 // partials
 require_once SOURCE_BASE . 'partials/header.php';
 require_once SOURCE_BASE . 'partials/footer.php';
+
+// router
+require_once SOURCE_BASE . 'router/Router.php';
 
 // Validation
 require_once SOURCE_BASE . 'validation/CategoryValidation.php';
