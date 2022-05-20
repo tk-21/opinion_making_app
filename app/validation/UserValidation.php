@@ -6,15 +6,39 @@ use lib\Msg;
 
 class UserValidation
 {
-    public function validateName($name)
+    public $name;
+    public $password;
+
+    public function setName($name)
     {
-        if (empty($name)) {
+        $this->name = $name;
+    }
+
+    public function getValidName()
+    {
+        return $this->name;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getValidPassword()
+    {
+        return $this->password;
+    }
+
+
+    public function validateName()
+    {
+        if (empty($this->name)) {
             Msg::push(Msg::ERROR, 'ユーザーネームを入力してください。');
             return false;
         }
 
         // mb_strlenは半角でも全角でも文字数カウント分だけ返してくれるので、日本語をチェックするときはこの関数を使う
-        if (mb_strlen($name) > 10) {
+        if (mb_strlen($this->name) > 10) {
             Msg::push(Msg::ERROR, 'ユーザーネームは１０桁以下で入力してください。');
             return false;
         }
@@ -23,21 +47,21 @@ class UserValidation
     }
 
 
-    public function validatePassword($password)
+    public function validatePassword()
     {
-        if (empty($password)) {
+        if (empty($this->password)) {
             Msg::push(Msg::ERROR, 'パスワードを入力してください。');
             return false;
         }
 
         // 半角のみを数えるときはstrlenでOK
-        if (strlen($password) < 4) {
+        if (strlen($this->password) < 4) {
             Msg::push(Msg::ERROR, 'パスワードは４桁以上で入力してください。');
             return false;
         }
 
         // 小文字か大文字の半角英字もしくは数字にマッチするかどうかを判定
-        if (!is_alnum($password)) {
+        if (!is_alnum($this->password)) {
             Msg::push(Msg::ERROR, 'パスワードは半角英数字で入力してください。');
             return false;
         }

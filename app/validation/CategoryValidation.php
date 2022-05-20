@@ -6,12 +6,23 @@ use lib\Msg;
 
 class CategoryValidation
 {
+    public $category;
+
+    public function setData($category)
+    {
+        $this->category = $category;
+    }
+
+    public function getValidData()
+    {
+        return $this->category;
+    }
 
 
-    public static function validateId($category)
+    public function validateId()
     {
 
-        if (empty($category->id) || !is_numeric($category->id)) {
+        if (empty($this->category->id) || !is_numeric($this->category->id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
             return false;
         }
@@ -20,10 +31,10 @@ class CategoryValidation
     }
 
 
-    public static function validateName($category)
+    public function validateName()
     {
 
-        if (empty($category->name)) {
+        if (empty($this->category->name)) {
             Msg::push(Msg::ERROR, 'カテゴリー名を入力してください。');
             return false;
         }

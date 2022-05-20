@@ -6,12 +6,23 @@ use lib\Msg;
 
 class ObjectionValidation
 {
+    public $objection;
+
+    public function setData($objection)
+    {
+        $this->objection = $objection;
+    }
+
+    public function getValidData()
+    {
+        return $this->objection;
+    }
 
 
-    public static function validateId($objection)
+    public function validateId()
     {
 
-        if (empty($objection->id) || !is_numeric($objection->id)) {
+        if (empty($this->objection->id) || !is_numeric($this->objection->id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
             return false;
         }
@@ -20,10 +31,10 @@ class ObjectionValidation
     }
 
 
-    public static function validateBody($objection)
+    public function validateBody()
     {
 
-        if (empty($objection->body)) {
+        if (empty($this->objection->body)) {
             Msg::push(Msg::ERROR, '反論を入力してください。');
             return false;
         }

@@ -16,6 +16,7 @@ use validation\ObjectionValidation;
 
 class DetailController
 {
+    // トピックの詳細画面を表示する
     public function index()
     {
         // まずログインを要求する
@@ -46,6 +47,7 @@ class DetailController
     }
 
 
+    // 「反論」または「反論への反論」を削除する
     public function delete($formType)
     {
         // チェックボックスから、削除する項目のIDを配列で受け取る
@@ -127,6 +129,7 @@ class DetailController
     }
 
 
+    // 「反論」または「反論への反論」を登録する
     public function create($formType)
     {
         $objection = new ObjectionModel;
@@ -137,19 +140,24 @@ class DetailController
 
         try {
             $validation = new ObjectionValidation;
-            if (!$validation->validateBody($objection)) {
+
+            $validation->setData($objection);
+
+            if (!$validation->validateBody()) {
                 Msg::push(Msg::ERROR, '反論の登録に失敗しました。');
                 redirect(GO_REFERER);
             }
 
+            $valid_data = $validation->getValidData();
+
             // 「意見に対する反論」の場合の登録処理
             if ($formType === 'create_objection') {
-                ObjectionQuery::insert($objection);
+                ObjectionQuery::insert($valid_data);
             }
 
             // 「反論への反論」の場合の登録処理
             if ($formType === 'create_counterObjection') {
-                CounterObjectionQuery::insert($objection);
+                CounterObjectionQuery::insert($valid_data);
             }
         } catch (Exception $e) {
             Msg::push(Msg::DEBUG, $e->getMessage());

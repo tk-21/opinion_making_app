@@ -74,13 +74,17 @@ class HomeController
         try {
             $validation = new CategoryValidation;
 
-            if (!$validation->validateName($category)) {
+            $validation->setData($category);
+
+            if (!$validation->validateName()) {
                 Msg::push(Msg::ERROR, 'カテゴリーの作成に失敗しました。');
                 CategoryModel::setSession($category);
                 redirect(GO_REFERER);
             }
 
-            CategoryQuery::insert($category) ? Msg::push(Msg::INFO, 'カテゴリーを作成しました。') : Msg::push(Msg::ERROR, 'カテゴリーの作成に失敗しました。');
+            $valid_data = $validation->getValidData();
+
+            CategoryQuery::insert($valid_data) ? Msg::push(Msg::INFO, 'カテゴリーを作成しました。') : Msg::push(Msg::ERROR, 'カテゴリーの作成に失敗しました。');
 
             redirect(GO_HOME);
         } catch (Exception $e) {
