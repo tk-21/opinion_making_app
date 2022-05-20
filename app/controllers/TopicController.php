@@ -14,6 +14,7 @@ use Exception;
 
 class TopicController
 {
+    // トピックの作成画面を表示する
     public function showCreateForm()
     {
         Auth::requireLogin();
@@ -35,6 +36,7 @@ class TopicController
     }
 
 
+    // トピックを登録する
     public function create()
     {
         // ツールなどでもリクエストは投げれるので、必ずPOSTでもログインしているかどうか確認する
@@ -51,8 +53,10 @@ class TopicController
         try {
             $validation = new TopicValidation;
 
+            $validation->setData($topic);
+
             // バリデーションに引っかかった場合
-            if (!$validation->checkCreate($topic)) {
+            if (!$validation->checkCreate()) {
                 Msg::push(Msg::ERROR, 'トピックの登録に失敗しました。');
                 // エラー時の値の復元のための処理
                 // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
@@ -62,12 +66,14 @@ class TopicController
                 redirect(GO_REFERER);
             }
 
-            // バリデーションが問題なかった場合、
+            // バリデーションが問題なかった場合、バリデーションが完了しているデータを取ってくる
+            $valid_data = $validation->getValidData();
+
             // セッションに格納されているユーザー情報のオブジェクトを取ってくる
             $user = UserModel::getSession();
 
             // オブジェクトを渡してクエリを実行
-            TopicQuery::insert($topic, $user) ? Msg::push(Msg::INFO, 'トピックを登録しました。') : Msg::push(Msg::ERROR, '登録に失敗しました。');
+            TopicQuery::insert($valid_data, $user) ? Msg::push(Msg::INFO, 'トピックを登録しました。') : Msg::push(Msg::ERROR, '登録に失敗しました。');
 
             redirect(GO_HOME);
         } catch (Exception $e) {
@@ -77,6 +83,7 @@ class TopicController
     }
 
 
+    // トピックの編集画面を表示する
     public function showEditForm()
     {
         // ログインしているかどうか確認
@@ -105,12 +112,17 @@ class TopicController
 
         // バリデーションが失敗した場合は、画面遷移させない
         $validation = new TopicValidation;
-        if (!$validation->validateId($topic)) {
+
+        $validation->setData($topic);
+
+        if (!$validation->validateId()) {
             redirect(GO_REFERER);
         };
 
+        $valid_data = $validation->getValidData();
+
         // idからトピックの内容を取ってくる
-        $fetchedTopic = TopicQuery::fetchById($topic);
+        $fetchedTopic = TopicQuery::fetchById($valid_data);
 
         // トピックが取れてこなかったら４０４ページへリダイレクト
         if (!$fetchedTopic) {
@@ -123,6 +135,7 @@ class TopicController
     }
 
 
+    // トピックを更新する
     public function edit()
     {
         // ログインしているかどうか確認
@@ -143,8 +156,10 @@ class TopicController
         try {
             $validation = new TopicValidation;
 
+            $validation->setData($topic);
+
             // バリデーションに引っかかった場合
-            if (!$validation->checkEdit($topic)) {
+            if (!$validation->checkEdit()) {
                 Msg::push(Msg::ERROR, 'トピックの更新に失敗しました。');
                 // エラー時の値の復元のための処理
                 // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
@@ -154,8 +169,10 @@ class TopicController
                 redirect(GO_REFERER);
             }
 
+            $valid_data = $validation->getValidData();
+
             // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
-            TopicQuery::update($topic) ? Msg::push(Msg::INFO, 'トピックを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+            TopicQuery::update($valid_data) ? Msg::push(Msg::INFO, 'トピックを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
 
             redirect(sprintf('detail?id=%d', $topic->id));
         } catch (Exception $e) {
@@ -165,6 +182,7 @@ class TopicController
     }
 
 
+    // 削除確認画面を表示する
     public function confirmDelete()
     {
         Auth::requireLogin();
@@ -173,12 +191,17 @@ class TopicController
         $topic->id = get_param('id', null, false);
 
         $validation = new TopicValidation;
-        if (!$validation->validateId($topic)) {
+
+        $validation->setData($topic);
+
+        if (!$validation->validateId()) {
             redirect(GO_REFERER);
         };
 
+        $valid_data = $validation->getValidData();
+
         // idからトピックの内容を取ってくる
-        $fetchedTopic = TopicQuery::fetchById($topic);
+        $fetchedTopic = TopicQuery::fetchById($valid_data);
 
         $user = UserModel::getSession();
         $categories = CategoryQuery::fetchByUserId($user);
@@ -188,17 +211,23 @@ class TopicController
     }
 
 
+    // トピックを削除する
     public function delete()
     {
         $topic = new TopicModel;
         $topic->id = get_param('id', null);
 
         $validation = new TopicValidation;
-        if (!$validation->validateId($topic)) {
+
+        $validation->setData($topic);
+
+        if (!$validation->validateId()) {
             redirect(GO_REFERER);
         };
 
-        TopicQuery::delete($topic) ? Msg::push(Msg::INFO, 'トピックを削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
+        $valid_data = $validation->getValidData();
+
+        TopicQuery::delete($valid_data) ? Msg::push(Msg::INFO, 'トピックを削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
 
         redirect(GO_HOME);
     }

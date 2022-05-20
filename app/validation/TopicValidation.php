@@ -6,9 +6,22 @@ use lib\Msg;
 
 class TopicValidation
 {
-    public function validateId($topic)
+    public $topic;
+
+    public function setData($topic)
     {
-        if (empty($topic->id) || !is_numeric($topic->id)) {
+        $this->topic = $topic;
+    }
+
+    public function getValidData()
+    {
+        return $this->topic;
+    }
+
+
+    public function validateId()
+    {
+        if (empty($this->topic->id) || !is_numeric($this->topic->id)) {
             Msg::push(Msg::ERROR, 'パラメータが不正です。');
             return false;
         }
@@ -17,9 +30,9 @@ class TopicValidation
     }
 
 
-    public function validateTitle($topic)
+    public function validateTitle()
     {
-        if (empty($topic->title)) {
+        if (empty($this->topic->title)) {
             Msg::push(Msg::ERROR, 'タイトルを入力してください。');
             return false;
         }
@@ -28,9 +41,9 @@ class TopicValidation
     }
 
 
-    public function validateBody($topic)
+    public function validateBody()
     {
-        if (empty($topic->body)) {
+        if (empty($this->topic->body)) {
             Msg::push(Msg::ERROR, '本文を入力してください。');
             return false;
         }
@@ -39,9 +52,9 @@ class TopicValidation
     }
 
 
-    public function validatePosition($topic)
+    public function validatePosition()
     {
-        if (empty($topic->position)) {
+        if (empty($this->topic->position)) {
             Msg::push(Msg::ERROR, 'ポジションを入力してください。');
             return false;
         }
@@ -50,9 +63,9 @@ class TopicValidation
     }
 
 
-    public static function validateStatus($topic)
+    public function validateStatus()
     {
-        if ($topic->complete_flg > 1 || $topic->complete_flg < 0) {
+        if ($this->topic->complete_flg > 1 || $this->topic->complete_flg < 0) {
             Msg::push(Msg::ERROR, 'ステータスの値が不正です。');
             return false;
         }
@@ -61,9 +74,9 @@ class TopicValidation
     }
 
 
-    public function validateCategoryId($topic)
+    public function validateCategoryId()
     {
-        if (empty($topic->category_id)) {
+        if (empty($this->topic->category_id)) {
             Msg::push(Msg::ERROR, 'カテゴリーを選択してください。');
             return false;
         }
@@ -73,12 +86,12 @@ class TopicValidation
 
 
     // トピック作成のときに実行するメソッド
-    public function checkCreate($topic)
+    public function checkCreate()
     {
         if (
-            !($this->validateTitle($topic) *
-                $this->validateBody($topic) *
-                $this->validatePosition($topic))
+            !($this->validateTitle() *
+                $this->validateBody() *
+                $this->validatePosition())
         ) {
             return false;
         }
@@ -88,14 +101,14 @@ class TopicValidation
 
 
     // トピック編集のときに実行するメソッド
-    public function checkEdit($topic)
+    public function checkEdit()
     {
         if (
-            !($this->validateId($topic) *
-                $this->validateTitle($topic) *
-                $this->validateBody($topic) *
-                $this->validatePosition($topic) *
-                $this->validateStatus($topic))
+            !($this->validateId() *
+                $this->validateTitle() *
+                $this->validateBody() *
+                $this->validatePosition() *
+                $this->validateStatus())
         ) {
             return false;
         }
