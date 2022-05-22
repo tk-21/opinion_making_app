@@ -6,9 +6,9 @@ use lib\Msg;
 
 class CategoryValidation
 {
-    public $category;
+    private $category;
 
-    public function setData($category)
+    public function __construct($category)
     {
         $this->category = $category;
     }
