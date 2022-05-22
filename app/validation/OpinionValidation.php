@@ -6,9 +6,9 @@ use lib\Msg;
 
 class OpinionValidation
 {
-    public $opinion;
+    private $opinion;
 
-    public function setData($opinion)
+    public function __construct($opinion)
     {
         $this->opinion = $opinion;
     }
