@@ -51,9 +51,7 @@ class TopicController
         $topic->category_id = get_param('category_id', null);
 
         try {
-            $validation = new TopicValidation;
-
-            $validation->setData($topic);
+            $validation = new TopicValidation($topic);
 
             // バリデーションに引っかかった場合
             if (!$validation->checkCreate()) {
@@ -111,9 +109,7 @@ class TopicController
         $topic->id = get_param('id', null, false);
 
         // バリデーションが失敗した場合は、画面遷移させない
-        $validation = new TopicValidation;
-
-        $validation->setData($topic);
+        $validation = new TopicValidation($topic);
 
         if (!$validation->validateId()) {
             redirect(GO_REFERER);
@@ -154,9 +150,7 @@ class TopicController
 
         // 更新処理
         try {
-            $validation = new TopicValidation;
-
-            $validation->setData($topic);
+            $validation = new TopicValidation($topic);
 
             // バリデーションに引っかかった場合
             if (!$validation->checkEdit()) {
@@ -190,9 +184,7 @@ class TopicController
         $topic = new TopicModel;
         $topic->id = get_param('id', null, false);
 
-        $validation = new TopicValidation;
-
-        $validation->setData($topic);
+        $validation = new TopicValidation($topic);
 
         if (!$validation->validateId()) {
             redirect(GO_REFERER);
@@ -217,9 +209,7 @@ class TopicController
         $topic = new TopicModel;
         $topic->id = get_param('id', null);
 
-        $validation = new TopicValidation;
-
-        $validation->setData($topic);
+        $validation = new TopicValidation($topic);
 
         if (!$validation->validateId()) {
             redirect(GO_REFERER);
