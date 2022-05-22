@@ -139,9 +139,7 @@ class DetailController
         $objection->topic_id = get_param('topic_id', null);
 
         try {
-            $validation = new ObjectionValidation;
-
-            $validation->setData($objection);
+            $validation = new ObjectionValidation($objection);
 
             if (!$validation->validateBody()) {
                 Msg::push(Msg::ERROR, '反論の登録に失敗しました。');

@@ -6,9 +6,9 @@ use lib\Msg;
 
 class TopicValidation
 {
-    public $topic;
+    private $topic;
 
-    public function setData($topic)
+    public function __construct($topic)
     {
         $this->topic = $topic;
     }

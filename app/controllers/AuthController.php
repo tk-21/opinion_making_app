@@ -27,17 +27,20 @@ class AuthController
         $password = get_param('password', '');
 
         // バリデーション
-        $validation = new UserValidation;
+        $validation = new UserValidation($name, $password);
 
         if (
-            !($validation->validateName($name)
-                * $validation->validatePassword($password))
+            !($validation->validateName()
+                * $validation->validatePassword())
         ) {
             redirect(GO_REFERER);
         }
 
+        $valid_name = $validation->getValidName();
+        $valid_password = $validation->getValidPassword();
+
         // POSTで渡ってきたユーザーネームとパスワードでログインに成功した場合、
-        if (Auth::login($name, $password)) {
+        if (Auth::login($valid_name, $valid_password)) {
             // 登録されたユーザーオブジェクトの情報を取ってくる
             $user = UserModel::getSession();
             // オブジェクトに格納されている情報を使って、セッションのINFOにメッセージを入れる
@@ -83,17 +86,20 @@ class AuthController
         $password = get_param('password', '');
 
         // バリデーション
-        $validation = new UserValidation;
+        $validation = new UserValidation($name, $password);
 
         if (
-            !($validation->validateName($name)
-                * $validation->validatePassword($password))
+            !($validation->validateName()
+                * $validation->validatePassword())
         ) {
             redirect(GO_REFERER);
         }
 
+        $valid_name = $validation->getValidName();
+        $valid_password = $validation->getValidPassword();
+
         // 登録処理
-        if (Auth::regist($name, $password)) {
+        if (Auth::regist($valid_name, $valid_password)) {
             Msg::push(Msg::INFO, "{$name}さん、ようこそ。");
             redirect(GO_HOME);
         } else {

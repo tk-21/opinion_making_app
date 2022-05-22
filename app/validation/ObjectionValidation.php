@@ -6,9 +6,9 @@ use lib\Msg;
 
 class ObjectionValidation
 {
-    public $objection;
+    private $objection;
 
-    public function setData($objection)
+    public function __construct($objection)
     {
         $this->objection = $objection;
     }

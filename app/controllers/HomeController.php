@@ -72,9 +72,7 @@ class HomeController
         $category->name = get_param('name', null);
 
         try {
-            $validation = new CategoryValidation;
-
-            $validation->setData($category);
+            $validation = new CategoryValidation($category);
 
             if (!$validation->validateName()) {
                 Msg::push(Msg::ERROR, 'カテゴリーの作成に失敗しました。');

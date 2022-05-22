@@ -6,22 +6,18 @@ use lib\Msg;
 
 class UserValidation
 {
-    public $name;
-    public $password;
+    private $name;
+    private $password;
 
-    public function setName($name)
+    public function __construct($name, $password)
     {
         $this->name = $name;
+        $this->password = $password;
     }
 
     public function getValidName()
     {
         return $this->name;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 
     public function getValidPassword()

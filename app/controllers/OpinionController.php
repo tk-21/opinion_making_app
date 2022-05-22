@@ -59,9 +59,7 @@ class OpinionController
 
 
         try {
-            $validation = new OpinionValidation;
-
-            $validation->setData($opinion);
+            $validation = new OpinionValidation($opinion);
 
             if (!$validation->checkCreate()) {
                 Msg::push(Msg::ERROR, '意見の登録に失敗しました。');
@@ -128,9 +126,7 @@ class OpinionController
         $opinion->topic_id = get_param('id', null, false);
 
         try {
-            $validation = new OpinionValidation;
-
-            $validation->setData($opinion);
+            $validation = new OpinionValidation($opinion);
 
             if (!$validation->checkEdit()) {
                 Msg::push(Msg::ERROR, '意見の更新に失敗しました。');
