@@ -64,6 +64,8 @@ class Auth
             // クエリを実行して登録が成功すれば$is_successにtrueが入る
             $is_success = UserQuery::insert($user);
 
+            // ここで$userにidを取得してきてセットする
+
             if ($is_success) {
                 // 登録が成功すれば、そのユーザー情報をセッションに入れる（$_SESSION[_user] = $user）
                 UserModel::setSession($user);
