@@ -4,7 +4,7 @@ namespace view\opinion;
 
 function index($opinion, $topic, $is_create)
 {
-    \partials\header();
+    \partials\header(false);
 
     $opinion = escape($opinion);
     $topic = escape($topic);
