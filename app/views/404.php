@@ -1,6 +1,6 @@
 <?php
 
-\partials\header();
+\partials\header(false);
 
 ?>
 

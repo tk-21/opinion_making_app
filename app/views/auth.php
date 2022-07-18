@@ -4,7 +4,7 @@ namespace view\auth;
 
 function index($is_login)
 {
-    \partials\header();
+    \partials\header(true);
 
     if ($is_login) {
         $header_ttl = 'ログイン';
