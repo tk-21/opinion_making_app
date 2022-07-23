@@ -15,15 +15,15 @@ function header($is_auth)
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>opinion_making_app</title>
-        <meta name="description" content="{ページの説明文}" />
+        <title>opinion_making</title>
+        <meta name="description" content="自分自身の意見をつくるトレーニングができるアプリです。" />
         <!--OGPの設定-->
-        <meta property="og:title" content="opinion_making_app" />
+        <meta property="og:title" content="意見作成トレーニングアプリ" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="{サイトURL}" />
+        <meta property="og:url" content="https://opinion-making.com/" />
         <meta property="og:image" content="{OGP画像のURL}" />
-        <meta property="og:site_name" content="{サイト名}" />
-        <meta property="og:description" content="{サイトの説明文}" />
+        <meta property="og:site_name" content="意見作成トレーニングアプリ" />
+        <meta property="og:description" content="自分の頭で考え、自分自身の意見をつくるトレーニングができます。" />
         <!--アイコンの設定-->
         <link rel="icon" href="{アイコンのパス}" />
         <link rel="apple-touch-icon" href="{アイコンのパス}" />
