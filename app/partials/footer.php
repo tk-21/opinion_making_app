@@ -19,7 +19,7 @@ function footer()
     <script src="../../public/js/jquery-3.6.0.min.js"></script>
     <!-- jQueryプラグイン -->
     <!-- js -->
-    <!-- <script src="../../public/js/form-validate.js"></script> -->
+    <script src="../../public/js/form-validate.js"></script>
     </body>
 
     </html>

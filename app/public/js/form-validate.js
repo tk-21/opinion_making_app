@@ -29,12 +29,14 @@ function validate_form() {
             // $targetの次の要素を取得
             const $feedback = $target.nextElementSibling;
 
+            const $mail = document.getElementById("mail-feedback");
+
             // イベントリスナーの中で呼ぶ
             for (const $form of $forms) {
                 activateSubmitBtn($form);
             }
 
-            // $feedbackのクラスにinvalid-feedbackが付いているかどうかを確認しておく
+            // $feedback（$targetの次の要素）のクラスにinvalid-feedbackが付いているかどうかを確認しておく
             // もしエラー表示用のタグでない場合は後続の処理を行わないようにする
             if (!$feedback.classList.contains("invalid-feedback")) {
                 return;
@@ -72,6 +74,9 @@ function validate_form() {
                         "文字です。";
                 } else if ($target.validity.patternMismatch) {
                     $feedback.textContent = "半角英数字で入力してください。";
+
+                    $mail.textContent =
+                        "メールアドレスは正しい形式で入力してください。";
                 }
             }
         });
