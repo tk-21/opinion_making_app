@@ -54,6 +54,13 @@ function is_alnum($val)
 }
 
 
+// メールアドレスかどうかを判定する関数
+function is_email($val)
+{
+    return preg_match("/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/", $val);
+}
+
+
 // 再帰的プログラミングを用いたエスケープ処理
 // 配列 → オブジェクト → 文字列と、中に中に入っていって
 function escape($data)

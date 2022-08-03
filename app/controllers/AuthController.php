@@ -84,19 +84,22 @@ class AuthController
         // 値の取得
         $name = get_param('name', '');
         $password = get_param('password', '');
+        $email = get_param('email', '');
 
         // バリデーション
-        $validation = new UserValidation($name, $password);
+        $validation = new UserValidation($name, $password, $email);
 
         if (
             !($validation->validateName()
-                * $validation->validatePassword())
+                * $validation->validatePassword()
+                * $validation->validateEmail())
         ) {
             redirect(GO_REFERER);
         }
 
         $valid_name = $validation->getValidName();
         $valid_password = $validation->getValidPassword();
+        $valid_email = $validation->getValidEmail();
 
         // 登録処理
         if (Auth::regist($valid_name, $valid_password)) {
