@@ -102,7 +102,7 @@ class AuthController
         $valid_email = $validation->getValidEmail();
 
         // 登録処理
-        if (Auth::regist($valid_name, $valid_password)) {
+        if (Auth::regist($valid_name, $valid_password, $valid_email)) {
             Msg::push(Msg::INFO, "{$name}さん、ようこそ。");
             redirect(GO_HOME);
         } else {

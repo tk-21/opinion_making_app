@@ -8,6 +8,7 @@ class UserModel extends AbstractModel
     public $id;
     public $name;
     public $password;
+    public $email;
     public $created_at;
     public $updated_at;
     public $deleted_at;
