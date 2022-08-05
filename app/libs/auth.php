@@ -42,7 +42,7 @@ class Auth
     }
 
 
-    public static function regist($name, $password)
+    public static function regist($name, $password, $email)
     {
         try {
             // 同じユーザーが存在するかどうかを確認
@@ -57,6 +57,7 @@ class Auth
             $user = new UserModel;
             $user->name = $name;
             $user->password = $password;
+            $user->email = $email;
 
             // 処理が成功したかどうかのフラグ。初期値はfalse。ログインが成功したときはtrueを入れる
             $is_success = false;

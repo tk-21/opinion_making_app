@@ -7,17 +7,28 @@ use lib\Msg;
 use model\UserModel;
 use validation\UserValidation;
 
-class AuthController
+class ResetController
 {
-    public function showLoginForm()
+    // インスタンス生成時にログイン確認を実行
+    public function __construct()
     {
-        if (Auth::isLogin()) {
-            redirect(GO_HOME);
+        Auth::requireLogin();
+    }
+
+
+    public function showRequestForm()
+    {
+
+        if (empty($_SESSION['_csrf_token'])) {
+            $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
         }
 
-        // ログイン画面を表示
-        \view\auth\index(true);
+        \view\request_form\index();
     }
+
+
+
+
 
 
     public function login()

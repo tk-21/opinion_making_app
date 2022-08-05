@@ -29,6 +29,12 @@ function index($is_login)
                         <p class="invalid-feedback"></p>
                     </dd>
 
+                    <dt class="auth-dttl"><label for="password" onclick="">パスワード</label></dt>
+                    <dd class="auth-item">
+                        <input id="password" type="password" name="password" class="auth-input validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
+                        <p class="invalid-feedback"></p>
+                    </dd>
+
                     <?php if (!$is_login) : ?>
                         <dt class="auth-dttl"><label for="email" onclick="">メールアドレス</label></dt>
                         <dd class="auth-item">
@@ -36,12 +42,6 @@ function index($is_login)
                             <p class="invalid-feedback" id="mail-feedback"></p>
                         </dd>
                     <?php endif; ?>
-
-                    <dt class="auth-dttl"><label for="password" onclick="">パスワード</label></dt>
-                    <dd class="auth-item">
-                        <input id="password" type="password" name="password" class="auth-input validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
-                        <p class="invalid-feedback"></p>
-                    </dd>
 
                 </dl>
                 <button type="submit" class="register-btn auth-btn"><?php echo $submit_btn; ?></button>

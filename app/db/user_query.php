@@ -28,8 +28,8 @@ class UserQuery
     {
         $db = new DataSource;
         $sql = 'INSERT into users
-                (name, password)
-                values(:name, :password)
+                (name, password, email)
+                values(:name, :password, :email)
                 ';
 
         // パスワードはハッシュ化を行っておく
@@ -38,7 +38,8 @@ class UserQuery
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
             ':name' => $user->name,
-            ':password' => $user->password
+            ':password' => $user->password,
+            ':email' => $user->email
         ]);
     }
 }

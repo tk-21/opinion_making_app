@@ -8,11 +8,13 @@ class UserValidation
 {
     private $name;
     private $password;
+    private $email;
 
-    public function __construct($name, $password)
+    public function __construct($name, $password, $email = "")
     {
         $this->name = $name;
         $this->password = $password;
+        $this->email = $email;
     }
 
     public function getValidName()
@@ -23,6 +25,11 @@ class UserValidation
     public function getValidPassword()
     {
         return $this->password;
+    }
+
+    public function getValidEmail()
+    {
+        return $this->email;
     }
 
 
@@ -59,6 +66,22 @@ class UserValidation
         // 小文字か大文字の半角英字もしくは数字にマッチするかどうかを判定
         if (!is_alnum($this->password)) {
             Msg::push(Msg::ERROR, 'パスワードは半角英数字で入力してください。');
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function validateEmail()
+    {
+        if (empty($this->email)) {
+            Msg::push(Msg::ERROR, 'メールアドレスを入力してください。');
+            return false;
+        }
+
+        if (!is_email($this->email)) {
+            Msg::push(Msg::ERROR, 'メールアドレスは正しい形式で入力してください。');
             return false;
         }
 
