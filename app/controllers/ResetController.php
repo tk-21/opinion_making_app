@@ -110,6 +110,18 @@ class ResetController
 
 
 
+    public function showResetForm()
+    {
+        $passwordResetToken = get_param('token', null, false);
+
+        $passwordResetUser = PasswordResetQuery::fetchByToken($passwordResetToken);
+
+        if (!$passwordResetUser) {
+            Msg::push(Msg::ERROR, '無効なURLです。');
+            exit();
+        }
+    }
+
 
 
 

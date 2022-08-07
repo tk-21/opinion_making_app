@@ -24,7 +24,6 @@ class PasswordResetQuery
     }
 
 
-
     public static function insert($email, $passwordResetToken, $token_sent_at)
     {
         $db = new DataSource;
@@ -42,7 +41,6 @@ class PasswordResetQuery
     }
 
 
-
     public static function update($email, $passwordResetToken, $token_sent_at)
     {
         $db = new DataSource;
@@ -58,5 +56,22 @@ class PasswordResetQuery
             ':token_sent_at' => $token_sent_at,
             ':email' => $email
         ]);
+    }
+
+
+    public static function fetchByToken($passwordResetToken)
+    {
+        $db = new DataSource;
+        // プリペアードステートメントを使うのでidはパラメータにしておく
+        $sql = 'SELECT * FROM password_resets WHERE token = :token';
+        // 第2引数にパラメータに、引数で渡ってきた文字列を入れる
+        // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
+        // 第4引数でUserModelまでのパスを取得して、そのクラスを使うように指定
+        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\UserModel が返る）
+        $result = $db->selectOne($sql, [
+            ':token' => $passwordResetToken
+        ], DataSource::CLS, UserModel::class);
+
+        return $result;
     }
 }
