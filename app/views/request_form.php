@@ -9,7 +9,7 @@ function index()
 
     <section class="auth">
         <div class="auth-inner">
-            <form class="auth-form validate-form" action="<?php echo CURRENT_URI; ?>" method="POST" novalidate>
+            <form class="auth-form validate-form" action="" method="POST" novalidate>
                 <h2 class="auth-ttl">パスワードリセット</h2>
                 <dl class="auth-list">
 
