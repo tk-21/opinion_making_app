@@ -42,4 +42,21 @@ class UserQuery
             ':email' => $user->email
         ]);
     }
+
+
+    public static function fetchByEmail($email)
+    {
+        $db = new DataSource;
+        // プリペアードステートメントを使うのでidはパラメータにしておく
+        $sql = 'SELECT * FROM users WHERE email = :email';
+        // 第2引数にパラメータに、引数で渡ってきた文字列を入れる
+        // 第3引数でDataSource::CLSを指定することにより、クラスの形式でデータを取得
+        // 第4引数でUserModelまでのパスを取得して、そのクラスを使うように指定
+        // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\UserModel が返る）
+        $result = $db->selectOne($sql, [
+            ':email' => $email
+        ], DataSource::CLS, UserModel::class);
+
+        return $result;
+    }
 }

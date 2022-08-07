@@ -10,11 +10,6 @@ class OpinionQuery
     // controllerのdetail.phpで呼び出している
     public static function fetchByTopicId($topic)
     {
-        // 渡ってきたトピックオブジェクトのidが正しいか確認
-        // if (!$topic->isValidId()) {
-        //     return false;
-        // }
-
         $db = new DataSource;
 
         $sql = 'SELECT * FROM opinions
@@ -39,20 +34,6 @@ class OpinionQuery
     // controller\topic\detailのpostメソッド内で呼び出している
     public static function insert($opinion)
     {
-        // 値のチェック
-        // DBに接続する前に必ずチェックは終わらせておく
-        // バリデーションがどれか一つでもfalseで返ってきたら、呼び出し元にfalseを返して登録失敗になる
-        // if (
-            // ()の中が０の場合にはtrueになり、if文の中が実行される
-            // trueまたはfalseを返すメソッドを*の演算子でつなげると、１または０に変換される。これらをすべて掛け合わせたときに結果が０であれば、どれかのチェックがfalseで返ってきたことになる
-        //     !($opinion->isValidTopicId()
-        //         * $opinion->isValidOpinion()
-        //         * $opinion->isValidReason()
-        //     )
-        // ) {
-        //     return false;
-        // }
-
         $db = new DataSource;
 
         $sql = 'INSERT into opinions
