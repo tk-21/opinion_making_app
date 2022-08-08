@@ -64,13 +64,14 @@ class ResetController
             $db->begin();
 
             if (!$passwordResetUser) {
-                // 新規リクエストであれば、登録
+                // 値が取れてこなければ新規リクエストとみなし、登録
                 PasswordResetQuery::insert($email, $passwordResetToken, $token_sent_at);
             } else {
                 // 既にフロー中であれば、tokenの再発行と有効期限のリセットを行う
                 PasswordResetQuery::update($email, $passwordResetToken, $token_sent_at);
             }
 
+            // メールの送信
             if (!static::sendMail($email, $passwordResetToken)) {
                 throw new Exception('メール送信に失敗しました。');
             }
