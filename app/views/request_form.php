@@ -2,7 +2,7 @@
 
 namespace view\request_form;
 
-function index()
+function index($csrf_token)
 {
     \partials\header(false);
 ?>
@@ -15,7 +15,7 @@ function index()
 
                     <dt class="auth-dttl"><label for="email" onclick="">メールアドレスを入力してください。</label></dt>
                     <dd class="auth-item">
-                        <input type="hidden" name="_csrf_token" value="<?= $_SESSION['_csrf_token']; ?>">
+                        <input type="hidden" name="csrf_token" value="<? echo $csrf_token; ?>">
                         <input id="email" type="email" name="email" class="auth-input validate-target" autofocus required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                         <p class="invalid-feedback" id="mail-feedback"></p>
                     </dd>

@@ -22,20 +22,17 @@ class ResetController
 
     public function showRequestForm()
     {
+        $csrf_token = bin2hex(random_bytes(32));
 
-        if (empty($_SESSION['_csrf_token'])) {
-            $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
-        }
-
-        \view\request_form\index();
+        \view\request_form\index($csrf_token);
     }
 
 
     public function request()
     {
-        $csrf_token = get_param('_csrf_token', '');
+        $csrf_token = get_param('csrf_token', '');
 
-        if (empty($csrf_token) || empty($_SESSION['_csrf_token']) || $csrf_token !== $_SESSION['_csrf_token']) {
+        if (empty($csrf_token)) {
             Msg::push(Msg::ERROR, '不正なリクエストです。');
             redirect(GO_REFERER);
         }
@@ -117,10 +114,24 @@ class ResetController
 
         $passwordResetUser = PasswordResetQuery::fetchByToken($passwordResetToken);
 
+        // トークンに合致するユーザーがいなければ処理を中止
         if (!$passwordResetUser) {
             Msg::push(Msg::ERROR, '無効なURLです。');
-            exit();
+            exit;
         }
+
+        // tokenの有効期限を24時間とする
+        $tokenValidPeriod = (new \DateTime())->modify('-24 hour')->format('Y-m-d H:i:s');
+
+        // リクエストが24時間以上前の場合、有効期限切れとする
+        if ($passwordResetUser->token_sent_at < $tokenValidPeriod) {
+            Msg::push(Msg::ERROR, '有効期限切れです。');
+            exit;
+        }
+
+        $csrf_token = bin2hex(random_bytes(32));
+
+        \view\reset_form\index($passwordResetToken, $csrf_token);
     }
 
 
