@@ -22,20 +22,15 @@ class ResetController
 
     public function showRequestForm()
     {
-
-        if (empty($_SESSION['_csrf_token'])) {
-            $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
-        }
-
         \view\request_form\index();
     }
 
 
     public function request()
     {
-        $csrf_token = get_param('_csrf_token', '');
+        $csrf_token = get_param('csrf_token', '');
 
-        if (empty($csrf_token) || empty($_SESSION['_csrf_token']) || $csrf_token !== $_SESSION['_csrf_token']) {
+        if (empty($csrf_token)) {
             Msg::push(Msg::ERROR, '不正なリクエストです。');
             redirect(GO_REFERER);
         }
@@ -43,6 +38,7 @@ class ResetController
         $email = get_param('email', '');
         // ここでバリデーションを入れる
 
+        // メールアドレスからユーザー情報を取得
         $exist_user = UserQuery::fetchByEmail($email);
 
         // 入力されたメールアドレスが登録されたユーザーがいなければ、送信完了画面を表示
@@ -57,20 +53,20 @@ class ResetController
         $passwordResetToken = bin2hex(random_bytes(32));
         $token_sent_at = (new \DateTime())->format('Y-m-d H:i:s');
 
-
+        // DBへの登録とメール送信を行う
         try {
-
             $db = new DataSource;
             $db->begin();
 
             if (!$passwordResetUser) {
-                // 新規リクエストであれば、登録
+                // 値が取れてこなければ新規リクエストとみなし、登録
                 PasswordResetQuery::insert($email, $passwordResetToken, $token_sent_at);
             } else {
                 // 既にフロー中であれば、tokenの再発行と有効期限のリセットを行う
                 PasswordResetQuery::update($email, $passwordResetToken, $token_sent_at);
             }
 
+            // メールの送信
             if (!static::sendMail($email, $passwordResetToken)) {
                 throw new Exception('メール送信に失敗しました。');
             }
@@ -109,16 +105,40 @@ class ResetController
     }
 
 
-
     public function showResetForm()
     {
-        $passwordResetToken = get_param('token', null, false);
+        $passwordResetToken = get_param('token', '', false);
 
+        // トークンに合致するユーザーを取得
         $passwordResetUser = PasswordResetQuery::fetchByToken($passwordResetToken);
 
+        // トークンに合致するユーザーがいなければ処理を中止
         if (!$passwordResetUser) {
             Msg::push(Msg::ERROR, '無効なURLです。');
-            exit();
+            exit;
+        }
+
+        // tokenの有効期限を24時間に設定
+        $tokenValidPeriod = (new \DateTime())->modify('-24 hour')->format('Y-m-d H:i:s');
+
+        // リクエストが24時間以上前の場合、有効期限切れとする
+        if ($passwordResetUser->token_sent_at < $tokenValidPeriod) {
+            Msg::push(Msg::ERROR, '有効期限切れです。');
+            exit;
+        }
+
+        \view\reset_form\index($passwordResetToken);
+    }
+
+
+    public function reset()
+    {
+        $passwordResetToken = get_param('password_reset_token', '');
+        $csrf_token = get_param('csrf_token', '');
+
+        if (empty($csrf_token)) {
+            Msg::push(Msg::ERROR, '不正なリクエストです。');
+            exit;
         }
     }
 
