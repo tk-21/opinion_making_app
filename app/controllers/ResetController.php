@@ -22,9 +22,7 @@ class ResetController
 
     public function showRequestForm()
     {
-        $csrf_token = bin2hex(random_bytes(32));
-
-        \view\request_form\index($csrf_token);
+        \view\request_form\index();
     }
 
 
@@ -40,6 +38,7 @@ class ResetController
         $email = get_param('email', '');
         // ここでバリデーションを入れる
 
+        // メールアドレスからユーザー情報を取得
         $exist_user = UserQuery::fetchByEmail($email);
 
         // 入力されたメールアドレスが登録されたユーザーがいなければ、送信完了画面を表示
@@ -54,9 +53,8 @@ class ResetController
         $passwordResetToken = bin2hex(random_bytes(32));
         $token_sent_at = (new \DateTime())->format('Y-m-d H:i:s');
 
-
+        // DBへの登録とメール送信を行う
         try {
-
             $db = new DataSource;
             $db->begin();
 
@@ -107,11 +105,11 @@ class ResetController
     }
 
 
-
     public function showResetForm()
     {
-        $passwordResetToken = get_param('token', null, false);
+        $passwordResetToken = get_param('token', '', false);
 
+        // トークンに合致するユーザーを取得
         $passwordResetUser = PasswordResetQuery::fetchByToken($passwordResetToken);
 
         // トークンに合致するユーザーがいなければ処理を中止
@@ -120,7 +118,7 @@ class ResetController
             exit;
         }
 
-        // tokenの有効期限を24時間とする
+        // tokenの有効期限を24時間に設定
         $tokenValidPeriod = (new \DateTime())->modify('-24 hour')->format('Y-m-d H:i:s');
 
         // リクエストが24時間以上前の場合、有効期限切れとする
@@ -129,9 +127,19 @@ class ResetController
             exit;
         }
 
-        $csrf_token = bin2hex(random_bytes(32));
+        \view\reset_form\index($passwordResetToken);
+    }
 
-        \view\reset_form\index($passwordResetToken, $csrf_token);
+
+    public function reset()
+    {
+        $passwordResetToken = get_param('password_reset_token', '');
+        $csrf_token = get_param('csrf_token', '');
+
+        if (empty($csrf_token)) {
+            Msg::push(Msg::ERROR, '不正なリクエストです。');
+            exit;
+        }
     }
 
 

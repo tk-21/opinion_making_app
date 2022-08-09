@@ -1,0 +1,44 @@
+<?php
+
+namespace view\reset_form;
+
+function index($passwordResetToken)
+{
+    \partials\header(false);
+
+    $csrf_token = bin2hex(random_bytes(32));
+?>
+
+    <section class="auth">
+        <div class="auth-inner">
+            <form class="auth-form validate-form" action="" method="POST" novalidate>
+
+                <input type="hidden" name="password_reset_token" value="<? echo $passwordResetToken; ?>">
+                <input type="hidden" name="csrf_token" value="<? echo $csrf_token; ?>">
+
+                <h2 class="auth-ttl">パスワードリセット</h2>
+                <dl class="auth-list">
+                    <dt class="auth-dttl"><label for="password" onclick="">新しいパスワード</label></dt>
+                    <dd class="auth-item">
+                        <input id="password" type="password" name="password" class="auth-input validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
+                        <p class="invalid-feedback"></p>
+                    </dd>
+
+                    <dt class="auth-dttl"><label for="password_confirmation" onclick="">パスワード（確認用）</label></dt>
+                    <dd class="auth-item">
+                        <input id="password_confirmation" type="password" name="password_confirmation" class="auth-input validate-target" autofocus required minlength="4" maxlength="10" pattern="[a-zA-Z0-9]+">
+                        <p class="invalid-feedback"></p>
+                    </dd>
+
+                </dl>
+                <button type="submit" class="register-btn auth-btn">送信</button>
+            </form>
+
+
+        </div>
+    </section>
+
+<?php
+    \partials\footer();
+}
+?>
