@@ -7,6 +7,7 @@ use controllers\HomeController;
 use controllers\TopicController;
 use controllers\OpinionController;
 use controllers\DetailController;
+use controllers\ResetController;
 
 
 class Router
@@ -68,6 +69,11 @@ class Router
             case 'opinion_edit':
                 $opinion = new OpinionController;
                 $opinion->showEditForm();
+                break;
+
+            case 'reset':
+                $reset = new ResetController;
+                $reset->showRequestForm();
                 break;
 
             default:

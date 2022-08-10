@@ -67,7 +67,7 @@ class ResetController
             }
 
             // メールの送信
-            if (!static::sendMail($email, $passwordResetToken)) {
+            if (!static::sendResetMail($email, $passwordResetToken)) {
                 throw new Exception('メール送信に失敗しました。');
             }
 
@@ -83,8 +83,7 @@ class ResetController
     }
 
 
-
-    public function sendMail($email, $passwordResetToken)
+    public function sendResetMail($email, $passwordResetToken)
     {
         mb_language("Japanese");
         mb_internal_encoding("UTF-8");
@@ -96,6 +95,24 @@ class ResetController
         $body = <<<EOD
         24時間以内に下記URLへアクセスし、パスワードの変更を完了してください。
         {$url}
+        EOD;
+
+        $headers = "From : hoge@hoge.com";
+        $headers .= "Content-Type : text/plain";
+
+        return mb_send_mail($email, $subject, $body, $headers);
+    }
+
+
+    public function sendCompleteMail($email)
+    {
+        mb_language("Japanese");
+        mb_internal_encoding("UTF-8");
+
+        $subject = 'パスワードの変更が完了しました。';
+
+        $body = <<<EOD
+        パスワードの変更が完了しました。
         EOD;
 
         $headers = "From : hoge@hoge.com";
@@ -162,8 +179,20 @@ class ResetController
         // ハッシュ化
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        try{
-            
+        try {
+            $db = new DataSource;
+            $db->begin();
+
+            UserQuery::update($hashedPassword, $passwordResetUser);
+
+            PasswordResetQuery::delete($passwordResetUser);
+
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+
+            Msg::push(Msg::ERROR, $e->getMessage());
+            redirect(GO_REFERER);
         }
     }
 

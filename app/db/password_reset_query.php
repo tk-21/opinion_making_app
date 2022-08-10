@@ -59,6 +59,20 @@ class PasswordResetQuery
     }
 
 
+    public static function delete($passwordResetUser)
+    {
+        $db = new DataSource;
+
+        $sql = 'DELETE FROM password_resets
+                WHERE email = :email';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':email' => $passwordResetUser->email
+        ]);
+    }
+
+
     public static function fetchByToken($passwordResetToken)
     {
         $db = new DataSource;
