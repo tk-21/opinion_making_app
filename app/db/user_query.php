@@ -44,6 +44,21 @@ class UserQuery
     }
 
 
+    public static function update($hashedPassword, $passwordResetUser)
+    {
+        $db = new DataSource;
+        $sql = 'UPDATE users
+                SET password = :password
+                WHERE email = :email
+                ';
+
+        return $db->execute($sql, [
+            ':password' => $hashedPassword,
+            ':email' => $passwordResetUser->email
+        ]);
+    }
+
+
     public static function fetchByEmail($email)
     {
         $db = new DataSource;
