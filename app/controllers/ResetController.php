@@ -133,12 +133,37 @@ class ResetController
 
     public function reset()
     {
-        $passwordResetToken = get_param('password_reset_token', '');
+        $password = get_param('password', '');
+        $password_confirmation = get_param('password_confirmation', '');
+
+        if ($password !== $password_confirmation) {
+            Msg::push(Msg::ERROR, 'パスワードが確認用パスワードと一致していません。');
+            redirect(GO_REFERER);
+        }
+
         $csrf_token = get_param('csrf_token', '');
 
         if (empty($csrf_token)) {
             Msg::push(Msg::ERROR, '不正なリクエストです。');
             exit;
+        }
+
+        $passwordResetToken = get_param('password_reset_token', '');
+
+        // トークンに合致するユーザーを取得
+        $passwordResetUser = PasswordResetQuery::fetchByToken($passwordResetToken);
+
+        // トークンに合致するユーザーがいなければ処理を中止
+        if (!$passwordResetUser) {
+            Msg::push(Msg::ERROR, '無効なURLです。');
+            exit;
+        }
+
+        // ハッシュ化
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        try{
+            
         }
     }
 
