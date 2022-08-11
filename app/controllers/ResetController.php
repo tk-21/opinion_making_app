@@ -74,12 +74,17 @@ class ResetController
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();
-            Msg::push(Msg::ERROR, $e->getMessage());
-            redirect(GO_REFERER);
-            return;
+            Msg::push(Msg::DEBUG, $e->getMessage());
+            Msg::push(Msg::ERROR, 'エラーが発生しました。');
         }
 
         redirect('email_sent');
+    }
+
+
+    public function showEmailSent()
+    {
+        \view\email_sent\index();
     }
 
 
@@ -162,7 +167,7 @@ class ResetController
 
         if (empty($csrf_token)) {
             Msg::push(Msg::ERROR, '不正なリクエストです。');
-            exit;
+            redirect(GO_REFERER);
         }
 
         $passwordResetToken = get_param('password_reset_token', '');
@@ -183,18 +188,23 @@ class ResetController
             $db = new DataSource;
             $db->begin();
 
-            UserQuery::update($hashedPassword, $passwordResetUser);
+            if (UserQuery::update($hashedPassword, $passwordResetUser) &&          PasswordResetQuery::delete($passwordResetUser)) {
+                $db->commit();
+            }
 
-            PasswordResetQuery::delete($passwordResetUser);
-
-            $db->commit();
+            $is_success = true;
         } catch (Exception $e) {
             $db->rollback();
 
-            Msg::push(Msg::ERROR, $e->getMessage());
-            redirect(GO_REFERER);
+            Msg::push(Msg::DEBUG, $e->getMessage());
+            Msg::push(Msg::ERROR, 'エラーが発生しました。');
         }
+
+        return $is_success;
     }
+
+
+
 
 
 

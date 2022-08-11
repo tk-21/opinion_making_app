@@ -71,9 +71,19 @@ class Router
                 $opinion->showEditForm();
                 break;
 
-            case 'reset':
+            case 'request':
                 $reset = new ResetController;
                 $reset->showRequestForm();
+                break;
+
+            case 'email_sent':
+                $reset = new ResetController;
+                $reset->showEmailSent();
+                break;
+
+            case 'reset':
+                $reset = new ResetController;
+                $reset->showResetForm();
                 break;
 
             default:
@@ -137,6 +147,16 @@ class Router
             case 'opinion_edit':
                 $opinion = new OpinionController;
                 $opinion->edit();
+                break;
+
+            case 'request':
+                $reset = new ResetController;
+                $reset->request();
+                break;
+
+            case 'reset':
+                $reset = new ResetController;
+                $reset->reset();
                 break;
 
             default:

@@ -7,7 +7,7 @@
 <section class="error">
     <div class="inner">
         <ul class="error-list">
-            <li class="error-item">送信完了しました。</li>
+            <li class="error-item">メールを送信しました。</li>
         </ul>
     </div>
 </section>
