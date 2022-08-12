@@ -71,7 +71,7 @@ class OpinionController
 
             $valid_data = $validation->getValidData();
 
-            OpinionQuery::insert($valid_data) ? Msg::push(Msg::INFO, '意見を登録しました。') : Msg::push(Msg::INFO, '登録に失敗しました。');
+            OpinionQuery::insert($valid_data) ? Msg::push(Msg::INFO, '意見を登録しました。') : Msg::push(Msg::ERROR, '登録に失敗しました。');
 
             redirect(sprintf('detail?id=%s', $opinion->topic_id));
         } catch (Exception $e) {

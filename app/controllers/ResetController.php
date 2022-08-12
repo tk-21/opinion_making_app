@@ -41,6 +41,7 @@ class ResetController
 
         if (!$validation->validateEmail()) {
             Msg::push(Msg::ERROR, 'リクエストに失敗しました。');
+            redirect(GO_REFERER);
         }
 
         $valid_email = $validation->getValidEmail();
@@ -145,9 +146,19 @@ class ResetController
     public function reset()
     {
         $password = get_param('password', '');
+
+        $validation = new UserValidation('', $password);
+
+        if (!$validation->validatePassword()) {
+            Msg::push(Msg::ERROR, 'パスワード変更に失敗しました。');
+            redirect(GO_REFERER);
+        }
+
+        $valid_password = $validation->getValidPassword();
+
         $password_confirmation = get_param('password_confirmation', '');
 
-        if ($password !== $password_confirmation) {
+        if ($valid_password !== $password_confirmation) {
             Msg::push(Msg::ERROR, 'パスワードが確認用パスワードと一致していません。');
             redirect(GO_REFERER);
         }
@@ -171,7 +182,7 @@ class ResetController
         }
 
         // ハッシュ化
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($valid_password, PASSWORD_DEFAULT);
 
         try {
             $db = new DataSource;
@@ -179,6 +190,7 @@ class ResetController
 
             if (UserQuery::update($hashedPassword, $passwordResetUser) &&          PasswordResetQuery::delete($passwordResetUser)) {
                 $db->commit();
+                Msg::push(Msg::INFO, 'パスワードの変更が完了しました。');
             }
         } catch (Exception $e) {
             $db->rollback();
@@ -187,7 +199,14 @@ class ResetController
             Msg::push(Msg::ERROR, 'エラーが発生しました。');
         }
 
-        return $passwordResetUser;
+        $user = UserQuery::fetchByEmail($passwordResetUser->email);
+
+
+        // 変更完了メール送信
+        static::sendCompleteMail($user->email);
+
+        // ログインしてマイページへ遷移
+        static::login($user->name, $user->password);
     }
 
 
@@ -209,100 +228,11 @@ class ResetController
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    public function login()
+    public function login($name, $password)
     {
-        // 値の取得
-        $name = get_param('name', '');
-        $password = get_param('password', '');
-
-        // バリデーション
-        $validation = new UserValidation($name, $password);
-
-        if (
-            !($validation->validateName()
-                * $validation->validatePassword())
-        ) {
-            redirect(GO_REFERER);
-        }
-
-        $valid_name = $validation->getValidName();
-        $valid_password = $validation->getValidPassword();
-
-        // POSTで渡ってきたユーザーネームとパスワードでログインに成功した場合、
-        if (Auth::login($valid_name, $valid_password)) {
-            // 登録されたユーザーオブジェクトの情報を取ってくる
+        if (Auth::login($name, $password)) {
             $user = UserModel::getSession();
-            // オブジェクトに格納されている情報を使って、セッションのINFOにメッセージを入れる
             Msg::push(Msg::INFO, "{$user->name}さん、ようこそ。");
-            // パスが空だったらトップページに移動
-            redirect(GO_HOME);
-        } else {
-            // Auth::loginによって何がエラーかというのはpushされるので、ここでエラーメッセージは出さなくてよい
-
-            // refererは一つ前のリクエストのパスを表す
-            // 認証が失敗したときは、一つ前のリクエスト（GETメソッドでのログインページへのパス）に戻る
-            redirect(GO_REFERER);
-        }
-    }
-
-
-    public function logout()
-    {
-        if (Auth::logout()) {
-            Msg::push(Msg::INFO, 'ログアウトしました。');
-            redirect('login');
-        } else {
-            Msg::push(Msg::ERROR, 'ログアウトに失敗しました。');
-        }
-    }
-
-
-    public function showRegisterForm()
-    {
-        if (Auth::isLogin()) {
-            redirect(GO_HOME);
-        }
-
-        // 登録画面を表示
-        \view\auth\index(false);
-    }
-
-
-    public function register()
-    {
-        // 値の取得
-        $name = get_param('name', '');
-        $password = get_param('password', '');
-        $email = get_param('email', '');
-
-        // バリデーション
-        $validation = new UserValidation($name, $password, $email);
-
-        if (
-            !($validation->validateName()
-                * $validation->validatePassword()
-                * $validation->validateEmail())
-        ) {
-            redirect(GO_REFERER);
-        }
-
-        $valid_name = $validation->getValidName();
-        $valid_password = $validation->getValidPassword();
-        $valid_email = $validation->getValidEmail();
-
-        // 登録処理
-        if (Auth::regist($valid_name, $valid_password, $valid_email)) {
-            Msg::push(Msg::INFO, "{$name}さん、ようこそ。");
             redirect(GO_HOME);
         } else {
             redirect(GO_REFERER);
