@@ -48,6 +48,7 @@ function index($is_login)
             </form>
 
             <?php if ($is_login) : ?>
+                <a class="back-btn _home" href="<?php the_url('request'); ?>">パスワードを忘れた方はこちら</a>
                 <a class="back-btn _home" href="<?php the_url('register'); ?>"><?php echo $link_btn; ?></a>
             <?php else : ?>
                 <a class="back-btn _home" href="<?php the_url('login'); ?>"><?php echo $link_btn; ?></a>
