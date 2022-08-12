@@ -36,10 +36,17 @@ class ResetController
         }
 
         $email = get_param('email', '');
-        // ここでバリデーションを入れる
+
+        $validation = new UserValidation('', '', $email);
+
+        if (!$validation->validateEmail()) {
+            Msg::push(Msg::ERROR, 'リクエストに失敗しました。');
+        }
+
+        $valid_email = $validation->getValidEmail();
 
         // メールアドレスからユーザー情報を取得
-        $exist_user = UserQuery::fetchByEmail($email);
+        $exist_user = UserQuery::fetchByEmail($valid_email);
 
         // 入力されたメールアドレスが登録されたユーザーがいなければ、送信完了画面を表示
         if (!$exist_user) {
@@ -48,7 +55,7 @@ class ResetController
         }
 
         // 既にパスワードリセットのフロー中がどうかを確認
-        $passwordResetUser = PasswordResetQuery::fetchByEmail($email);
+        $passwordResetUser = PasswordResetQuery::fetchByEmail($valid_email);
 
         $passwordResetToken = bin2hex(random_bytes(32));
         $token_sent_at = (new \DateTime())->format('Y-m-d H:i:s');
@@ -60,14 +67,14 @@ class ResetController
 
             if (!$passwordResetUser) {
                 // 値が取れてこなければ新規リクエストとみなし、登録
-                PasswordResetQuery::insert($email, $passwordResetToken, $token_sent_at);
+                PasswordResetQuery::insert($valid_email, $passwordResetToken, $token_sent_at);
             } else {
                 // 既にフロー中であれば、tokenの再発行と有効期限のリセットを行う
-                PasswordResetQuery::update($email, $passwordResetToken, $token_sent_at);
+                PasswordResetQuery::update($valid_email, $passwordResetToken, $token_sent_at);
             }
 
             // メールの送信
-            if (!static::sendResetMail($email, $passwordResetToken)) {
+            if (!static::sendResetMail($valid_email, $passwordResetToken)) {
                 throw new Exception('メール送信に失敗しました。');
             }
 
@@ -79,12 +86,6 @@ class ResetController
         }
 
         redirect('email_sent');
-    }
-
-
-    public function showEmailSent()
-    {
-        \view\email_sent\index();
     }
 
 
@@ -109,21 +110,9 @@ class ResetController
     }
 
 
-    public function sendCompleteMail($email)
+    public function showEmailSent()
     {
-        mb_language("Japanese");
-        mb_internal_encoding("UTF-8");
-
-        $subject = 'パスワードの変更が完了しました。';
-
-        $body = <<<EOD
-        パスワードの変更が完了しました。
-        EOD;
-
-        $headers = "From : hoge@hoge.com";
-        $headers .= "Content-Type : text/plain";
-
-        return mb_send_mail($email, $subject, $body, $headers);
+        \view\email_sent\index();
     }
 
 
@@ -191,8 +180,6 @@ class ResetController
             if (UserQuery::update($hashedPassword, $passwordResetUser) &&          PasswordResetQuery::delete($passwordResetUser)) {
                 $db->commit();
             }
-
-            $is_success = true;
         } catch (Exception $e) {
             $db->rollback();
 
@@ -200,7 +187,25 @@ class ResetController
             Msg::push(Msg::ERROR, 'エラーが発生しました。');
         }
 
-        return $is_success;
+        return $passwordResetUser;
+    }
+
+
+    public function sendCompleteMail($email)
+    {
+        mb_language("Japanese");
+        mb_internal_encoding("UTF-8");
+
+        $subject = 'パスワードの変更が完了しました。';
+
+        $body = <<<EOD
+        パスワードの変更が完了しました。
+        EOD;
+
+        $headers = "From : hoge@hoge.com";
+        $headers .= "Content-Type : text/plain";
+
+        return mb_send_mail($email, $subject, $body, $headers);
     }
 
 
