@@ -14,16 +14,17 @@ use validation\UserValidation;
 class ResetController
 {
     // インスタンス生成時にログイン確認を実行
-    public function __construct()
-    {
-        Auth::requireLogin();
-    }
+    // public function __construct()
+    // {
+    //     Auth::requireLogin();
+    // }
 
 
     public function showRequestForm()
     {
         \view\request_form\index();
     }
+
 
 
     public function request()
@@ -90,6 +91,7 @@ class ResetController
     }
 
 
+
     public function sendResetMail($email, $passwordResetToken)
     {
         mb_language("Japanese");
@@ -111,10 +113,12 @@ class ResetController
     }
 
 
+
     public function showEmailSent()
     {
         \view\email_sent\index();
     }
+
 
 
     public function showResetForm()
@@ -143,6 +147,7 @@ class ResetController
     }
 
 
+
     public function reset()
     {
         $password = get_param('password', '');
@@ -158,6 +163,7 @@ class ResetController
 
         $password_confirmation = get_param('password_confirmation', '');
 
+        // 確認用パスワードとの照合
         if ($valid_password !== $password_confirmation) {
             Msg::push(Msg::ERROR, 'パスワードが確認用パスワードと一致していません。');
             redirect(GO_REFERER);
@@ -181,13 +187,14 @@ class ResetController
             exit;
         }
 
-        // ハッシュ化
+        // パスワードをハッシュ化
         $hashedPassword = password_hash($valid_password, PASSWORD_DEFAULT);
 
         try {
             $db = new DataSource;
             $db->begin();
 
+            // ユーザーテーブルのパスワードを更新し、パスワードリセットテーブルから削除
             if (UserQuery::update($hashedPassword, $passwordResetUser) &&          PasswordResetQuery::delete($passwordResetUser)) {
                 $db->commit();
                 Msg::push(Msg::INFO, 'パスワードの変更が完了しました。');
@@ -199,8 +206,8 @@ class ResetController
             Msg::push(Msg::ERROR, 'エラーが発生しました。');
         }
 
+        // メールアドレスからユーザー情報を取得
         $user = UserQuery::fetchByEmail($passwordResetUser->email);
-
 
         // 変更完了メール送信
         static::sendCompleteMail($user->email);
@@ -208,6 +215,7 @@ class ResetController
         // ログインしてマイページへ遷移
         static::login($user->name, $user->password);
     }
+
 
 
     public function sendCompleteMail($email)
@@ -226,6 +234,7 @@ class ResetController
 
         return mb_send_mail($email, $subject, $body, $headers);
     }
+
 
 
     public function login($name, $password)
