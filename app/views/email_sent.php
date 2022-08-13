@@ -1,22 +1,25 @@
 <?php
 
-\partials\header(false);
+namespace view\email_sent;
 
+function index()
+{
+
+    \partials\header(false);
 ?>
 
-<section class="error">
-    <div class="inner">
-        <ul class="error-list">
-            <li class="error-item">メールを送信しました。</li>
-        </ul>
-    </div>
-</section>
+    <section class="error">
+        <div class="inner">
+            <ul class="error-list">
+                <li class="error-item">メールを送信しました。</li>
+            </ul>
+        </div>
+    </section>
 
 
 
 
 <?php
 
-\partials\footer();
-
-?>
+    \partials\footer();
+}
