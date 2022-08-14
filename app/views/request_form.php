@@ -4,7 +4,7 @@ namespace view\request_form;
 
 function index()
 {
-    \partials\header(false);
+    \partials\header(true);
 
     $csrf_token = bin2hex(random_bytes(32));
 ?>
@@ -27,6 +27,7 @@ function index()
                 <button type="submit" class="register-btn auth-btn">送信</button>
             </form>
 
+            <a class="back-btn _home" href="<?php the_url('login'); ?>">戻る</a>
 
         </div>
     </section>

@@ -1,6 +1,11 @@
 .paging {
-    display: flex;
-    justify-content: center;
+    &-txt {
+        margin-bottom: 20px;
+    }
+    &-list {
+        display: flex;
+        justify-content: center;
+    }
     &-item {
         &:not(:last-of-type) {
             margin-right: 30px;
