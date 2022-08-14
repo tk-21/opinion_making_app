@@ -1228,6 +1228,29 @@ th {
   margin-bottom: 15px;
 }
 
+.home-category-item a {
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.home-category-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  background: #743434;
+  width: 100%;
+  height: 1.5px;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.home-category-item a:hover::after {
+  bottom: 0px;
+  opacity: 1;
+}
+
 .home-txt._top {
   text-align: center;
   font-size: 24px;

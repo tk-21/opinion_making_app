@@ -75,6 +75,27 @@
         }
         &-item {
             margin-bottom: 15px;
+            a {
+                position: relative;
+                padding-bottom: 3px;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: 5px;
+                    background: $color-accent;
+                    width: 100%;
+                    height: 1.5px;
+                    opacity: 0;
+                    transition: all 0.3s ease;
+                }
+                &:hover {
+                    &::after {
+                        bottom: 0px;
+                        opacity: 1;
+                    }
+                }
+            }
         }
     }
     &-txt {
