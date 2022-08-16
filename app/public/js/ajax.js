@@ -14,44 +14,45 @@
 //             .always(function (data) {});
 // });
 
-$(".delete-btn").on("click", function () {
-    //クリックされたボタンのデータidを取得
-    let todo_id = $(this).data("id");
-    if (confirm("削除しますがよろしいですか？ id:" + todo_id)) {
-        //一度ボタンが押されたら非活性化する
-        $(".delete-btn").prop("disabled", true);
-        let data = {};
-        data.todo_id = todo_id;
+$("#objection-register").on("click", function () {
+    var uri = new URL(window.location.href);
+    var url = uri.origin;
 
-        $.ajax({
-            url: "./delete.php", //通信先
-            type: "post",
-            data: data, //データを渡して通信
-        }).then(
-            //成功したとき
-            function (data) {
-                let json = JSON.parse(data); //オブジェクト化
-                console.log("success", json);
-                if (json.result == "success") {
-                    //index.phpに遷移させる
-                    // window.location.href = "./index.php";
-                } else {
-                    //削除に失敗
-                    console.log("failed to delete");
-                    alert("failed to delete.");
-                    //削除ボタン活性化
-                    $(".delete-btn").prop("disabled", false);
-                }
-            },
-            //失敗したとき
-            function () {
-                console.log("fail");
-                alert("fail");
-                //削除ボタン活性化
-                $(".delete-btn").prop("disabled", false);
-            }
-        );
-    }
+    var data = {
+        topic_id: $("#topic_id").val(),
+        form_type: $("#form_type").val(),
+        objection: $("#objection").val(),
+    };
+
+    $.ajax({
+        url: url + "/detail",
+        type: "post",
+        data: data,
+    }).then(
+        //成功したとき
+        function (data) {
+            // alert("成功");
+            //     let json = JSON.parse(data); //オブジェクト化
+            //     console.log("success", json);
+            //     if (json.result == "success") {
+            //         //index.phpに遷移させる
+            // window.location.href = url + "detail?id=" + topic_id;
+            //     } else {
+            //         //削除に失敗
+            //         console.log("failed to delete");
+            //         alert("failed to delete.");
+            //         //削除ボタン活性化
+            //         $(".delete-btn").prop("disabled", false);
+            //     }
+        },
+        //失敗したとき
+        function () {
+            console.log("fail");
+            alert("fail");
+            //削除ボタン活性化
+            $(".delete-btn").prop("disabled", false);
+        }
+    );
 });
 
 $(".todo-checkbox").change(function () {

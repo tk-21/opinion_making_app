@@ -44,10 +44,10 @@ function index($topic, $objections, $counterObjections, $opinion)
                         <p class="objection-ttl">意見に対する反論</p>
 
                         <form class="objection-form validate-form" action="" method="post">
-                            <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
-                            <input type="hidden" name="form_type" value="create_objection">
-                            <textarea class="objection-textarea input validate-target" name="body" required></textarea>
-                            <button type="submit" class="register-btn">登録</button>
+                            <input type="hidden" id="topic_id" name="topic_id" value="<?php echo $topic->id; ?>">
+                            <input type="hidden" id="form_type" name="form_type" value="create_objection">
+                            <textarea id="objection" class="objection-textarea input validate-target" name="body" required></textarea>
+                            <button type="submit" id="objection-register" class="register-btn">登録</button>
                         </form>
 
                         <form action="" method="post">
