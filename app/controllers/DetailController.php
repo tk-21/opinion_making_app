@@ -48,85 +48,85 @@ class DetailController
 
 
     // 「反論」または「反論への反論」を削除する
-    public function delete($formType)
+    public function delete()
     {
         // チェックボックスから、削除する項目のIDを配列で受け取る
-        $delete_id = get_param('delete_id', null);
+        $objection_id = get_param('objection_id', null);
 
-        if (empty($delete_id)) {
-            Msg::push(Msg::ERROR, '削除する項目にチェックを入れてください。');
-            redirect(GO_REFERER);
-        }
+        // if (empty($delete_id)) {
+        //     Msg::push(Msg::ERROR, '削除する項目にチェックを入れてください。');
+        //     redirect(GO_REFERER);
+        // }
 
         // 「意見に対する反論」の場合の削除処理
-        if ($formType === 'delete_objection') {
+        // if ($formType === 'delete_objection') {
 
-            try {
-                $db = new DataSource;
-                $db->begin();
+        // try {
+        // $db = new DataSource;
+        // $db->begin();
 
-                foreach ($delete_id as $id) {
-                    $is_success = ObjectionQuery::delete($id);
+        // foreach ($delete_id as $id) {
+        $is_success = ObjectionQuery::delete($objection_id);
 
-                    if (!$is_success) {
-                        // 削除失敗の場合、ループを抜ける
-                        break;
-                    }
-                }
-            } catch (Exception $e) {
+        // if (!$is_success) {
+        //     // 削除失敗の場合、ループを抜ける
+        //     break;
+        // }
+        // }
+        // } catch (Exception $e) {
 
-                Msg::push(Msg::DEBUG, $e->getMessage());
-                $is_success = false;
-            } finally {
+        //     Msg::push(Msg::DEBUG, $e->getMessage());
+        //     $is_success = false;
+        // } finally {
 
-                if ($is_success) {
-                    $db->commit();
-                    Msg::push(Msg::INFO, '削除しました。');
-                } else {
-                    $db->rollback();
-                    Msg::push(Msg::ERROR, '削除に失敗しました。');
-                }
+        //     if ($is_success) {
+        //         $db->commit();
+        //         Msg::push(Msg::INFO, '削除しました。');
+        //     } else {
+        //         $db->rollback();
+        //         Msg::push(Msg::ERROR, '削除に失敗しました。');
+        //     }
 
-                redirect(GO_REFERER);
-                return;
-            }
-        }
-
-        // 「反論への反論」の場合の削除処理
-        if ($formType === 'delete_counterObjection') {
-
-            try {
-
-                $db = new DataSource;
-                $db->begin();
-
-                foreach ($delete_id as $id) {
-                    $is_success = CounterObjectionQuery::delete($id);
-
-                    if (!$is_success) {
-                        // 削除失敗の場合、ループを抜ける
-                        break;
-                    }
-                }
-            } catch (Exception $e) {
-
-                Msg::push(Msg::DEBUG, $e->getMessage());
-                $is_success = false;
-            } finally {
-
-                if ($is_success) {
-                    $db->commit();
-                    Msg::push(Msg::INFO, '削除しました。');
-                } else {
-                    $db->rollback();
-                    Msg::push(Msg::ERROR, '削除に失敗しました。');
-                }
-
-                redirect(GO_REFERER);
-                return;
-            }
-        }
+        //     redirect(GO_REFERER);
+        return $is_success;
+        // }
     }
+
+    // 「反論への反論」の場合の削除処理
+    // if ($formType === 'delete_counterObjection') {
+
+    //     try {
+
+    //         $db = new DataSource;
+    //         $db->begin();
+
+    //         foreach ($delete_id as $id) {
+    //             $is_success = CounterObjectionQuery::delete($id);
+
+    //             if (!$is_success) {
+    //                 // 削除失敗の場合、ループを抜ける
+    //                 break;
+    //             }
+    //         }
+    //     } catch (Exception $e) {
+
+    //         Msg::push(Msg::DEBUG, $e->getMessage());
+    //         $is_success = false;
+    //     } finally {
+
+    //         if ($is_success) {
+    //             $db->commit();
+    //             Msg::push(Msg::INFO, '削除しました。');
+    //         } else {
+    //             $db->rollback();
+    //             Msg::push(Msg::ERROR, '削除に失敗しました。');
+    //         }
+
+    //         redirect(GO_REFERER);
+    //         return;
+    //     }
+    // }
+    // }
 
 
     // 「反論」または「反論への反論」を登録する

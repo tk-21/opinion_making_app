@@ -47,25 +47,23 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <input type="hidden" id="topic_id" name="topic_id" value="<?php echo $topic->id; ?>">
                             <input type="hidden" id="form_type" name="form_type" value="create_objection">
                             <textarea id="objection" class="objection-textarea input validate-target" name="body" required></textarea>
-                            <button type="submit" id="objection-register" class="register-btn">登録</button>
+                            <button type="submit" id="objection_register" class="register-btn">登録</button>
                         </form>
 
-                        <form action="" method="post">
-                            <input type="hidden" name="form_type" value="delete_objection">
-                            <ul class="objection-list">
-                                <?php foreach ($objections as $objection) : ?>
-                                    <li class="objection-item">
-                                        <label>
-                                            <input type="checkbox" class="objection-delete" name="delete_id[]" value="<?php echo $objection->id; ?>">
-                                            <p class="objection-txt"><?php echo $objection->body; ?></p>
-                                        </label>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <?php if (!empty($objections)) : ?>
-                                <button type="submit" class="delete-btn">チェックした項目を削除</button>
-                            <?php endif; ?>
-                        </form>
+                        <!-- <form action="" method="post"> -->
+                        <!-- <input type="hidden" id="form_type" name="form_type" value="delete_objection"> -->
+                        <ul class="objection-list">
+                            <?php foreach ($objections as $objection) : ?>
+                                <li class="objection-item">
+                                    <label>
+                                        <!-- <input type="checkbox" id="objection_id" class="objection-delete" name="delete_id[]" value="<?php echo $objection->id; ?>"> -->
+                                        <p class="objection-txt"><?php echo $objection->body; ?></p>
+                                    </label>
+                                    <button type="submit" class="delete-btn delete_objection" data-id="<?php echo $objection->id; ?>">削除</button>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <!-- </form> -->
 
                     </div>
                 </li>

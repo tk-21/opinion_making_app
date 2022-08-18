@@ -114,14 +114,19 @@ class Router
                 $detail = new DetailController;
                 $formType = get_param('form_type', null);
 
-                if ($formType === 'delete_objection' || $formType === 'delete_counterObjection') {
-                    $detail->delete($formType);
-                    return;
-                }
+                // if ($formType === 'delete_objection' || $formType === 'delete_counterObjection') {
+                //     $detail->delete($formType);
+                //     return;
+                // }
 
                 if ($formType === 'create_objection' || $formType === 'create_counterObjection') {
                     $detail->create($formType);
                 }
+                break;
+
+            case 'delete':
+                $detail = new DetailController;
+                $detail->delete();
                 break;
 
             case 'topic_create':

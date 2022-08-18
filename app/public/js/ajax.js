@@ -14,29 +14,76 @@
 //             .always(function (data) {});
 // });
 
-$("#objection-register").on("click", function () {
+// $("#objection_register").on("click", function () {
+//     let data = {
+//         topic_id: $("#topic_id").val(),
+//         form_type: $("#form_type").val(),
+//         objection: $("#objection").val(),
+//     };
+
+//     $.ajax({
+//         url: window.location.href,
+//         type: "post",
+//         data: data,
+//     }).then(
+//         //     //成功したとき
+//         function (data) {
+//             alert("成功");
+//         // let json = JSON.parse(data); //オブジェクト化
+//         // console.log("success", json);
+//         //     if (json.result == "success") {
+//         //         //index.phpに遷移させる
+// let uri = new URL(window.location.href);
+// let url = uri.href;
+// window.location.href = url;
+//         //     } else {
+//         //         //削除に失敗
+//         //         console.log("failed to delete");
+//         //         alert("failed to delete.");
+//         //         //削除ボタン活性化
+//         //         $(".delete-btn").prop("disabled", false);
+//         //     }
+//         }
+//         //     //失敗したとき
+//         //     function () {
+//         //         console.log("fail");
+//         //         alert("fail");
+//         //         //削除ボタン活性化
+//         //         $(".delete-btn").prop("disabled", false);
+//         //     }
+//     );
+//     return false;
+// });
+
+$(".delete_objection").on("click", function () {
+    let uri = new URL(window.location.href);
+    let url = uri.origin;
+
+    let topic_id = $("#topic_id").val();
+
+    let objection_id = $(this).data("id");
+
     let data = {
-        topic_id: $("#topic_id").val(),
-        form_type: $("#form_type").val(),
-        objection: $("#objection").val(),
+        objection_id: objection_id,
     };
 
     $.ajax({
-        url: window.location.href,
+        url: url + "/delete",
         type: "post",
         data: data,
     }).then(
         //     //成功したとき
         function (data) {
-            // alert("成功");
+            if (data) {
+                alert("成功");
+            }
             //         // let json = JSON.parse(data); //オブジェクト化
             //         // console.log("success", json);
             //         //     if (json.result == "success") {
             //         //         //index.phpに遷移させる
-            // let uri = new URL(window.location.href);
-            // let url = uri.href;
-            // window.location.href = uri.href;
-            //         //     } else {
+
+            window.location.href = url + "/detail?id=" + topic_id;
+            // //         //     } else {
             //         //         //削除に失敗
             //         //         console.log("failed to delete");
             //         //         alert("failed to delete.");
@@ -53,6 +100,7 @@ $("#objection-register").on("click", function () {
         //     }
     );
 });
+
 // });
 // $(".todo-checkbox").change(function () {
 //     let todo_id = $(this).data("id");
