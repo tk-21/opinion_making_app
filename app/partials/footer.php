@@ -20,6 +20,7 @@ function footer()
     <!-- jQueryプラグイン -->
     <!-- js -->
     <script src="../../public/js/form-validate.js"></script>
+    <script src="../../public/js/ajax.js"></script>
     </body>
 
     </html>
