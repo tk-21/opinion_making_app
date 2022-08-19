@@ -61,10 +61,12 @@ $(".delete_objection").on("click", function () {
 
     let topic_id = $("#topic_id").val();
 
-    let objection_id = $(this).data("id");
+    let delete_id = $(this).data("id");
+    let delete_type = $(this).data("type");
 
     let data = {
-        objection_id: objection_id,
+        delete_id: delete_id,
+        delete_type: delete_type,
     };
 
     $.ajax({
@@ -72,32 +74,58 @@ $(".delete_objection").on("click", function () {
         type: "post",
         data: data,
     }).then(
-        //     //成功したとき
+        //成功したとき
         function (data) {
             if (data) {
-                alert("成功");
                 window.location.href = url + "/detail?id=" + topic_id;
+            } else {
+                //削除に失敗
+                console.log("failed to delete");
+                alert("failed to delete.");
             }
-            //         // let json = JSON.parse(data); //オブジェクト化
-            //         // console.log("success", json);
-            //         //     if (json.result == "success") {
-            //         //         //index.phpに遷移させる
-
-            // //         //     } else {
-            //         //         //削除に失敗
-            //         //         console.log("failed to delete");
-            //         //         alert("failed to delete.");
-            //         //         //削除ボタン活性化
-            //         //         $(".delete-btn").prop("disabled", false);
-            //         //     }
+        },
+        //失敗したとき
+        function () {
+            console.log("fail");
+            alert("fail");
         }
-        //     //失敗したとき
-        //     function () {
-        //         console.log("fail");
-        //         alert("fail");
-        //         //削除ボタン活性化
-        //         $(".delete-btn").prop("disabled", false);
-        //     }
+    );
+});
+
+$(".delete_counterObjection").on("click", function () {
+    let uri = new URL(window.location.href);
+    let url = uri.origin;
+
+    let topic_id = $("#topic_id").val();
+
+    let delete_id = $(this).data("id");
+    let delete_type = $(this).data("type");
+
+    let data = {
+        delete_id: delete_id,
+        delete_type: delete_type,
+    };
+
+    $.ajax({
+        url: url + "/objection_delete",
+        type: "post",
+        data: data,
+    }).then(
+        //成功したとき
+        function (data) {
+            if (data) {
+                window.location.href = url + "/detail?id=" + topic_id;
+            } else {
+                //削除に失敗
+                console.log("failed to delete");
+                alert("failed to delete.");
+            }
+        },
+        //失敗したとき
+        function () {
+            console.log("fail");
+            alert("fail");
+        }
     );
 });
 
