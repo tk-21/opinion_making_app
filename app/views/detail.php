@@ -50,20 +50,14 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <button type="submit" id="objection_register" class="register-btn">登録</button>
                         </form>
 
-                        <!-- <form action="" method="post"> -->
-                        <!-- <input type="hidden" id="form_type" name="form_type" value="delete_objection"> -->
                         <ul class="objection-list">
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="objection-item">
-                                    <label>
-                                        <!-- <input type="checkbox" id="objection_id" class="objection-delete" name="delete_id[]" value="<?php echo $objection->id; ?>"> -->
-                                        <p class="objection-txt"><?php echo $objection->body; ?></p>
-                                    </label>
+                                    <p class="objection-txt"><?php echo $objection->body; ?></p>
                                     <button type="submit" class="delete-btn delete_objection" data-id="<?php echo $objection->id; ?>">削除</button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                        <!-- </form> -->
 
                     </div>
                 </li>
