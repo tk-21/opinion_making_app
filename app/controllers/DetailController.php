@@ -88,7 +88,7 @@ class DetailController
         //     }
 
         //     redirect(GO_REFERER);
-        return $is_success;
+        echo $is_success;
         // }
     }
 
@@ -130,7 +130,7 @@ class DetailController
 
 
     // 「反論」または「反論への反論」を登録する
-    public function create($formType)
+    public function create()
     {
         $objection = new ObjectionModel;
 
@@ -147,6 +147,8 @@ class DetailController
             }
 
             $valid_data = $validation->getValidData();
+
+            $formType = get_param('form_type', null);
 
             // 「意見に対する反論」の場合の登録処理
             if ($formType === 'create_objection') {

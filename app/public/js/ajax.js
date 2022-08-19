@@ -68,7 +68,7 @@ $(".delete_objection").on("click", function () {
     };
 
     $.ajax({
-        url: url + "/delete",
+        url: url + "/objection_delete",
         type: "post",
         data: data,
     }).then(
@@ -76,13 +76,13 @@ $(".delete_objection").on("click", function () {
         function (data) {
             if (data) {
                 alert("成功");
+                window.location.href = url + "/detail?id=" + topic_id;
             }
             //         // let json = JSON.parse(data); //オブジェクト化
             //         // console.log("success", json);
             //         //     if (json.result == "success") {
             //         //         //index.phpに遷移させる
 
-            window.location.href = url + "/detail?id=" + topic_id;
             // //         //     } else {
             //         //         //削除に失敗
             //         //         console.log("failed to delete");
