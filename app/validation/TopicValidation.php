@@ -107,8 +107,7 @@ class TopicValidation
             !($this->validateId() *
                 $this->validateTitle() *
                 $this->validateBody() *
-                $this->validatePosition() *
-                $this->validateStatus())
+                $this->validatePosition())
         ) {
             return false;
         }

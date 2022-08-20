@@ -54,7 +54,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="objection-item">
                                     <p class="objection-txt"><?php echo $objection->body; ?></p>
-                                    <button type="submit" class="delete-btn delete_objection" data-id="<?php echo $objection->id; ?>">削除</button>
+                                    <button type="submit" class="delete-btn delete_objection" data-id="<?php echo $objection->id; ?>" data-type="objection">削除</button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -73,22 +73,14 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <button type="submit" class="register-btn">登録</button>
                         </form>
 
-                        <form action="" method="post">
-                            <input type="hidden" name="form_type" value="delete_counterObjection">
-                            <ul class="objection-list">
-                                <?php foreach ($counterObjections as $counterObjection) : ?>
-                                    <li class="objection-item">
-                                        <label>
-                                            <input type="checkbox" class="objection-delete" name="delete_id[]" value="<?php echo $counterObjection->id; ?>">
-                                            <p class="objection-txt"><?php echo $counterObjection->body; ?></p>
-                                        </label>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <?php if (!empty($counterObjections)) : ?>
-                                <button type="submit" class="delete-btn">チェックした項目を削除</button>
-                            <?php endif; ?>
-                        </form>
+                        <ul class="objection-list">
+                            <?php foreach ($counterObjections as $counterObjection) : ?>
+                                <li class="objection-item">
+                                    <p class="objection-txt"><?php echo $counterObjection->body; ?></p>
+                                    <button type="submit" class="delete-btn delete_counterObjection" data-id="<?php echo $counterObjection->id; ?>" data-type="counterObjection">削除</button>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
 
                     </div>
                 </li>

@@ -145,7 +145,6 @@ class TopicController
         $topic->title = get_param('title', null);
         $topic->body = get_param('body', null);
         $topic->position = get_param('position', null);
-        $topic->complete_flg = get_param('complete_flg', null);
         $topic->category_id = get_param('category_id', null);
 
         // 更新処理
@@ -173,6 +172,24 @@ class TopicController
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
         }
+    }
+
+
+    public function updateStatus()
+    {
+        Auth::requireLogin();
+
+        $topic = new TopicModel;
+
+        $topic->id = get_param('topic_id', null, false);
+        $topic->complete_flg = get_param('topic_status', null, false);
+
+        // 反転させる
+        $topic->complete_flg = !$topic->complete_flg;
+
+        $is_success = TopicQuery::updateStatus($topic);
+
+        echo json_encode($is_success);
     }
 
 

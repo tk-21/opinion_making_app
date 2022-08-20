@@ -85,7 +85,6 @@ class TopicQuery
                 SET title = :title,
                     body = :body,
                     position = :position,
-                    complete_flg = :complete_flg,
                     category_id = :category_id
                 WHERE id = :id
                 ';
@@ -97,6 +96,23 @@ class TopicQuery
             ':position' => $topic->position,
             ':complete_flg' => $topic->complete_flg,
             ':category_id' => $topic->category_id,
+            ':id' => $topic->id
+        ]);
+    }
+
+
+    public static function updateStatus($topic)
+    {
+        $db = new DataSource;
+
+        $sql = 'UPDATE topics
+                SET complete_flg = :complete_flg,
+                WHERE id = :id
+                ';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':complete_flg' => $topic->complete_flg,
             ':id' => $topic->id
         ]);
     }

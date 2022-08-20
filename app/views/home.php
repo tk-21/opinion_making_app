@@ -32,6 +32,11 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                                 // 日時表示をフォーマットするためオブジェクトを作成
                                 $created_at = new DateTime($topic->created_at);
                             ?>
+                                <label for="complete_flg">
+                                    完了確認
+                                </label>
+                                <input type="checkbox" class="home-topic-check" name="complete_flg" id="complete_flg" data-id="<?php echo $topic->id; ?>" data-status="<?php echo $topic->complete_flg; ?>" <?php if ($topic->complete_flg) : ?>checked <?php endif; ?>>
+
                                 <li class="home-topic-item">
                                     <a href="<?php the_url(sprintf('detail?id=%s', $topic->id)); ?>">
                                         <p class="home-topic-label home-topic-<?php echo $label_style; ?>"><?php echo $label; ?></p>
