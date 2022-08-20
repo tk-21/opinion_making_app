@@ -130,6 +130,11 @@ class Router
                 $topic->edit();
                 break;
 
+            case 'update_status':
+                $topic = new TopicController;
+                $topic->updateStatus();
+                break;
+
             case 'topic_delete':
                 $topic = new TopicController;
                 $topic->delete();
