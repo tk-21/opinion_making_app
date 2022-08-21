@@ -106,7 +106,7 @@ class TopicQuery
         $db = new DataSource;
 
         $sql = 'UPDATE topics
-                SET complete_flg = :complete_flg,
+                SET complete_flg = :complete_flg
                 WHERE id = :id
                 ';
 

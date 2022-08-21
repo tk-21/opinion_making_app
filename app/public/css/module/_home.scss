@@ -37,15 +37,15 @@
             margin: 0 20px 0 10px;
             border-radius: 5px;
             background: $color-white;
-        }
-        &-complete {
-            color: $color-white;
-            background: $color-accent;
-            border: 1px solid $color-accent;
-        }
-        &-incomplete {
-            color: $color-text;
-            border: 1px solid $color-text;
+            &._complete {
+                color: $color-white;
+                background: $color-accent;
+                border: 1px solid $color-accent;
+            }
+            &._incomplete {
+                color: $color-text;
+                border: 1px solid $color-text;
+            }
         }
         &-body {
             time {

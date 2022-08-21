@@ -97,7 +97,7 @@ $(".home-topic-check").change(function () {
     let url = uri.origin;
 
     let topic_id = $(this).data("id");
-    let topic_status = $(this).data("status");
+    let topic_status = $(this).parent().next().children().children("p").text();
 
     let data = {
         topic_id: topic_id,
@@ -108,11 +108,46 @@ $(".home-topic-check").change(function () {
         url: url + "/update_status",
         type: "post",
         data: data,
+        context: this,
     }).then(
         //成功したとき
         function (data) {
             if (data) {
-                window.location.href = url;
+                // テキストを取得
+                let text = $(this)
+                    .parent()
+                    .next()
+                    .children()
+                    .children("p")
+                    .text();
+
+                // テキストの入れ替え
+                text = text == "完了" ? "未完了" : "完了";
+
+                // 入れ替えたテキストを設定
+                $(this).parent().next().children().children("p").text(text);
+
+                // クラス名を取得
+                let style = $(this)
+                    .parent()
+                    .next()
+                    .children()
+                    .children("p")
+                    .attr("class");
+
+                // クラス名を変更
+                style =
+                    style == "home-topic-label _complete"
+                        ? "home-topic-label _incomplete"
+                        : "home-topic-label _complete";
+
+                // クラス名を設定
+                $(this)
+                    .parent()
+                    .next()
+                    .children()
+                    .children("p")
+                    .attr("class", style);
             } else {
                 //削除に失敗
                 console.log("failed to delete");

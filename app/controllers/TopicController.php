@@ -181,15 +181,15 @@ class TopicController
 
         $topic = new TopicModel;
 
-        $topic->id = get_param('topic_id', null, false);
-        $topic->complete_flg = get_param('topic_status', null, false);
+        $topic->id = get_param('topic_id', null);
+        $topic_status = get_param('topic_status', null);
 
         // 反転させる
-        $topic->complete_flg = !$topic->complete_flg;
+        $topic->complete_flg = ($topic_status == '完了') ? '0' : '1';
 
         $is_success = TopicQuery::updateStatus($topic);
 
-        echo json_encode($is_success);
+        echo $is_success;
     }
 
 
