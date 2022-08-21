@@ -1184,13 +1184,13 @@ th {
   background: #fff;
 }
 
-.home-topic-complete {
+.home-topic-label._complete {
   color: #fff;
   background: #743434;
   border: 1px solid #743434;
 }
 
-.home-topic-incomplete {
+.home-topic-label._incomplete {
   color: #3e1300;
   border: 1px solid #3e1300;
 }
