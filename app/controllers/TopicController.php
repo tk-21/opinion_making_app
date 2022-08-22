@@ -216,7 +216,7 @@ class TopicController
         $categories = CategoryQuery::fetchByUserId($user);
 
         // 削除確認画面を表示
-        \view\topic\index($fetchedTopic, $categories, SHOW_DELETE);
+        \view\topic_delete\index($fetchedTopic, $categories);
     }
 
 
