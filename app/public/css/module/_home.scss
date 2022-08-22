@@ -9,6 +9,9 @@
         &-list {
             margin-bottom: 50px;
         }
+        &-wrapper {
+            display: flex;
+        }
         &-item {
             &:not(:last-of-type) {
                 margin-bottom: 30px;
