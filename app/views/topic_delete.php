@@ -47,13 +47,7 @@ function index($topic, $categories)
 
             <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
 
-            <?php // トピック作成の場合はホームへ戻る、その他の場合は詳細画面に戻る
-            ?>
-            <?php if ($type === 'create') : ?>
-                <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
-            <?php else : ?>
-                <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
-            <?php endif; ?>
+            <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
 
         </div>
     </section>
