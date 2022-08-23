@@ -59,6 +59,7 @@ require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/auth.php';
 require_once SOURCE_BASE . 'views/detail.php';
 require_once SOURCE_BASE . 'views/topic.php';
+require_once SOURCE_BASE . 'views/topic_delete.php';
 require_once SOURCE_BASE . 'views/opinion.php';
 require_once SOURCE_BASE . 'views/email_sent.php';
 require_once SOURCE_BASE . 'views/request_form.php';

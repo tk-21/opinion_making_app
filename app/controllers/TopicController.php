@@ -212,11 +212,8 @@ class TopicController
         // idからトピックの内容を取ってくる
         $fetchedTopic = TopicQuery::fetchById($valid_data);
 
-        $user = UserModel::getSession();
-        $categories = CategoryQuery::fetchByUserId($user);
-
         // 削除確認画面を表示
-        \view\topic_delete\index($fetchedTopic, $categories);
+        \view\topic_delete\index($fetchedTopic);
     }
 
 
@@ -224,7 +221,7 @@ class TopicController
     public function delete()
     {
         $topic = new TopicModel;
-        $topic->id = get_param('id', null);
+        $topic->id = get_param('topic_id', null);
 
         $validation = new TopicValidation($topic);
 

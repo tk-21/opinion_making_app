@@ -1,0 +1,29 @@
+.confirm {
+    &-form {
+        background: $color-main;
+        padding: 50px;
+        margin-bottom: 50px;
+        border-radius: 4px;
+    }
+    &-ttl {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    &-txt {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 50px 0;
+    }
+    &-list {
+        margin-bottom: 60px;
+    }
+    &-dttl {
+        margin-bottom: 10px;
+    }
+    &-item {
+        &:not(:last-of-type) {
+            margin-bottom: 30px;
+        }
+    }
+}

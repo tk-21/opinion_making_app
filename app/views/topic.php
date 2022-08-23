@@ -12,18 +12,12 @@ function index($topic, $categories, $type)
     // トピック作成、編集を兼ねているファイル
     // タイプによって表示内容を変える
 
-    // $disabled = '';
-
     if ($type === 'create') {
         $header_ttl = 'トピック作成';
         $submit_btn = '登録';
     } elseif ($type === 'edit') {
         $header_ttl = 'トピック編集';
         $submit_btn = '更新';
-        // } else {
-        //     $header_ttl = 'トピック削除確認';
-        //     $submit_btn = '削除';
-        //     $disabled = 'disabled';
     }
 
 ?>
@@ -35,10 +29,6 @@ function index($topic, $categories, $type)
 
                 <h2 class="topic-ttl"><?php echo $header_ttl; ?></h2>
 
-                <!-- <?php if ($type === 'delete') : ?>
-                    <p class="topic-txt"><span class="marker">本当に削除してもよろしいですか？</span></p>
-                <?php endif; ?>
- -->
                 <dl class="topic-list">
                     <dt class="topic-dttl"><label for="title" onclick="">タイトル</label></dt>
                     <dd class="topic-item">

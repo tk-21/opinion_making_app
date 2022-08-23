@@ -2,53 +2,42 @@
 
 namespace view\topic_delete;
 
-function index($topic, $categories)
+function index($topic)
 {
     \partials\header(false);
 
 ?>
 
-    <section class="topic">
+    <section class="confirm">
         <div class="inner">
-            <h2 class="topic-ttl">削除確認</h2>
+            <form class="confirm-form" action="" method="post">
+                <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
 
-            <dl class="topic-list">
-                <dt class="topic-dttl">タイトル</dt>
-                <dd class="topic-item">
-                    <?php echo $topic->title; ?>
-                </dd>
+                <h2 class="confirm-ttl">トピック削除確認</h2>
 
-                <dt class="topic-dttl">本文</dt>
-                <dd class="topic-item">
-                    <?php echo $topic->body; ?>
-                </dd>
+                <p class="confirm-txt"><span class="marker">本当に削除してもよろしいですか？</span></p>
 
-                <dt class="topic-dttl">ポジション</dt>
-                <dd class="topic-item">
-                    <?php echo $topic->position; ?>
-                </dd>
-
-                <?php if ($categories) : ?>
-                    <dt class="topic-dttl">カテゴリー</dt>
-                    <dd class="topic-item">
-                        <ul class="category-list">
-                            <?php foreach ($categories as $category) : ?>
-                                <li class="category-item">
-                                    <label>
-                                        <span class="category-txt"><?php echo $category->name; ?></span>
-                                    </label>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                <dl class="confirm-list">
+                    <dt class="confirm-dttl">タイトル</dt>
+                    <dd class="confirm-item">
+                        <?php echo $topic->title; ?>
                     </dd>
-                <?php endif; ?>
 
-            </dl>
+                    <dt class="confirm-dttl">本文</dt>
+                    <dd class="confirm-item">
+                        <?php echo $topic->body; ?>
+                    </dd>
 
-            <button type="submit" class="register-btn"><?php echo $submit_btn; ?></button>
+                    <dt class="confirm-dttl">ポジション</dt>
+                    <dd class="confirm-item">
+                        <?php echo $topic->position; ?>
+                    </dd>
+                </dl>
 
-            <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+                <button type="submit" class="register-btn">削除</button>
 
+                <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+            </form>
         </div>
     </section>
 
