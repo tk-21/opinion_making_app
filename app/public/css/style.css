@@ -986,6 +986,39 @@ th {
   left: calc((100% / 4) * 4);
 }
 
+.confirm-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.confirm-ttl {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.confirm-txt {
+  margin: 50px 0;
+}
+
+.confirm-list {
+  margin-bottom: 60px;
+}
+
+.confirm-dttl {
+  display: inline-block;
+  padding: 0.5em 1em 0.5em 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  color: #808080;
+  margin-bottom: 15px;
+}
+
+.confirm-item:not(:last-of-type) {
+  margin-bottom: 40px;
+}
+
 .detail {
   padding: 60px 0;
 }
@@ -1147,11 +1180,42 @@ th {
   margin-bottom: 50px;
 }
 
-.home-topic-item:not(:last-of-type) {
+.home-topic-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home-topic-wrapper:not(:last-of-type) {
   margin-bottom: 30px;
 }
 
+.home-topic-wrapper label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-right: 15px;
+}
+
+.home-topic-status {
+  margin-top: 10px;
+}
+
+.home-topic-item {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 .home-topic-item a {
+  width: 500px;
   background: #f7f4f2;
   border-radius: 5px;
   display: -webkit-box;
@@ -1176,7 +1240,7 @@ th {
 
 .home-topic-label {
   display: inline-block;
-  width: 70px;
+  min-width: 70px;
   text-align: center;
   padding: 10px 0;
   margin: 0 20px 0 10px;

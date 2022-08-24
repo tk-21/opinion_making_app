@@ -94,7 +94,6 @@ class TopicQuery
             ':title' => $topic->title,
             ':body' => $topic->body,
             ':position' => $topic->position,
-            ':complete_flg' => $topic->complete_flg,
             ':category_id' => $topic->category_id,
             ':id' => $topic->id
         ]);
