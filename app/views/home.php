@@ -21,6 +21,15 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                 <li class="home-topic">
                     <h2 class="home-ttl"><?php echo $title; ?></h2>
 
+                    <?php if ($path === 'category') : ?>
+                        <?php $category_id = get_param('id', null, false) ?>
+
+                        <a class="category-edit-btn" href="<?php the_url(sprintf('category_edit?id=%s', $category_id)); ?>">カテゴリー名編集</a>
+                        <a class="category-delete-btn" href="<?php the_url(sprintf('category_delete?id=%s', $category_id)); ?>">削除</a>
+
+                    <?php endif; ?>
+
+
                     <?php if ($topics) : ?>
 
                         <ul class="home-topic-list">
@@ -109,7 +118,7 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                 </li>
 
                 <li class="home-category">
-                    <p class="home-category-ttl">カテゴリーの作成</p>
+                    <p class="home-category-ttl">カテゴリー</p>
 
                     <form class="home-category-form validate-form" action="" method="post">
                         <textarea class="home-category-textarea input validate-target" name="name" required></textarea>
