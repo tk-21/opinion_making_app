@@ -5,6 +5,7 @@
         justify-content: center;
     }
     &-topic {
+        width: 60%;
         margin-right: 50px;
         &-list {
             margin-bottom: 50px;
@@ -27,8 +28,7 @@
         &-item {
             flex: 1;
             a {
-                width: 500px;
-                // max-width: 500px;
+                width: 100%;
                 background: $color-main;
                 border-radius: 5px;
                 display: flex;
@@ -78,15 +78,18 @@
 
     &-category {
         width: 200px;
-        padding-top: 35px;
+        background-color: $color-main;
+        border-radius: 5px;
+        padding: 25px;
+
         &-ttl {
-            margin-bottom: 5px;
-        }
-        &-textarea {
             margin-bottom: 20px;
         }
+        &-textarea {
+            margin-bottom: 15px;
+        }
         &-list {
-            margin-top: 20px;
+            margin-top: 40px;
         }
         &-item {
             margin-bottom: 15px;
@@ -122,7 +125,7 @@
         &._bottom {
             text-align: center;
             font-size: 24px;
-            margin-bottom: 100px;
+            margin: 50px 0 100px;
         }
     }
 }
