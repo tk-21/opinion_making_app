@@ -6,6 +6,11 @@ function index($topic)
 {
     \partials\header(false);
 
+    $topic = escape($topic);
+
+    $complete_flg = $topic->complete_flg ? '完了' : '未完了';
+    $category_name = $topic->name ? $topic->name : '分類なし';
+
 ?>
 
     <section class="confirm">
@@ -31,6 +36,16 @@ function index($topic)
                     <dt class="confirm-dttl">ポジション</dt>
                     <dd class="confirm-item">
                         <?php echo $topic->position; ?>
+                    </dd>
+
+                    <dt class="confirm-dttl">ステータス</dt>
+                    <dd class="confirm-item">
+                        <?php echo $complete_flg; ?>
+                    </dd>
+
+                    <dt class="confirm-dttl">カテゴリー</dt>
+                    <dd class="confirm-item">
+                        <?php echo $category_name; ?>
                     </dd>
                 </dl>
 

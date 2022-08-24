@@ -999,15 +999,6 @@ th {
 }
 
 .confirm-txt {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   margin: 50px 0;
 }
 
@@ -1016,11 +1007,16 @@ th {
 }
 
 .confirm-dttl {
-  margin-bottom: 10px;
+  display: inline-block;
+  padding: 0.5em 1em 0.5em 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  color: #808080;
+  margin-bottom: 15px;
 }
 
 .confirm-item:not(:last-of-type) {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .detail {
@@ -1219,6 +1215,7 @@ th {
 }
 
 .home-topic-item a {
+  width: 500px;
   background: #f7f4f2;
   border-radius: 5px;
   display: -webkit-box;
@@ -1243,7 +1240,7 @@ th {
 
 .home-topic-label {
   display: inline-block;
-  width: 70px;
+  min-width: 70px;
   text-align: center;
   padding: 10px 0;
   margin: 0 20px 0 10px;

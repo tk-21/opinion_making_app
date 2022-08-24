@@ -121,6 +121,7 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
         <section class="home">
             <div class="home-inner">
                 <?php if ($path === 'category') : ?>
+                    <p class="home-txt _top">トピック名：<?php echo $fetchedCategory->name; ?></p>
                     <p class="home-txt _bottom">このカテゴリーに分類されているトピックがありません。</p>
                 <?php else : ?>
                     <p class="home-txt _top">まだトピックがありません。</p>
