@@ -1173,6 +1173,7 @@ th {
 }
 
 .home-topic {
+  width: 60%;
   margin-right: 50px;
 }
 
@@ -1215,7 +1216,7 @@ th {
 }
 
 .home-topic-item a {
-  width: 500px;
+  width: 100%;
   background: #f7f4f2;
   border-radius: 5px;
   display: -webkit-box;
@@ -1324,7 +1325,7 @@ th {
 .home-txt._bottom {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 100px;
+  margin: 50px 0 100px;
 }
 
 .msg {

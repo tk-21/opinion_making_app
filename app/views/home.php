@@ -15,12 +15,14 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
     $path = $is_home ? 'home' : 'category';
 ?>
 
-    <?php if ($topics) : ?>
-        <article class="home" id="home">
-            <div class="inner">
-                <ul class="home-list">
-                    <li class="home-topic">
-                        <h2 class="home-ttl"><?php echo $title; ?></h2>
+    <article class="home" id="home">
+        <div class="inner">
+            <ul class="home-list">
+                <li class="home-topic">
+                    <h2 class="home-ttl"><?php echo $title; ?></h2>
+
+                    <?php if ($topics) : ?>
+
                         <ul class="home-topic-list">
                             <?php foreach ($topics as $topic) :
                                 // complete_flgが１のときは完了、０のときは未完了を表示させる
@@ -46,6 +48,7 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                                                 <p class="home-topic-ttl"><?php echo $topic->title; ?></p>
                                             </div>
                                         </a>
+
                                     </li>
                                 </div>
                             <?php endforeach; ?>
@@ -90,48 +93,46 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                                 </li>
                             </ul>
                         </div>
-                    </li>
 
-                    <li class="home-category">
-                        <p class="home-category-ttl">カテゴリーの作成</p>
+                    <?php else : ?>
 
-                        <form class="home-category-form validate-form" action="" method="post">
-                            <textarea class="home-category-textarea input validate-target" name="name" required></textarea>
-                            <button type="submit" class="category-btn">作成</button>
-                        </form>
+                        <?php if ($path === 'category') : ?>
+                            <p class="home-txt _bottom">このカテゴリーに分類されているトピックがありません。</p>
+                        <?php else : ?>
+                            <p class="home-txt _top">まだトピックがありません。</p>
+                            <p class="home-txt _bottom">トピックを作成してみましょう！</p>
+                        <?php endif; ?>
+                        <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
 
-                        <ul class="home-category-list">
-                            <?php foreach ($categories as $category) : ?>
-                                <li class="home-category-item">
-                                    <a href="<?php the_url(sprintf('category?id=%s', $category->id)); ?>">
-                                        <?php echo $category->name; ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
-                </ul>
+                    <?php endif; ?>
 
-            </div>
-        </article>
+                </li>
+
+                <li class="home-category">
+                    <p class="home-category-ttl">カテゴリーの作成</p>
+
+                    <form class="home-category-form validate-form" action="" method="post">
+                        <textarea class="home-category-textarea input validate-target" name="name" required></textarea>
+                        <button type="submit" class="category-btn">作成</button>
+                    </form>
+
+                    <ul class="home-category-list">
+                        <?php foreach ($categories as $category) : ?>
+                            <li class="home-category-item">
+                                <a href="<?php the_url(sprintf('category?id=%s', $category->id)); ?>">
+                                    <?php echo $category->name; ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </article>
 
 
-    <?php else : ?>
 
-        <section class="home">
-            <div class="home-inner">
-                <?php if ($path === 'category') : ?>
-                    <p class="home-txt _top">トピック名：<?php echo $fetchedCategory->name; ?></p>
-                    <p class="home-txt _bottom">このカテゴリーに分類されているトピックがありません。</p>
-                <?php else : ?>
-                    <p class="home-txt _top">まだトピックがありません。</p>
-                    <p class="home-txt _bottom">トピックを作成してみましょう！</p>
-                <?php endif; ?>
-                <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
-            </div>
-        </section>
-
-    <?php endif; ?>
 
 <?php
     \partials\footer();
