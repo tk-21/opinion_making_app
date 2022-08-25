@@ -48,8 +48,8 @@ class Router
                 break;
 
             case 'category_edit':
-                $home = new HomeController;
-                $home->showTopicsByCategory();
+                $category = new CategoryController;
+                $category->showEditForm();
                 break;
 
             case 'topic_create':
