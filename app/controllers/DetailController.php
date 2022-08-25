@@ -16,12 +16,17 @@ use validation\ObjectionValidation;
 
 class DetailController
 {
+    // インスタンス生成時にログイン確認を実行
+    public function __construct()
+    {
+        Auth::requireLogin();
+    }
+
+
+
     // トピックの詳細画面を表示する
     public function index()
     {
-        // まずログインを要求する
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         // $_GET['id']から値を取ってくる
@@ -66,42 +71,6 @@ class DetailController
             return;
         }
     }
-
-    // 「反論への反論」の場合の削除処理
-    // if ($formType === 'delete_counterObjection') {
-
-    //     try {
-
-    //         $db = new DataSource;
-    //         $db->begin();
-
-    //         foreach ($delete_id as $id) {
-    //             $is_success = CounterObjectionQuery::delete($id);
-
-    //             if (!$is_success) {
-    //                 // 削除失敗の場合、ループを抜ける
-    //                 break;
-    //             }
-    //         }
-    //     } catch (Exception $e) {
-
-    //         Msg::push(Msg::DEBUG, $e->getMessage());
-    //         $is_success = false;
-    //     } finally {
-
-    //         if ($is_success) {
-    //             $db->commit();
-    //             Msg::push(Msg::INFO, '削除しました。');
-    //         } else {
-    //             $db->rollback();
-    //             Msg::push(Msg::ERROR, '削除に失敗しました。');
-    //         }
-
-    //         redirect(GO_REFERER);
-    //         return;
-    //     }
-    // }
-    // }
 
 
     // 「反論」または「反論への反論」を登録する

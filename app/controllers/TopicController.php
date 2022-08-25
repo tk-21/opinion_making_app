@@ -14,11 +14,17 @@ use Exception;
 
 class TopicController
 {
+    // インスタンス生成時にログイン確認を実行
+    public function __construct()
+    {
+        Auth::requireLogin();
+    }
+
+
+
     // トピックの作成画面を表示する
     public function showCreateForm()
     {
-        Auth::requireLogin();
-
         $user = UserModel::getSession();
         $categories = CategoryQuery::fetchByUserId($user);
 
@@ -39,9 +45,6 @@ class TopicController
     // トピックを登録する
     public function create()
     {
-        // ツールなどでもリクエストは投げれるので、必ずPOSTでもログインしているかどうか確認する
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         // モデルに値をセット
@@ -84,9 +87,6 @@ class TopicController
     // トピックの編集画面を表示する
     public function showEditForm()
     {
-        // ログインしているかどうか確認
-        Auth::requireLogin();
-
         // バリデーションに引っかかって登録に失敗した場合の処理
         // セッションに保存しておいた値を取ってきて変数に格納する。セッション上のデータは削除する
         // 必ずデータを取得した時点でデータを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
@@ -134,9 +134,6 @@ class TopicController
     // トピックを更新する
     public function edit()
     {
-        // ログインしているかどうか確認
-        Auth::requireLogin();
-
         // TopicModelのインスタンスを作成
         $topic = new TopicModel;
 
@@ -175,10 +172,9 @@ class TopicController
     }
 
 
+    // 完了、未完了を切り替える
     public function updateStatus()
     {
-        Auth::requireLogin();
-
         $topic = new TopicModel;
 
         $topic->id = get_param('topic_id', null);
@@ -196,8 +192,6 @@ class TopicController
     // 削除確認画面を表示する
     public function confirmDelete()
     {
-        Auth::requireLogin();
-
         $topic = new TopicModel;
         $topic->id = get_param('id', null, false);
 

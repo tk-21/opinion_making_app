@@ -13,13 +13,6 @@ use validation\UserValidation;
 
 class ResetController
 {
-    // インスタンス生成時にログイン確認を実行
-    // public function __construct()
-    // {
-    //     Auth::requireLogin();
-    // }
-
-
     public function showRequestForm()
     {
         \view\request_form\index();
