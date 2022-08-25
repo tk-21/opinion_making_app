@@ -3,6 +3,7 @@
 namespace router;
 
 use controllers\AuthController;
+use controllers\CategoryController;
 use controllers\HomeController;
 use controllers\TopicController;
 use controllers\OpinionController;
@@ -42,6 +43,11 @@ class Router
                 break;
 
             case 'category':
+                $home = new HomeController;
+                $home->showTopicsByCategory();
+                break;
+
+            case 'category_edit':
                 $home = new HomeController;
                 $home->showTopicsByCategory();
                 break;
@@ -96,8 +102,8 @@ class Router
     {
         switch ($path) {
             case '':
-                $home = new HomeController;
-                $home->createCategory();
+                $category = new CategoryController;
+                $category->createCategory();
                 break;
 
             case 'login':
