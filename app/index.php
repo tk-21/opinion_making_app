@@ -48,16 +48,17 @@ require_once SOURCE_BASE . 'partials/footer.php';
 // router
 require_once SOURCE_BASE . 'router/Router.php';
 
-// Validation
+// validation
 require_once SOURCE_BASE . 'validation/CategoryValidation.php';
 require_once SOURCE_BASE . 'validation/ObjectionValidation.php';
 require_once SOURCE_BASE . 'validation/OpinionValidation.php';
 require_once SOURCE_BASE . 'validation/TopicValidation.php';
 require_once SOURCE_BASE . 'validation/UserValidation.php';
 
-// View
+// views
 require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/auth.php';
+require_once SOURCE_BASE . 'views/category_delete.php';
 require_once SOURCE_BASE . 'views/category_edit.php';
 require_once SOURCE_BASE . 'views/detail.php';
 require_once SOURCE_BASE . 'views/topic.php';

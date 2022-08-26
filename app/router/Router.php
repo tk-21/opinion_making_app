@@ -52,6 +52,11 @@ class Router
                 $category->showEditForm();
                 break;
 
+            case 'category_delete':
+                $category = new CategoryController;
+                $category->confirmDelete();
+                break;
+
             case 'topic_create':
                 $topic = new TopicController;
                 $topic->showCreateForm();
@@ -124,6 +129,11 @@ class Router
             case 'category_edit':
                 $category = new CategoryController;
                 $category->edit();
+                break;
+
+            case 'category_delete':
+                $category = new CategoryController;
+                $category->delete();
                 break;
 
             case 'objection_delete':

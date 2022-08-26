@@ -82,7 +82,7 @@ class CategoryController
         $valid_data = $validation->getValidData();
 
         // idからトピックの内容を取ってくる
-        $fetchedCategory = CategoryQuery::fetchById($valid_data->id);
+        $fetchedCategory = CategoryQuery::fetchById($valid_data);
 
         // トピックが取れてこなかったら４０４ページへリダイレクト
         if (!$fetchedCategory) {
@@ -129,5 +129,49 @@ class CategoryController
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
         }
+    }
+
+
+
+    // 削除確認画面を表示する
+    public function confirmDelete()
+    {
+        $category = new CategoryModel;
+        $category->id = get_param('id', null, false);
+
+        $validation = new CategoryValidation($category);
+
+        if (!$validation->validateId()) {
+            redirect(GO_REFERER);
+        };
+
+        $valid_data = $validation->getValidData();
+
+        // idからトピックの内容を取ってくる
+        $fetchedCategory = CategoryQuery::fetchById($valid_data);
+
+        // 削除確認画面を表示
+        \view\category_delete\index($fetchedCategory);
+    }
+
+
+
+    // トピックを削除する
+    public function delete()
+    {
+        $category = new CategoryModel;
+        $category->id = get_param('category_id', null);
+
+        $validation = new CategoryValidation($category);
+
+        if (!$validation->validateId()) {
+            redirect(GO_REFERER);
+        };
+
+        $valid_data = $validation->getValidData();
+
+        CategoryQuery::delete($valid_data) ? Msg::push(Msg::INFO, 'カテゴリーを削除しました。') : Msg::push(Msg::ERROR, '削除に失敗しました。');
+
+        redirect(GO_HOME);
     }
 }
