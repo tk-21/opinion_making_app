@@ -1,0 +1,21 @@
+.category {
+    &-form {
+        background: $color-main;
+        padding: 50px;
+        margin-bottom: 50px;
+        border-radius: 4px;
+    }
+    &-dttl {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    &-list {
+        margin-bottom: 60px;
+    }
+    &-item {
+        margin-bottom: 30px;
+    }
+    &-name {
+        height: 100px;
+    }
+}

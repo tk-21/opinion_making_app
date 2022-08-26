@@ -93,4 +93,41 @@ class CategoryController
         // トピックが取れてきたら、トピックを渡してviewのindexを表示
         \view\category_edit\index($fetchedCategory);
     }
+
+
+
+    // 更新
+    public function edit()
+    {
+        $category = new CategoryModel;
+
+        $category->id = get_param('id', null);
+        $category->name = get_param('name', null);
+
+        // 更新処理
+        try {
+            $validation = new CategoryValidation($category);
+
+            // バリデーションに引っかかった場合
+            if (!($validation->validateId() * $validation->validateName())) {
+                Msg::push(Msg::ERROR, 'カテゴリーの更新に失敗しました。');
+                // エラー時の値の復元のための処理
+                // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
+                CategoryModel::setSession($category);
+
+                // 元の画面に戻す
+                redirect(GO_REFERER);
+            }
+
+            $valid_data = $validation->getValidData();
+
+            // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
+            CategoryQuery::update($valid_data) ? Msg::push(Msg::INFO, 'カテゴリーを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+
+            redirect(sprintf('category?id=%d', $category->id));
+        } catch (Exception $e) {
+            // エラー内容を出力する
+            Msg::push(Msg::ERROR, $e->getMessage());
+        }
+    }
 }

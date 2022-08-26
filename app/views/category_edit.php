@@ -11,16 +11,16 @@ function index($category)
 
 ?>
 
-    <section class="topic">
+    <section class="category">
         <div class="inner">
-            <form class="topic-form validate-form" action="" method="POST" novalidate>
+            <form class="category-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $category->id; ?>">
 
-                <dl class="topic-list">
+                <dl class="category-list">
 
-                    <dt class="topic-dttl"><label for="body" onclick="">カテゴリー名の編集</label></dt>
-                    <dd class="topic-item">
-                        <textarea id="body" name="body" class="topic-textarea input validate-target" autofocus required><?php echo $category->name; ?></textarea>
+                    <dt class="category-dttl"><label for="name" onclick="">カテゴリー名の編集</label></dt>
+                    <dd class="category-item">
+                        <textarea id="name" name="name" class="category-name input validate-target" autofocus required><?php echo $category->name; ?></textarea>
                         <p class="invalid-feedback"></p>
                     </dd>
 

@@ -121,6 +121,11 @@ class Router
                 $detail->create();
                 break;
 
+            case 'category_edit':
+                $category = new CategoryController;
+                $category->edit();
+                break;
+
             case 'objection_delete':
                 $detail = new DetailController;
                 $detail->delete();

@@ -1017,6 +1017,30 @@ th {
   left: calc((100% / 4) * 4);
 }
 
+.category-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.category-dttl {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.category-list {
+  margin-bottom: 60px;
+}
+
+.category-item {
+  margin-bottom: 30px;
+}
+
+.category-name {
+  height: 100px;
+}
+
 .confirm-form {
   background: #f7f4f2;
   padding: 50px;
