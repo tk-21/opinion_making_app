@@ -48,8 +48,8 @@ class Router
                 break;
 
             case 'category_edit':
-                $home = new HomeController;
-                $home->showTopicsByCategory();
+                $category = new CategoryController;
+                $category->showEditForm();
                 break;
 
             case 'topic_create':
@@ -119,6 +119,11 @@ class Router
             case 'detail':
                 $detail = new DetailController;
                 $detail->create();
+                break;
+
+            case 'category_edit':
+                $category = new CategoryController;
+                $category->edit();
                 break;
 
             case 'objection_delete':

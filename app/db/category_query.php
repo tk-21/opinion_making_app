@@ -69,13 +69,31 @@ class CategoryQuery
     }
 
 
+    public static function update($category)
+    {
+        $db = new DataSource;
+        // idをキーにして更新
+        $sql = 'UPDATE categories
+                set name = :name
+                WHERE id = :id
+                ';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':name' => $category->name,
+            ':id' => $category->id
+        ]);
+    }
+
+
     public static function delete($id)
     {
         $db = new DataSource;
 
         $sql = 'UPDATE categories
                 set deleted_at = now()
-                where id = :id;';
+                where id = :id
+                ';
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [

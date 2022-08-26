@@ -7,6 +7,7 @@ require_once 'config.php';
 
 // controller
 require_once SOURCE_BASE . 'controllers/AuthController.php';
+require_once SOURCE_BASE . 'controllers/CategoryController.php';
 require_once SOURCE_BASE . 'controllers/DetailController.php';
 require_once SOURCE_BASE . 'controllers/HomeController.php';
 require_once SOURCE_BASE . 'controllers/OpinionController.php';
@@ -57,6 +58,7 @@ require_once SOURCE_BASE . 'validation/UserValidation.php';
 // View
 require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/auth.php';
+require_once SOURCE_BASE . 'views/category_edit.php';
 require_once SOURCE_BASE . 'views/detail.php';
 require_once SOURCE_BASE . 'views/topic.php';
 require_once SOURCE_BASE . 'views/topic_delete.php';
