@@ -34,7 +34,7 @@ class CategoryQuery
 
 
     // idから個別のカテゴリーを取ってくるメソッド
-    public static function fetchById($id)
+    public static function fetchById($category)
     {
         $db = new DataSource;
 
@@ -44,7 +44,7 @@ class CategoryQuery
                 ';
 
         return $db->selectOne($sql, [
-            ':id' => $id
+            ':id' => $category->id
         ], DataSource::CLS, CategoryModel::class);
     }
 
@@ -86,7 +86,7 @@ class CategoryQuery
     }
 
 
-    public static function delete($id)
+    public static function delete($category)
     {
         $db = new DataSource;
 
@@ -97,7 +97,7 @@ class CategoryQuery
 
         // 登録に成功すれば、trueが返される
         return $db->execute($sql, [
-            ':id' => $id
+            ':id' => $category->id
         ]);
     }
 }

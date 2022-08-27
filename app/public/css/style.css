@@ -1058,7 +1058,7 @@ th {
 }
 
 .confirm-list {
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
 .confirm-dttl {
@@ -1427,6 +1427,7 @@ th {
 }
 
 .objection-delete {
+  width: 20px;
   margin: 5px 5px 0 0;
 }
 

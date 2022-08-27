@@ -46,9 +46,19 @@ class HomeController
     // カテゴリーに紐付くトピックスを表示する
     public function showTopicsByCategory()
     {
-        $id = get_param('id', null, false);
+        $category = new CategoryModel;
 
-        $fetchedCategory = CategoryQuery::fetchById($id);
+        $category->id = get_param('id', null, false);
+
+        $validation = new CategoryValidation($category);
+
+        if (!$validation->validateId()) {
+            redirect(GO_REFERER);
+        };
+
+        $valid_data = $validation->getValidData();
+
+        $fetchedCategory = CategoryQuery::fetchById($valid_data);
 
         // ページング機能に必要な要素を取得
         [$topic_num, $max_page, $current_page, $range, $topics] = TopicQuery::getTopicsByCategoryId($fetchedCategory);

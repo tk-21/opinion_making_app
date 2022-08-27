@@ -1,4 +1,4 @@
-$(".delete_objection, .delete_counterObjection").on("click", function () {
+$(".objection-delete, .counterObjection-delete").on("click", function () {
     let uri = new URL(window.location.href);
     let url = uri.origin;
 
