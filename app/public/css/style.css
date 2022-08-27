@@ -1412,28 +1412,27 @@ th {
   margin-bottom: 24px;
 }
 
-.objection-item:not(:last-of-type) {
-  margin-bottom: 12px;
+.objection-item {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ccc;
 }
 
-.objection-item label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  word-break: break-all;
+.objection-item:not(:last-of-type) {
+  margin-bottom: 16px;
 }
 
 .objection-delete {
-  width: 20px;
-  margin: 5px 5px 0 0;
+  width: 1em;
+}
+
+.objection-delete img {
+  vertical-align: top;
 }
 
 .objection-txt {
-  display: inline-block;
+  display: inline;
   line-height: 1.5;
+  margin-right: 8px;
 }
 
 .objection-form {

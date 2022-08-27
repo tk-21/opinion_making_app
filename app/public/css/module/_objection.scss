@@ -7,22 +7,22 @@
         margin-bottom: 24px;
     }
     &-item {
+        padding-bottom: 16px;
+        border-bottom: 1px solid #ccc;
         &:not(:last-of-type) {
-            margin-bottom: 12px;
-        }
-        label {
-            display: flex;
-            align-items: flex-start;
-            word-break: break-all;
+            margin-bottom: 16px;
         }
     }
     &-delete {
-        width: 20px;
-        margin: 5px 5px 0 0;
+        width: 1em;
+        img {
+            vertical-align: top;
+        }
     }
     &-txt {
-        display: inline-block;
+        display: inline;
         line-height: 1.5;
+        margin-right: 8px;
     }
     &-form {
         margin-bottom: 30px;
