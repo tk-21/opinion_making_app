@@ -51,16 +51,20 @@ function index($topic, $categories, $type)
                     <?php if ($categories) : ?>
                         <dt class="topic-dttl">カテゴリー</dt>
                         <dd class="topic-item">
-                            <ul class="category-list">
+                            <select class="topic-select" name="category_id">
+                                <option value="">カテゴリーを選択</option>
                                 <?php foreach ($categories as $category) : ?>
-                                    <li class="category-item">
-                                        <label>
-                                            <input type="radio" class="category" name="category_id" value="<?php echo $category->id; ?>" <?php echo $topic->category_id === $category->id ? 'checked' : ''; ?>>
-                                            <span class="category-txt"><?php echo $category->name; ?></span>
-                                        </label>
-                                    </li>
+                                    <option value="<?php echo $category->id; ?>" <?php echo $topic->category_id === $category->id ? 'selected' : ''; ?>>
+                                        <?php echo $category->name; ?>
+                                    </option>
                                 <?php endforeach; ?>
-                            </ul>
+                            </select>
+                            <!-- <ul class="category-list"> -->
+                            <!-- <li class="category-item"> -->
+                            <!-- <input type="select" class="category" name="category_id" value="">
+                            <span class="category-txt"></span> -->
+                            <!-- </li> -->
+                            <!-- </ul> -->
                         </dd>
                     <?php endif; ?>
 
