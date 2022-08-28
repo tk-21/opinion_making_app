@@ -1,40 +1,43 @@
-$(".objection-delete, .counterObjection-delete").on("click", function () {
-    let uri = new URL(window.location.href);
-    let url = uri.origin;
+// 反論削除
+$(".objection-delete").on("click", function () {
+    if (confirm("削除してもよろしいですか？")) {
+        let uri = new URL(window.location.href);
+        let url = uri.origin;
 
-    let topic_id = $("#topic_id").val();
+        let delete_id = $(this).data("id");
+        let delete_type = $(this).data("type");
 
-    let delete_id = $(this).data("id");
-    let delete_type = $(this).data("type");
+        let data = {
+            delete_id: delete_id,
+            delete_type: delete_type,
+        };
 
-    let data = {
-        delete_id: delete_id,
-        delete_type: delete_type,
-    };
-
-    $.ajax({
-        url: url + "/objection_delete",
-        type: "post",
-        data: data,
-    }).then(
-        //成功したとき
-        function (data) {
-            if (data) {
-                window.location.href = url + "/detail?id=" + topic_id;
-            } else {
-                //削除に失敗
-                console.log("failed to delete");
-                alert("failed to delete.");
+        $.ajax({
+            url: url + "/objection_delete",
+            type: "post",
+            data: data,
+        }).then(
+            //成功したとき
+            function (data) {
+                if (data) {
+                    // クリックした要素の親要素を削除
+                    $(this).parent().remove();
+                } else {
+                    //削除に失敗
+                    console.log("削除に失敗しました。");
+                    alert("削除に失敗しました。");
+                }
+            }.bind(this), //thisを束縛
+            //失敗したとき
+            function () {
+                console.log("削除に失敗しました。");
+                alert("削除に失敗しました。");
             }
-        },
-        //失敗したとき
-        function () {
-            console.log("fail");
-            alert("fail");
-        }
-    );
+        );
+    }
 });
 
+// トピックのステータス変更
 $(".home-topic-status").change(function () {
     let uri = new URL(window.location.href);
     let url = uri.origin;
@@ -92,14 +95,14 @@ $(".home-topic-status").change(function () {
                     .attr("class", style);
             } else {
                 //更新に失敗
-                console.log("failed to update");
-                alert("failed to update.");
+                console.log("ステータス更新に失敗しました。");
+                alert("ステータス更新に失敗しました。.");
             }
         }.bind(this), //thisを束縛
         //失敗したとき
         function () {
-            console.log("fail");
-            alert("fail");
+            console.log("ステータス更新に失敗しました。");
+            alert("ステータス更新に失敗しました。");
         }
     );
 });

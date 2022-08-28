@@ -74,15 +74,16 @@ class TopicValidation
     }
 
 
-    public function validateCategoryId()
-    {
-        if (empty($this->topic->category_id)) {
-            Msg::push(Msg::ERROR, 'カテゴリーを選択してください。');
-            return false;
-        }
+    // カテゴリーは選ばなくてもOK
+    // public function validateCategoryId()
+    // {
+    //     if (empty($this->topic->category_id)) {
+    //         Msg::push(Msg::ERROR, 'カテゴリーを選択してください。');
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
 
     // トピック作成のときに実行するメソッド

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: "Roboto", "Noto Sans JP", sans-serif;
   background: #d1cbc3;
@@ -1324,7 +1325,7 @@ th {
 
 .home-ttl {
   font-size: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 36px;
 }
 
 .home-category {
@@ -1412,28 +1413,27 @@ th {
   margin-bottom: 24px;
 }
 
-.objection-item:not(:last-of-type) {
-  margin-bottom: 12px;
+.objection-item {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ccc;
 }
 
-.objection-item label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  word-break: break-all;
+.objection-item:not(:last-of-type) {
+  margin-bottom: 16px;
 }
 
 .objection-delete {
-  width: 20px;
-  margin: 5px 5px 0 0;
+  width: 1em;
+}
+
+.objection-delete img {
+  vertical-align: top;
 }
 
 .objection-txt {
-  display: inline-block;
+  display: inline;
   line-height: 1.5;
+  margin-right: 8px;
 }
 
 .objection-form {
@@ -1453,12 +1453,12 @@ th {
 }
 
 .opinion-ttl {
-  font-size: 20px;
-  margin-bottom: 30px;
+  font-size: 24px;
+  margin-bottom: 36px;
 }
 
 .opinion-list {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 
 .opinion-dttl {
@@ -1466,7 +1466,7 @@ th {
 }
 
 .opinion-item:not(:last-of-type) {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .opinion-input {
@@ -1485,8 +1485,8 @@ th {
 }
 
 .topic-ttl {
-  font-size: 20px;
-  margin-bottom: 30px;
+  font-size: 24px;
+  margin-bottom: 36px;
 }
 
 .topic-txt {
@@ -1503,7 +1503,7 @@ th {
 }
 
 .topic-list {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 
 .topic-dttl {
@@ -1511,7 +1511,7 @@ th {
 }
 
 .topic-item:not(:last-of-type) {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .topic-input {
@@ -1520,5 +1520,31 @@ th {
 
 .topic-textarea {
   height: 200px;
+}
+
+.topic-select {
+  display: inline-block;
+  width: 100%;
+  padding: 0.6em 1.5em 0.6em 0.5em;
+  cursor: pointer;
+  line-height: 1.5;
+  font-size: 0.95em;
+  font-weight: 700;
+  color: #3e1300;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 0 1px #ccc inset;
+          box-shadow: 0 0 0 1px #ccc inset;
+  /* 👇三角マーク */
+  background-image: linear-gradient(45deg, transparent 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(135deg, rgba(0, 0, 0, 0.4) 50%, transparent 50%);
+  background-size: 5px 5px, 5px 5px;
+  background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+}
+
+.topic-select:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #743434 inset;
+          box-shadow: 0 0 0 2px #743434 inset;
 }
 /*# sourceMappingURL=style.css.map */

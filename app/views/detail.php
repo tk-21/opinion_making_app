@@ -12,7 +12,9 @@ function index($topic, $objections, $counterObjections, $opinion)
     $opinion = escape($opinion);
 
     $complete_flg = $topic->complete_flg ? '完了' : '未完了';
-    $category_name = $topic->name ? $topic->name : '分類なし';
+
+    // カテゴリーが削除されていれば未選択にする
+    $category_name = $topic->category_delete ? '未選択' : $topic->category_name;
     $is_edit = $opinion ? 'edit' : 'create';
 
 ?>
@@ -54,7 +56,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="objection-item">
                                     <p class="objection-txt"><?php echo $objection->body; ?></p>
-                                    <button type="submit" class="objection-delete" data-id="<?php echo $objection->id; ?>" data-type="objection"><img src="../public/img/delete.svg" alt=""></button>
+                                    <button type="submit" class="objection-delete" data-id="<?php echo $objection->id; ?>" data-type="objection"><img src="../public/img/delete.svg" alt="削除"></button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -77,7 +79,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php foreach ($counterObjections as $counterObjection) : ?>
                                 <li class="objection-item">
                                     <p class="objection-txt"><?php echo $counterObjection->body; ?></p>
-                                    <button type="submit" class="counterObjection-delete" data-id="<?php echo $counterObjection->id; ?>" data-type="counterObjection">削除</button>
+                                    <button type="submit" class="objection-delete" data-id="<?php echo $counterObjection->id; ?>" data-type="counterObjection"><img src="../public/img/delete.svg" alt="削除"></button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
