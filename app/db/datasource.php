@@ -81,14 +81,14 @@ class DataSource
     public function select($sql = "", $params = [], $type = '', $cls = '')
     {
         $stmt = $this->executeSql($sql, $params);
-        // typeがclsで渡ってきたら、フェッチモードをFETCH_CLASSに、それ以外の場合はFETCH_ASSOCにする
+        // typeがclsのときはフェッチモードをFETCH_CLASSに、columnのときはフェッチモードをFETCH_COLUMNに、それ以外の場合はFETCH_ASSOCにする
         if ($type === static::CLS) {
             // fetchAllの引数でFETCH_CLASSを使うと、第２引数で指定したクラスのプロパティにカラムの値を代入できる。一致するプロパティが存在しない場合は、そのプロパティが作成される。
             return $stmt->fetchAll(PDO::FETCH_CLASS, $cls);
         }
 
         if ($type === static::COLUMN) {
-            // fetchAllの引数でFETCH_CLASSを使うと、第２引数で指定したクラスのプロパティにカラムの値を代入できる。一致するプロパティが存在しない場合は、そのプロパティが作成される。
+            // FETCH_COLUMNは指定した1つのカラムだけを1次元配列として取得する。
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
 

@@ -16,7 +16,8 @@ class TopicQuery
         // プリペアードステートメントを使うのでidはパラメータにしておく
         // deleted_atがnullのもののみ取得するようにし、論理的に無効なレコードは取得しないようにする
         // order byで新しい記事から順に表示
-        $sql = 'SELECT t.*, c.name FROM topics t
+        $sql = 'SELECT t.*, c.name AS category_name
+                FROM topics t
                 LEFT JOIN categories c
                 ON t.category_id = c.id
                 WHERE t.user_id = :id
@@ -45,7 +46,8 @@ class TopicQuery
 
         $db = new DataSource;
 
-        $sql = 'SELECT t.*, c.name FROM topics t
+        $sql = 'SELECT t.*, c.name AS category_name
+                FROM topics t
                 LEFT JOIN categories c
                 ON t.category_id = c.id
                 WHERE c.id = :id
@@ -64,7 +66,8 @@ class TopicQuery
     {
         $db = new DataSource;
 
-        $sql = 'SELECT t.*, c.name FROM topics t
+        $sql = 'SELECT t.*, c.name AS category_name, c.deleted_at AS category_delete
+                FROM topics t
                 LEFT JOIN categories c
                 ON t.category_id = c.id
                 WHERE t.id = :id
@@ -202,7 +205,8 @@ class TopicQuery
 
         $db = new DataSource;
 
-        $sql = 'SELECT t.*, c.name FROM topics t
+        $sql = 'SELECT t.*, c.name AS category_name
+                FROM topics t
                 LEFT JOIN categories c
                 ON t.category_id = c.id
                 WHERE t.user_id = :id
@@ -228,7 +232,8 @@ class TopicQuery
 
         $db = new DataSource;
 
-        $sql = 'SELECT t.*, c.name FROM topics t
+        $sql = 'SELECT t.*, c.name AS category_name
+                FROM topics t
                 LEFT JOIN categories c
                 ON t.category_id = c.id
                 WHERE c.id = :id
