@@ -3,11 +3,14 @@
 namespace partials;
 
 use lib\Auth;
+use model\UserModel;
 use lib\Msg;
 
 // 関数の形式にして、引数を渡せるようにしておく
 function header($is_auth)
 {
+    $user = UserModel::getSession();
+
 ?>
     <!DOCTYPE html>
     <html lang="ja">
@@ -52,11 +55,17 @@ function header($is_auth)
         </div>
         <div class="wrapper">
             <header class="header">
-                <h1 class="header-logo">
-                    <a href="<?php the_url('/'); ?>">
-                        <img src="../../public/img/title.png" alt="思考トレーニングアプリ">
-                    </a>
-                </h1>
+                <div class="header-left">
+                    <h1 class="header-logo">
+                        <a href="<?php the_url('/'); ?>">
+                            <img src="../../public/img/title.png" alt="思考トレーニングアプリ">
+                        </a>
+                    </h1>
+                    <?php if (!$is_auth) : ?>
+                        <p class="header-txt">ユーザー名： <?php echo $user->name; ?></p>
+                    <?php endif; ?>
+                </div>
+
                 <?php if (!$is_auth) : ?>
                     <nav class="gnav">
                         <ul class="gnav-list">
