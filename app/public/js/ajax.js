@@ -4,8 +4,6 @@ $(".objection-delete").on("click", function () {
         let uri = new URL(window.location.href);
         let url = uri.origin;
 
-        let topic_id = $("#topic_id").val();
-
         let delete_id = $(this).data("id");
         let delete_type = $(this).data("type");
 
@@ -22,17 +20,18 @@ $(".objection-delete").on("click", function () {
             //成功したとき
             function (data) {
                 if (data) {
-                    window.location.href = url + "/detail?id=" + topic_id;
+                    // クリックした要素の親要素を削除
+                    $(this).parent().remove();
                 } else {
                     //削除に失敗
-                    console.log("failed to delete");
-                    alert("failed to delete.");
+                    console.log("削除に失敗しました。");
+                    alert("削除に失敗しました。");
                 }
-            },
+            }.bind(this), //thisを束縛
             //失敗したとき
             function () {
-                console.log("fail");
-                alert("fail");
+                console.log("削除に失敗しました。");
+                alert("削除に失敗しました。");
             }
         );
     }
@@ -96,14 +95,14 @@ $(".home-topic-status").change(function () {
                     .attr("class", style);
             } else {
                 //更新に失敗
-                console.log("failed to update");
-                alert("failed to update.");
+                console.log("ステータス更新に失敗しました。");
+                alert("ステータス更新に失敗しました。.");
             }
         }.bind(this), //thisを束縛
         //失敗したとき
         function () {
-            console.log("fail");
-            alert("fail");
+            console.log("ステータス更新に失敗しました。");
+            alert("ステータス更新に失敗しました。");
         }
     );
 });
