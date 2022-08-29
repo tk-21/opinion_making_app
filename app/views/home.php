@@ -103,6 +103,10 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                             </ul>
                         </div>
 
+                        <?php if ($path === 'category') : ?>
+                            <a class="back-btn _category" href="<?php the_url('/'); ?>">すべてのトピックを表示</a>
+                        <?php endif; ?>
+
                     <?php else : ?>
 
                         <?php if ($path === 'category') : ?>
@@ -111,7 +115,7 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                             <p class="home-txt _top">まだトピックがありません。</p>
                             <p class="home-txt _bottom">トピックを作成してみましょう！</p>
                         <?php endif; ?>
-                        <a class="back-btn _home" href="<?php the_url('/'); ?>">ホームへ戻る</a>
+                        <a class="back-btn _no-topic" href="<?php the_url('/'); ?>">ホームへ戻る</a>
 
                     <?php endif; ?>
 
