@@ -9,7 +9,9 @@ function index($topic)
     $topic = escape($topic);
 
     $complete_flg = $topic->complete_flg ? '完了' : '未完了';
-    $category_name = $topic->name ? $topic->name : '分類なし';
+
+    // カテゴリーが削除されていれば未選択にする
+    $category_name = $topic->category_delete ? '未選択' : $topic->category_name;
 
 ?>
 
