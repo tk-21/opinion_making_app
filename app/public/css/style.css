@@ -686,15 +686,7 @@ th {
   margin-left: 50px;
 }
 
-._no-topic {
-  display: block;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-._category {
+._home {
   display: block;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -1431,6 +1423,15 @@ th {
   margin-bottom: 16px;
 }
 
+.objection-edit {
+  width: 1em;
+  margin: 0 0.5em 0 1.3em;
+}
+
+.objection-edit img {
+  vertical-align: top;
+}
+
 .objection-delete {
   width: 1em;
 }
@@ -1440,9 +1441,14 @@ th {
 }
 
 .objection-txt {
-  display: inline;
   line-height: 1.5;
   margin-right: 8px;
+}
+
+.objection-txt-wrapper {
+  padding-left: 1.3em;
+  text-indent: -1.3em;
+  margin-bottom: 0.5em;
 }
 
 .objection-form {
