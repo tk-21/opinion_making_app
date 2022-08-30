@@ -103,6 +103,10 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                             </ul>
                         </div>
 
+                        <?php if ($path === 'category') : ?>
+                            <a class="back-btn _home" href="<?php the_url('/'); ?>">すべてのトピックを表示</a>
+                        <?php endif; ?>
+
                     <?php else : ?>
 
                         <?php if ($path === 'category') : ?>

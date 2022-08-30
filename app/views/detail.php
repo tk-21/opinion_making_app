@@ -56,10 +56,14 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php $objection_num = 1; ?>
                             <?php foreach ($objections as $objection) : ?>
                                 <li class="objection-item">
-                                    <p class="objection-txt">
-                                        <?php echo sprintf('%d . %s', $objection_num, $objection->body); ?>
-                                    </p>
-                                    <?php $objection_num++; ?>
+                                    <div class="objection-txt-wrapper">
+                                        <p class="objection-txt">
+                                            <?php echo sprintf('%d . %s', $objection_num, $objection->body); ?>
+                                        </p>
+                                        <?php $objection_num++; ?>
+                                    </div>
+
+                                    <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?id=%s', $objection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
 
                                     <button type="submit" class="objection-delete" data-id="<?php echo $objection->id; ?>" data-type="objection"><img src="../public/img/delete.svg" alt="削除"></button>
                                 </li>
