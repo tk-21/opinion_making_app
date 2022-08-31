@@ -63,9 +63,11 @@ function index($topic, $objections, $counterObjections, $opinion)
                                         <?php $objection_num++; ?>
                                     </div>
 
-                                    <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?id=%s', $objection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
+                                    <div class="objection-btn">
+                                        <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?id=%s', $objection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
 
-                                    <button type="submit" class="objection-delete" data-id="<?php echo $objection->id; ?>" data-type="objection"><img src="../public/img/delete.svg" alt="削除"></button>
+                                        <button type="submit" class="objection-delete" data-id="<?php echo $objection->id; ?>" data-type="objection"><img src="../public/img/delete.svg" alt="削除"></button>
+                                    </div>
                                 </li>
                             <?php endforeach; ?>
                         </ol>
@@ -88,12 +90,18 @@ function index($topic, $objections, $counterObjections, $opinion)
                             <?php $counterObjection_num = 1; ?>
                             <?php foreach ($counterObjections as $counterObjection) : ?>
                                 <li class="objection-item">
-                                    <p class="objection-txt">
-                                        <?php echo sprintf('%d . %s', $counterObjection_num, $counterObjection->body); ?>
-                                    </p>
-                                    <?php $counterObjection_num++; ?>
+                                    <div class="objection-txt-wrapper">
+                                        <p class="objection-txt">
+                                            <?php echo sprintf('%d . %s', $counterObjection_num, $counterObjection->body); ?>
+                                        </p>
+                                        <?php $counterObjection_num++; ?>
+                                    </div>
 
-                                    <button type="submit" class="objection-delete" data-id="<?php echo $counterObjection->id; ?>" data-type="counterObjection"><img src="../public/img/delete.svg" alt="削除"></button>
+                                    <div class="objection-btn">
+                                        <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?id=%s', $counterObjection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
+
+                                        <button type="submit" class="objection-delete" data-id="<?php echo $counterObjection->id; ?>" data-type="counterObjection"><img src="../public/img/delete.svg" alt="削除"></button>
+                                    </div>
                                 </li>
                             <?php endforeach; ?>
                         </ol>

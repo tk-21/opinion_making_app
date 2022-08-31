@@ -1410,6 +1410,15 @@ th {
   margin-bottom: 16px;
 }
 
+.objection-form {
+  margin-bottom: 30px;
+}
+
+.objection-textarea {
+  height: 150px;
+  margin-bottom: 20px;
+}
+
 .objection-list {
   margin-bottom: 24px;
 }
@@ -1423,9 +1432,28 @@ th {
   margin-bottom: 16px;
 }
 
+.objection-txt {
+  line-height: 1.5;
+}
+
+.objection-txt-wrapper {
+  padding-left: 1.3em;
+  text-indent: -1.3em;
+  margin-bottom: 0.5em;
+}
+
+.objection-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
 .objection-edit {
   width: 1em;
-  margin: 0 0.5em 0 1.3em;
+  margin-right: 1em;
 }
 
 .objection-edit img {
@@ -1438,26 +1466,6 @@ th {
 
 .objection-delete img {
   vertical-align: top;
-}
-
-.objection-txt {
-  line-height: 1.5;
-  margin-right: 8px;
-}
-
-.objection-txt-wrapper {
-  padding-left: 1.3em;
-  text-indent: -1.3em;
-  margin-bottom: 0.5em;
-}
-
-.objection-form {
-  margin-bottom: 30px;
-}
-
-.objection-textarea {
-  height: 150px;
-  margin-bottom: 20px;
 }
 
 .opinion-form {
