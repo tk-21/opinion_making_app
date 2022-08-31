@@ -3,6 +3,13 @@
         font-size: 20px;
         margin-bottom: 16px;
     }
+    &-form {
+        margin-bottom: 30px;
+    }
+    &-textarea {
+        height: 150px;
+        margin-bottom: 20px;
+    }
     &-list {
         margin-bottom: 24px;
     }
@@ -13,9 +20,21 @@
             margin-bottom: 16px;
         }
     }
+    &-txt {
+        line-height: 1.5;
+        &-wrapper {
+            padding-left: 1.3em;
+            text-indent: -1.3em;
+            margin-bottom: 0.5em;
+        }
+    }
+    &-btn {
+        display: flex;
+        justify-content: flex-end;
+    }
     &-edit {
         width: 1em;
-        margin: 0 0.5em 0 1.3em;
+        margin-right: 1em;
         img {
             vertical-align: top;
         }
@@ -25,22 +44,5 @@
         img {
             vertical-align: top;
         }
-    }
-    &-txt {
-        // display: inline;
-        line-height: 1.5;
-        margin-right: 8px;
-        &-wrapper {
-            padding-left: 1.3em;
-            text-indent: -1.3em;
-            margin-bottom: 0.5em;
-        }
-    }
-    &-form {
-        margin-bottom: 30px;
-    }
-    &-textarea {
-        height: 150px;
-        margin-bottom: 20px;
     }
 }

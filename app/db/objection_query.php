@@ -37,6 +37,22 @@ class ObjectionQuery
     }
 
 
+    // idから反論を取ってくるメソッド
+    public static function fetchById($objection)
+    {
+        $db = new DataSource;
+
+        $sql = 'SELECT * FROM objections
+                WHERE id = :id
+                AND deleted_at IS NULL
+                ';
+
+        return $db->selectOne($sql, [
+            ':id' => $objection->id
+        ], DataSource::CLS, ObjectionModel::class);
+    }
+
+
     public static function insert($objection)
     {
         $db = new DataSource;
