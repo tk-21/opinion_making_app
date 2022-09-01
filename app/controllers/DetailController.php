@@ -92,6 +92,7 @@ class DetailController
     }
 
 
+
     // 反論編集画面を表示する
     public function showEditForm()
     {
@@ -121,8 +122,17 @@ class DetailController
 
         $valid_data = $validation->getValidData();
 
-        // idから反論を取ってくる
-        $fetchedObjection = ObjectionQuery::fetchById($valid_data);
+        $type = get_param('type', null, false);
+
+        if ($type === 'objection') {
+            // idから反論を取ってくる
+            $fetchedObjection = ObjectionQuery::fetchById($valid_data);
+        } elseif ($type === 'counterObjection') {
+            // idから反論を取ってくる
+            $fetchedObjection = counterObjectionQuery::fetchById($valid_data);
+        } else {
+            redirect(GO_REFERER);
+        }
 
         // トピックが取れてこなかったら４０４ページへリダイレクト
         if (!$fetchedObjection) {
@@ -132,6 +142,8 @@ class DetailController
 
         // 取れてきた反論を渡してviewのindexを表示
         \view\objection_edit\index($fetchedObjection);
+
+        return;
     }
 
 
@@ -139,21 +151,21 @@ class DetailController
     // 更新
     public function edit()
     {
-        $category = new CategoryModel;
+        $objection = new ObjectionModel;
 
-        $category->id = get_param('id', null);
-        $category->name = get_param('name', null);
+        $objection->id = get_param('id', null);
+        $objection->body = get_param('body', null);
 
         // 更新処理
         try {
-            $validation = new CategoryValidation($category);
+            $validation = new ObjectionValidation($objection);
 
             // バリデーションに引っかかった場合
-            if (!($validation->validateId() * $validation->validateName())) {
-                Msg::push(Msg::ERROR, 'カテゴリーの更新に失敗しました。');
+            if (!($validation->validateId() * $validation->validateBody())) {
+                Msg::push(Msg::ERROR, '反論の更新に失敗しました。');
                 // エラー時の値の復元のための処理
                 // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
-                CategoryModel::setSession($category);
+                ObjectionModel::setSession($objection);
 
                 // 元の画面に戻す
                 redirect(GO_REFERER);
@@ -162,9 +174,9 @@ class DetailController
             $valid_data = $validation->getValidData();
 
             // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
-            CategoryQuery::update($valid_data) ? Msg::push(Msg::INFO, 'カテゴリーを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+            ObjectionQuery::update($valid_data) ? Msg::push(Msg::INFO, 'カテゴリーを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
 
-            redirect(sprintf('category?id=%d', $category->id));
+            redirect(sprintf('detail?id=%d', $objection->topic_id));
         } catch (Exception $e) {
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());

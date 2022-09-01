@@ -72,6 +72,11 @@ class Router
                 $topic->confirmDelete();
                 break;
 
+            case 'objection_edit':
+                $detail = new DetailController;
+                $detail->showEditForm();
+                break;
+
             case 'opinion_create':
                 $opinion = new OpinionController;
                 $opinion->showCreateForm();

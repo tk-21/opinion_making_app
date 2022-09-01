@@ -8,7 +8,6 @@ function index($objection)
 
     $objection = escape($objection);
 
-
 ?>
 
     <section class="objection">
@@ -18,9 +17,9 @@ function index($objection)
 
                 <dl class="objection-list">
 
-                    <dt class="objection-dttl"><label for="name" onclick="">カテゴリー名の編集</label></dt>
+                    <dt class="objection-dttl"><label for="body" onclick="">反論の編集</label></dt>
                     <dd class="objection-item">
-                        <textarea id="name" name="name" class="objection-name input validate-target" autofocus required><?php echo $objection->name; ?></textarea>
+                        <textarea id="body" name="body" class="objection-body input validate-target" autofocus required><?php echo $objection->body; ?></textarea>
                         <p class="invalid-feedback"></p>
                     </dd>
 
@@ -28,7 +27,7 @@ function index($objection)
 
                 <button type="submit" class="register-btn">更新</button>
 
-                <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $topic->id)); ?>">戻る</a>
+                <a class="back-btn _back" href="<?php the_url(sprintf('detail?id=%d', $objection->topic_id)); ?>">戻る</a>
 
             </form>
         </div>
