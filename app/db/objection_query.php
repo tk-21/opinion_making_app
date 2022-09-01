@@ -71,6 +71,22 @@ class ObjectionQuery
     }
 
 
+    public static function update($objection)
+    {
+        $db = new DataSource;
+        // idをキーにして更新
+        $sql = 'UPDATE objections set
+                    body = :body
+                WHERE id = :id';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':body' => $objection->body,
+            ':id' => $objection->id
+        ]);
+    }
+
+
     public static function delete($id)
     {
         $db = new DataSource;

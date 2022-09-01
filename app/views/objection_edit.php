@@ -14,6 +14,7 @@ function index($objection)
         <div class="inner">
             <form class="objection-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $objection->id; ?>">
+                <input type="hidden" name="topic_id" value="<?php echo $objection->topic_id; ?>">
 
                 <dl class="objection-list">
 
