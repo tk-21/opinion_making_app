@@ -166,6 +166,11 @@ class Router
                 $topic->delete();
                 break;
 
+            case 'objection_edit':
+                $detail = new DetailController;
+                $detail->edit();
+                break;
+
             case 'opinion_create':
                 $opinion = new OpinionController;
                 $opinion->create();

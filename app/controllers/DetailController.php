@@ -155,6 +155,7 @@ class DetailController
 
         $objection->id = get_param('id', null);
         $objection->body = get_param('body', null);
+        $objection->topic_id = get_param('topic_id', null);
 
         // 更新処理
         try {
@@ -174,7 +175,7 @@ class DetailController
             $valid_data = $validation->getValidData();
 
             // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
-            ObjectionQuery::update($valid_data) ? Msg::push(Msg::INFO, 'カテゴリーを更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+            ObjectionQuery::update($valid_data) ? Msg::push(Msg::INFO, '反論を更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
 
             redirect(sprintf('detail?id=%d', $objection->topic_id));
         } catch (Exception $e) {
