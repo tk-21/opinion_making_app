@@ -63,6 +63,7 @@ require_once SOURCE_BASE . 'views/category_edit.php';
 require_once SOURCE_BASE . 'views/detail.php';
 require_once SOURCE_BASE . 'views/topic.php';
 require_once SOURCE_BASE . 'views/topic_delete.php';
+require_once SOURCE_BASE . 'views/objection_edit.php';
 require_once SOURCE_BASE . 'views/opinion.php';
 require_once SOURCE_BASE . 'views/email_sent.php';
 require_once SOURCE_BASE . 'views/request_form.php';

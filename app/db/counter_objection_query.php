@@ -37,6 +37,22 @@ class CounterObjectionQuery
     }
 
 
+    // idから反論を取ってくるメソッド
+    public static function fetchById($counterObjection)
+    {
+        $db = new DataSource;
+
+        $sql = 'SELECT * FROM counter_objections
+                WHERE id = :id
+                AND deleted_at IS NULL
+                ';
+
+        return $db->selectOne($sql, [
+            ':id' => $counterObjection->id
+        ], DataSource::CLS, ObjectionModel::class);
+    }
+
+
     public static function insert($counterObjection)
     {
         // 値のチェック

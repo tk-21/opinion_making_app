@@ -64,7 +64,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                                     </div>
 
                                     <div class="objection-btn">
-                                        <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?id=%s', $objection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
+                                        <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?type=%s&id=%d', 'objection', $objection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
 
                                         <button type="submit" class="objection-delete" data-id="<?php echo $objection->id; ?>" data-type="objection"><img src="../public/img/delete.svg" alt="削除"></button>
                                     </div>
@@ -98,7 +98,7 @@ function index($topic, $objections, $counterObjections, $opinion)
                                     </div>
 
                                     <div class="objection-btn">
-                                        <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?id=%s', $counterObjection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
+                                        <a class="objection-edit" href="<?php the_url(sprintf('objection_edit?type=%s&id=%d', 'counterObjection', $counterObjection->id)); ?>"><img src="../public/img/edit.svg" alt="編集"></a>
 
                                         <button type="submit" class="objection-delete" data-id="<?php echo $counterObjection->id; ?>" data-type="counterObjection"><img src="../public/img/delete.svg" alt="削除"></button>
                                     </div>
