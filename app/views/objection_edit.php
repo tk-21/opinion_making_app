@@ -10,17 +10,17 @@ function index($objection)
 
 ?>
 
-    <section class="objection">
+    <section class="objection-edit">
         <div class="inner">
-            <form class="objection-form validate-form" action="" method="POST" novalidate>
+            <form class="objection-edit-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $objection->id; ?>">
                 <input type="hidden" name="topic_id" value="<?php echo $objection->topic_id; ?>">
 
-                <dl class="objection-list">
+                <dl class="objection-edit-list">
 
-                    <dt class="objection-dttl"><label for="body" onclick="">反論の編集</label></dt>
-                    <dd class="objection-item">
-                        <textarea id="body" name="body" class="objection-body input validate-target" autofocus required><?php echo $objection->body; ?></textarea>
+                    <dt class="objection-edit-dttl"><label for="body" onclick="">反論の編集</label></dt>
+                    <dd class="objection-edit-item">
+                        <textarea id="body" name="body" class="objection-edit-body input validate-target" autofocus required><?php echo $objection->body; ?></textarea>
                         <p class="invalid-feedback"></p>
                     </dd>
 

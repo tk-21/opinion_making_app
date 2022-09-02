@@ -1405,6 +1405,30 @@ th {
   color: #743434;
 }
 
+.objection-edit-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.objection-edit-dttl {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.objection-edit-list {
+  margin-bottom: 60px;
+}
+
+.objection-edit-item {
+  margin-bottom: 30px;
+}
+
+.objection-edit-body {
+  height: 100px;
+}
+
 .objection-ttl {
   font-size: 20px;
   margin-bottom: 16px;
