@@ -1018,30 +1018,6 @@ th {
   left: calc((100% / 4) * 4);
 }
 
-.category-form {
-  background: #f7f4f2;
-  padding: 50px;
-  margin-bottom: 50px;
-  border-radius: 4px;
-}
-
-.category-dttl {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.category-list {
-  margin-bottom: 60px;
-}
-
-.category-item {
-  margin-bottom: 30px;
-}
-
-.category-name {
-  height: 100px;
-}
-
 .confirm-form {
   background: #f7f4f2;
   padding: 50px;
@@ -1136,6 +1112,30 @@ th {
 
 .detail-opinion-data {
   margin-bottom: 20px;
+}
+
+.edit-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.edit-list {
+  margin-bottom: 60px;
+}
+
+.edit-dttl {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.edit-item {
+  margin-bottom: 30px;
+}
+
+.edit-name, .edit-body {
+  height: 100px;
 }
 
 .error .inner {
@@ -1403,30 +1403,6 @@ th {
 .msg-error {
   border: 1px solid #743434;
   color: #743434;
-}
-
-.objection-edit-form {
-  background: #f7f4f2;
-  padding: 50px;
-  margin-bottom: 50px;
-  border-radius: 4px;
-}
-
-.objection-edit-dttl {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.objection-edit-list {
-  margin-bottom: 60px;
-}
-
-.objection-edit-item {
-  margin-bottom: 30px;
-}
-
-.objection-edit-body {
-  height: 100px;
 }
 
 .objection-ttl {

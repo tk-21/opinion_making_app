@@ -96,6 +96,8 @@ class DetailController
     // 反論編集画面を表示する
     public function showEditForm()
     {
+        $type = get_param('type', null, false);
+
         // バリデーションに引っかかって登録に失敗した場合の処理
         // セッションに保存しておいた値を取ってきて変数に格納する。セッション上のデータは削除する
         // 必ずデータを取得した時点でデータを削除しておく必要がある。そうしないと他の記事を選択したときに出てきてしまう。
@@ -103,7 +105,7 @@ class DetailController
 
         // データが取れてくれば、その値を画面表示し、処理を終了
         if (!empty($objection)) {
-            \view\objection_edit\index($objection);
+            \view\objection_edit\index($objection, $type);
             return;
         }
 
@@ -122,8 +124,6 @@ class DetailController
 
         $valid_data = $validation->getValidData();
 
-        $type = get_param('type', null, false);
-
         if ($type === 'objection') {
             // idから反論を取ってくる
             $fetchedObjection = ObjectionQuery::fetchById($valid_data);
@@ -141,7 +141,7 @@ class DetailController
         }
 
         // 取れてきた反論を渡してviewのindexを表示
-        \view\objection_edit\index($fetchedObjection);
+        \view\objection_edit\index($fetchedObjection, $type);
 
         return;
     }
@@ -163,7 +163,7 @@ class DetailController
 
             // バリデーションに引っかかった場合
             if (!($validation->validateId() * $validation->validateBody())) {
-                Msg::push(Msg::ERROR, '反論の更新に失敗しました。');
+                Msg::push(Msg::ERROR, '更新に失敗しました。');
                 // エラー時の値の復元のための処理
                 // バリデーションに引っかかって登録に失敗した場合、入力した値を保持しておくため、セッションに保存する
                 ObjectionModel::setSession($objection);
@@ -174,10 +174,20 @@ class DetailController
 
             $valid_data = $validation->getValidData();
 
-            // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
-            ObjectionQuery::update($valid_data) ? Msg::push(Msg::INFO, '反論を更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+            $type = get_param('type', null);
 
-            redirect(sprintf('detail?id=%d', $objection->topic_id));
+            // バリデーションに問題なかった場合、オブジェクトを渡してクエリを実行
+            if ($type === 'objection') {
+                ObjectionQuery::update($valid_data) ? Msg::push(Msg::INFO, '反論を更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+
+                redirect(sprintf('detail?id=%d', $objection->topic_id));
+            }
+
+            if ($type === 'counterObjection') {
+                counterObjectionQuery::update($valid_data) ? Msg::push(Msg::INFO, '反論への反論を更新しました。') : Msg::push(Msg::ERROR, '更新に失敗しました。');
+
+                redirect(sprintf('detail?id=%d', $objection->topic_id));
+            }
         } catch (Exception $e) {
             // エラー内容を出力する
             Msg::push(Msg::ERROR, $e->getMessage());
