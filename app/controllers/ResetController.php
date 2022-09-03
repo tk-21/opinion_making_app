@@ -70,7 +70,7 @@ class ResetController
 
             // メールの送信
             if (!static::sendResetMail($valid_email, $passwordResetToken)) {
-                throw new Exception('メール送信に失敗しました。');
+                throw new Exception;
             }
 
             $db->commit();
@@ -99,10 +99,13 @@ class ResetController
         {$url}
         EOD;
 
-        $headers = "From : hoge@hoge.com";
-        $headers .= "Content-Type : text/plain";
+        // $headers = "From : hoge@hoge.com";
+        // $headers .= "Content-Type : text/plain";
 
-        return mb_send_mail($email, $subject, $body, $headers);
+        $from = "zzzzz@520328.jp";
+        $header = "From: {$from}\nReply-To: {$from}\nContent-Type: text/plain;";
+
+        return mb_send_mail($email, $subject, $body, $header);
     }
 
 
