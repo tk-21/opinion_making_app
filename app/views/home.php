@@ -47,6 +47,7 @@ function index($topic_num = "", $max_page = "", $current_page = "", $range = "",
                                     <label>
                                         完了チェック
                                         <input type="checkbox" class="home-topic-status" name="complete_flg" data-id="<?php echo $topic->id; ?>" <?php if ($topic->complete_flg) : ?>checked <?php endif; ?>>
+                                        <span class="dummy-checkbox"></span>
                                     </label>
 
                                     <li class="home-topic-item">
