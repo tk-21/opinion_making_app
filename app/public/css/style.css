@@ -824,6 +824,13 @@ th {
   padding: 0 20px;
 }
 
+.request-inner {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .home-inner {
   max-width: 700px;
   width: 100%;
@@ -934,7 +941,12 @@ th {
 
 .auth-ttl {
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+.auth-txt {
+  margin-bottom: 2em;
   text-align: center;
 }
 
@@ -1016,30 +1028,6 @@ th {
 
 .bg-line li:nth-child(5) {
   left: calc((100% / 4) * 4);
-}
-
-.category-form {
-  background: #f7f4f2;
-  padding: 50px;
-  margin-bottom: 50px;
-  border-radius: 4px;
-}
-
-.category-dttl {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.category-list {
-  margin-bottom: 60px;
-}
-
-.category-item {
-  margin-bottom: 30px;
-}
-
-.category-name {
-  height: 100px;
 }
 
 .confirm-form {
@@ -1136,6 +1124,30 @@ th {
 
 .detail-opinion-data {
   margin-bottom: 20px;
+}
+
+.edit-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.edit-list {
+  margin-bottom: 60px;
+}
+
+.edit-dttl {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.edit-item {
+  margin-bottom: 30px;
+}
+
+.edit-name, .edit-body {
+  height: 100px;
 }
 
 .error .inner {
@@ -1260,10 +1272,74 @@ th {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-right: 15px;
+  cursor: pointer;
+}
+
+.home-topic-wrapper label:hover > .dummy-checkbox {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.home-topic-wrapper .dummy-checkbox {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 32px;
+  height: 32px;
+  border: solid 2px transparent;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  margin: 0 auto;
+  -webkit-transition: all 0.15s linear;
+  transition: all 0.15s linear;
 }
 
 .home-topic-status {
-  margin-top: 10px;
+  margin: 0;
+  width: 0;
+  opacity: 0;
+}
+
+.home-topic-status:focus + .dummy-checkbox {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.home-topic-status:checked + .dummy-checkbox {
+  background: #743434;
+}
+
+.home-topic-status:checked + .dummy-checkbox::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35%;
+  height: 4px;
+  border-radius: 2px;
+  -webkit-transform: translate(-6px, 5px) rotateZ(-135deg);
+          transform: translate(-6px, 5px) rotateZ(-135deg);
+  -webkit-transform-origin: 2px 2px;
+          transform-origin: 2px 2px;
+  background: #fff;
+}
+
+.home-topic-status:checked + .dummy-checkbox::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 4px;
+  border-radius: 2px;
+  -webkit-transform: translate(-6px, 5px) rotateZ(-45deg);
+          transform: translate(-6px, 5px) rotateZ(-45deg);
+  -webkit-transform-origin: 2px 2px;
+          transform-origin: 2px 2px;
+  background: #fff;
 }
 
 .home-topic-item {
@@ -1405,30 +1481,6 @@ th {
   color: #743434;
 }
 
-.objection-edit-form {
-  background: #f7f4f2;
-  padding: 50px;
-  margin-bottom: 50px;
-  border-radius: 4px;
-}
-
-.objection-edit-dttl {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.objection-edit-list {
-  margin-bottom: 60px;
-}
-
-.objection-edit-item {
-  margin-bottom: 30px;
-}
-
-.objection-edit-body {
-  height: 100px;
-}
-
 .objection-ttl {
   font-size: 20px;
   margin-bottom: 16px;
@@ -1522,6 +1574,68 @@ th {
 
 .opinion-textarea {
   height: 200px;
+}
+
+.request {
+  padding: 40px 0 100px;
+}
+
+.request-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.request-ttl {
+  font-size: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.request-list {
+  margin-bottom: 60px;
+}
+
+.request-dttl {
+  margin-bottom: 10px;
+}
+
+.request-item {
+  margin-bottom: 30px;
+}
+
+.request-input {
+  height: 2.4em;
+  width: 100%;
+  padding: 0 16px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 0 1px #ccc inset;
+          box-shadow: 0 0 0 1px #ccc inset;
+}
+
+.request-input:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #743434 inset;
+          box-shadow: 0 0 0 2px #743434 inset;
+}
+
+.request-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+.sent .inner {
+  height: calc(100vh - 315px);
+}
+
+.sent-list {
+  font-size: 20px;
+  margin: 2em 0 4em;
+}
+
+.sent-item {
+  margin-bottom: 1em;
 }
 
 .topic-form {

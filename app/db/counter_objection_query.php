@@ -84,6 +84,22 @@ class CounterObjectionQuery
     }
 
 
+    public static function update($counterObjection)
+    {
+        $db = new DataSource;
+        // idをキーにして更新
+        $sql = 'UPDATE counter_objections set
+                    body = :body
+                WHERE id = :id';
+
+        // 登録に成功すれば、trueが返される
+        return $db->execute($sql, [
+            ':body' => $counterObjection->body,
+            ':id' => $counterObjection->id
+        ]);
+    }
+
+
     public static function delete($id)
     {
         $db = new DataSource;

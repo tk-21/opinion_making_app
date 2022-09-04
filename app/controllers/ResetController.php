@@ -78,6 +78,7 @@ class ResetController
             $db->rollback();
             Msg::push(Msg::DEBUG, $e->getMessage());
             Msg::push(Msg::ERROR, 'エラーが発生しました。');
+            redirect(GO_REFERER);
         }
 
         redirect('email_sent');
@@ -90,7 +91,7 @@ class ResetController
         mb_language("Japanese");
         mb_internal_encoding("UTF-8");
 
-        $url = sprintf('%s%s?token=%s', BASE_PATH, 'request', $passwordResetToken);
+        $url = sprintf('%s%s?token=%s', BASE_PATH, 'reset', $passwordResetToken);
 
         $subject = 'パスワードリセット用URLをお送りします。';
 
@@ -99,10 +100,13 @@ class ResetController
         {$url}
         EOD;
 
-        $headers = "From : hoge@hoge.com";
-        $headers .= "Content-Type : text/plain";
+        // $headers = "From : hoge@hoge.com";
+        // $headers .= "Content-Type : text/plain";
 
-        return mb_send_mail($email, $subject, $body, $headers);
+        $from = "zzzzz@520328.jp";
+        $header = "From: {$from}\nReply-To: {$from}\nContent-Type: text/plain;";
+
+        return mb_send_mail($email, $subject, $body, $header);
     }
 
 
@@ -162,6 +166,9 @@ class ResetController
             redirect(GO_REFERER);
         }
 
+        // パスワードをハッシュ化
+        $hashedPassword = password_hash($valid_password, PASSWORD_DEFAULT);
+
         $csrf_token = get_param('csrf_token', '');
 
         if (empty($csrf_token)) {
@@ -179,9 +186,6 @@ class ResetController
             Msg::push(Msg::ERROR, '無効なURLです。');
             exit;
         }
-
-        // パスワードをハッシュ化
-        $hashedPassword = password_hash($valid_password, PASSWORD_DEFAULT);
 
         try {
             $db = new DataSource;
@@ -206,7 +210,7 @@ class ResetController
         static::sendCompleteMail($user->email);
 
         // ログインしてマイページへ遷移
-        static::login($user->name, $user->password);
+        static::login($user->name, $valid_password);
     }
 
 

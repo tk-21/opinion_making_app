@@ -21,7 +21,7 @@ $(".objection-delete").on("click", function () {
             function (data) {
                 if (data) {
                     // クリックした要素の親要素を削除
-                    $(this).parent().remove();
+                    $(this).parent().parent().remove();
                 } else {
                     //削除に失敗
                     console.log("削除に失敗しました。");

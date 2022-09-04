@@ -5,14 +5,18 @@ namespace view\email_sent;
 function index()
 {
 
-    \partials\header(false);
+    \partials\header(true);
 ?>
 
-    <section class="error">
+    <section class="sent">
         <div class="inner">
-            <ul class="error-list">
-                <li class="error-item">メールを送信しました。</li>
+            <ul class="sent-list">
+                <li class="sent-item">パスワード再設定用メールを送信しました。</li>
+                <li class="sent-item">メールに記載されているURLからパスワードリセットの手続きを行ってください。</li>
             </ul>
+
+            <a class="back-btn _home" href="<?php the_url('login'); ?>">ログイン画面に戻る</a>
+
         </div>
     </section>
 

@@ -1,4 +1,4 @@
-.auth {
+.request {
     padding: 40px 0 100px;
     &-form {
         background: $color-main;
@@ -8,11 +8,7 @@
     }
     &-ttl {
         font-size: 20px;
-        margin-bottom: 2em;
-        text-align: center;
-    }
-    &-txt {
-        margin-bottom: 2em;
+        margin-bottom: 40px;
         text-align: center;
     }
     &-list {
@@ -22,9 +18,7 @@
         margin-bottom: 10px;
     }
     &-item {
-        &:not(:last-of-type) {
-            margin-bottom: 30px;
-        }
+        margin-bottom: 30px;
     }
     &-input {
         height: 2.4em;
@@ -39,8 +33,6 @@
     }
     &-btn {
         display: block;
-        text-align: center;
-        width: 150px;
         margin: 0 auto;
     }
 }
