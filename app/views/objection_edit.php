@@ -13,7 +13,7 @@ function index($objection, $type)
 ?>
 
     <section class="edit">
-        <div class="inner">
+        <div class="edit-inner">
             <form class="edit-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="id" value="<?php echo $objection->id; ?>">
                 <input type="hidden" name="topic_id" value="<?php echo $objection->topic_id; ?>">

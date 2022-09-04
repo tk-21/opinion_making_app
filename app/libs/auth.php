@@ -45,11 +45,19 @@ class Auth
     public static function regist($name, $password, $email)
     {
         try {
-            // 同じユーザーが存在するかどうかを確認
+            // 名前が同じユーザーが存在するかどうかを確認
             $exist_user = UserQuery::fetchByName($name);
 
             if (!empty($exist_user)) {
                 Msg::push(Msg::ERROR, 'すでにユーザーが存在します。');
+                return false;
+            }
+
+            // メールアドレスが同じユーザーが存在するかどうかを確認
+            $exist_user = UserQuery::fetchByEmail($email);
+
+            if (!empty($exist_user)) {
+                Msg::push(Msg::ERROR, 'すでに同じメールアドレスのアカウントが存在しています。');
                 return false;
             }
 

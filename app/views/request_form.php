@@ -10,7 +10,7 @@ function index()
 ?>
 
     <section class="request">
-        <div class="request-inner">
+        <div class="edit-inner">
             <form class="request-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="csrf_token" value="<? echo $csrf_token; ?>">
 

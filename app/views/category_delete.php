@@ -11,7 +11,7 @@ function index($category)
 ?>
 
     <section class="confirm">
-        <div class="inner">
+        <div class="edit-inner">
             <form class="confirm-form" action="" method="post">
                 <input type="hidden" name="category_id" value="<?php echo $category->id; ?>">
 
