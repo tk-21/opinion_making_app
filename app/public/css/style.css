@@ -1454,7 +1454,7 @@ th {
 .home-txt._top {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 50px;
+  margin: 50px 0;
 }
 
 .home-txt._bottom {
