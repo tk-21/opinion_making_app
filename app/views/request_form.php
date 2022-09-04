@@ -9,22 +9,22 @@ function index()
     $csrf_token = bin2hex(random_bytes(32));
 ?>
 
-    <section class="auth">
-        <div class="auth-inner">
-            <form class="auth-form validate-form" action="" method="POST" novalidate>
+    <section class="request">
+        <div class="request-inner">
+            <form class="request-form validate-form" action="" method="POST" novalidate>
                 <input type="hidden" name="csrf_token" value="<? echo $csrf_token; ?>">
 
-                <h2 class="auth-ttl">パスワードリセット</h2>
-                <dl class="auth-list">
+                <h2 class="request-ttl">パスワードリセット</h2>
+                <dl class="request-list">
 
-                    <dt class="auth-dttl"><label for="email" onclick="">メールアドレスを入力してください。</label></dt>
-                    <dd class="auth-item">
-                        <input id="email" type="email" name="email" class="auth-input validate-target" autofocus required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                    <dt class="request-dttl"><label for="email">登録しているメールアドレスを入力してください。</label></dt>
+                    <dd class="request-item">
+                        <input id="email" type="email" name="email" class="request-input validate-target" autofocus required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                         <p class="invalid-feedback" id="mail-feedback"></p>
                     </dd>
 
                 </dl>
-                <button type="submit" class="register-btn auth-btn">送信</button>
+                <button type="submit" class="register-btn request-btn">パスワード再設定用メール送信</button>
             </form>
 
             <a class="back-btn _home" href="<?php the_url('login'); ?>">戻る</a>

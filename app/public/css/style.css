@@ -824,6 +824,13 @@ th {
   padding: 0 20px;
 }
 
+.request-inner {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .home-inner {
   max-width: 700px;
   width: 100%;
@@ -934,7 +941,12 @@ th {
 
 .auth-ttl {
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+.auth-txt {
+  margin-bottom: 2em;
   text-align: center;
 }
 
@@ -1562,6 +1574,68 @@ th {
 
 .opinion-textarea {
   height: 200px;
+}
+
+.request {
+  padding: 40px 0 100px;
+}
+
+.request-form {
+  background: #f7f4f2;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 4px;
+}
+
+.request-ttl {
+  font-size: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.request-list {
+  margin-bottom: 60px;
+}
+
+.request-dttl {
+  margin-bottom: 10px;
+}
+
+.request-item {
+  margin-bottom: 30px;
+}
+
+.request-input {
+  height: 2.4em;
+  width: 100%;
+  padding: 0 16px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 0 1px #ccc inset;
+          box-shadow: 0 0 0 1px #ccc inset;
+}
+
+.request-input:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 2px #743434 inset;
+          box-shadow: 0 0 0 2px #743434 inset;
+}
+
+.request-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+.sent .inner {
+  height: calc(100vh - 315px);
+}
+
+.sent-list {
+  font-size: 20px;
+  margin: 2em 0 4em;
+}
+
+.sent-item {
+  margin-bottom: 1em;
 }
 
 .topic-form {
