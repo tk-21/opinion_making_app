@@ -13,6 +13,7 @@ use validation\UserValidation;
 
 class ResetController
 {
+    // パスワードリセットフォームの表示
     public function showRequestForm()
     {
         \view\request_form\index();
@@ -20,6 +21,7 @@ class ResetController
 
 
 
+    // パスワードリセットのリクエストを受けて、リセット用のメールを送信する
     public function request()
     {
         $csrf_token = get_param('csrf_token', '');
@@ -86,6 +88,7 @@ class ResetController
 
 
 
+    // リセット用のメールを送信する
     public function sendResetMail($email, $passwordResetToken)
     {
         mb_language("Japanese");
@@ -100,17 +103,18 @@ class ResetController
         {$url}
         EOD;
 
-        // $headers = "From : hoge@hoge.com";
-        // $headers .= "Content-Type : text/plain";
-
         $from = "zzzzz@520328.jp";
-        $header = "From: {$from}\nReply-To: {$from}\nContent-Type: text/plain;";
+        $headers = "From: {$from}\n";
+        $headers .= "Reply-To: {$from}\n";
+        $headers .= "Content-Transfer-Encoding: BASE64\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\n";
 
-        return mb_send_mail($email, $subject, $body, $header);
+        return mb_send_mail($email, $subject, $body, $headers);
     }
 
 
 
+    // メール送信完了画面の表示
     public function showEmailSent()
     {
         \view\email_sent\index();
@@ -118,6 +122,7 @@ class ResetController
 
 
 
+    // 新しいパスワードの入力フォームを表示
     public function showResetForm()
     {
         $passwordResetToken = get_param('token', '', false);
@@ -145,6 +150,7 @@ class ResetController
 
 
 
+    // パスワードの変更処理をして完了メールを送信し、ログインする
     public function reset()
     {
         $password = get_param('password', '');
@@ -215,6 +221,7 @@ class ResetController
 
 
 
+    // パスワード変更完了メールの送信
     public function sendCompleteMail($email)
     {
         mb_language("Japanese");
@@ -226,8 +233,11 @@ class ResetController
         パスワードの変更が完了しました。
         EOD;
 
-        $headers = "From : hoge@hoge.com";
-        $headers .= "Content-Type : text/plain";
+        $from = "zzzzz@520328.jp";
+        $headers = "From: {$from}\n";
+        $headers .= "Reply-To: {$from}\n";
+        $headers .= "Content-Transfer-Encoding: BASE64\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\n";
 
         return mb_send_mail($email, $subject, $body, $headers);
     }
