@@ -3,30 +3,6 @@ CREATE DATABASE IF NOT EXISTS opinion_making_app DEFAULT CHARACTER SET utf8mb4 C
 USE opinion_making_app;
 
 
-
--- ---
--- Table 'topics'
---
--- ---
-
-DROP TABLE IF EXISTS `topics`;
-
-CREATE TABLE `topics` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'トピックID',
-  `title` varchar(30) NOT NULL COMMENT 'トピックタイトル',
-  `body` text NOT NULL COMMENT 'トピック本文',
-  `position` text NOT NULL COMMENT 'トピックに対して自らがとるポジション',
-  `complete_flg` int(1) NOT NULL DEFAULT '0' COMMENT '完了フラグ（1:完了　0:未完了）',
-  `category_id` int(10) DEFAULT NULL COMMENT 'カテゴリーID',
-  `user_id` varchar(10) NOT NULL COMMENT '作成したユーザーID',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時',
-  `deleted_at` timestamp NULL DEFAULT NULL COMMENT '削除日時',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
-
-
 -- ---
 -- Table 'users'
 --
@@ -38,11 +14,35 @@ CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ユーザーID',
   `name` varchar(10) NOT NULL COMMENT 'ユーザーネーム',
   `password` varchar(60) NOT NULL COMMENT 'パスワード',
+  `email` varchar(255) NOT NULL COMMENT 'メールアドレス',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '削除日時',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB COMMENT 'ユーザー';
+
+
+
+-- ---
+-- Table 'topics'
+--
+-- ---
+
+DROP TABLE IF EXISTS `topics`;
+
+CREATE TABLE `topics` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'トピックID',
+  `title` text NOT NULL COMMENT 'トピックタイトル',
+  `body` text NOT NULL COMMENT 'トピック本文',
+  `position` text NOT NULL COMMENT 'トピックに対して自らがとるポジション',
+  `complete_flg` int(1) NOT NULL DEFAULT '0' COMMENT '完了フラグ（1:完了　0:未完了）',
+  `category_id` int(10) DEFAULT NULL COMMENT 'カテゴリーID',
+  `user_id` varchar(10) NOT NULL COMMENT '作成したユーザーID',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時',
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT '削除日時',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB COMMENT 'トピック';
 
 
 
@@ -61,7 +61,7 @@ CREATE TABLE `objections` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最終更新日時',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '削除日時',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB COMMENT '反論テーブル';
+) ENGINE=InnoDB COMMENT '反論';
 
 
 
@@ -122,3 +122,17 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB COMMENT 'カテゴリー';
 
 
+
+-- ---
+-- Table 'password_resets'
+-- パスワードリセット
+-- ---
+
+DROP TABLE IF EXISTS `password_resets`;
+
+CREATE TABLE `password_resets` (
+  `email` varchar(50) NOT NULL,
+  `token` varchar(80) NOT NULL,
+  `token_sent_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB COMMENT 'パスワードリセット';
