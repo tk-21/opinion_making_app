@@ -6,6 +6,7 @@ function index($is_login)
 {
     \partials\header();
 
+    // ログイン画面の表示かアカウント登録画面の表示かを切り替える
     if ($is_login) {
         $header_ttl = 'ログイン';
         $submit_btn = 'ログイン';
