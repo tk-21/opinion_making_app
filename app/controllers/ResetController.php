@@ -45,13 +45,13 @@ class ResetController
         // メールアドレスからユーザー情報を取得
         $exist_user = UserQuery::fetchByEmail($valid_email);
 
-        // 入力されたメールアドレスが登録されたユーザーがいなければ、送信完了画面を表示
+        // 入力されたメールアドレスに該当するユーザーがいなければ、エラーメッセージを表示
         if (!$exist_user) {
-            redirect('email_sent');
-            return;
+            Msg::push(Msg::ERROR, '登録されていないメールアドレスです。');
+            redirect(GO_REFERER);
         }
 
-        // 既にパスワードリセットのフロー中がどうかを確認
+        // 既にパスワードリセットのフロー中がどうかを確認するため
         $passwordResetUser = PasswordResetQuery::fetchByEmail($valid_email);
 
         $passwordResetToken = bin2hex(random_bytes(32));
@@ -62,6 +62,7 @@ class ResetController
             $db = new DataSource;
             $db->begin();
 
+            // 既にパスワードリセットのフロー中がどうかを確認
             if (!$passwordResetUser) {
                 // 値が取れてこなければ新規リクエストとみなし、登録
                 PasswordResetQuery::insert($valid_email, $passwordResetToken, $token_sent_at);
