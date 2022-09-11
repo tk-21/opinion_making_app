@@ -5,7 +5,7 @@ namespace view\email_sent;
 function index()
 {
 
-    \partials\header(true);
+    \partials\header();
 ?>
 
     <section class="sent">

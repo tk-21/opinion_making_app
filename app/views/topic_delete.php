@@ -4,7 +4,7 @@ namespace view\topic_delete;
 
 function index($topic)
 {
-    \partials\header(false);
+    \partials\header();
 
     $topic = escape($topic);
 
