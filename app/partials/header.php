@@ -7,8 +7,10 @@ use model\UserModel;
 use lib\Msg;
 
 // 関数の形式にして、引数を渡せるようにしておく
-function header($is_auth)
+function header()
 {
+    // ログインしているか確認
+    $is_login = Auth::isLogin();
     $user = UserModel::getSession();
 
 ?>
@@ -61,12 +63,12 @@ function header($is_auth)
                             <img src="../../public/img/title.png" alt="思考トレーニングアプリ">
                         </a>
                     </h1>
-                    <?php if (!$is_auth) : ?>
+                    <?php if ($is_login) : ?>
                         <p class="header-txt">ユーザー名： <?php echo $user->name; ?></p>
                     <?php endif; ?>
                 </div>
 
-                <?php if (!$is_auth) : ?>
+                <?php if ($is_login) : ?>
                     <nav class="gnav">
                         <ul class="gnav-list">
                             <li class="gnav-item"><a href="<?php the_url('topic_create'); ?>" class="create-btn">トピック作成</a></li>

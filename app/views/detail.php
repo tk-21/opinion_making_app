@@ -4,7 +4,7 @@ namespace view\detail;
 
 function index($topic, $objections, $counterObjections, $opinion)
 {
-    \partials\header(false);
+    \partials\header();
 
     $topic = escape($topic);
     $objections = escape($objections);

@@ -4,7 +4,7 @@ namespace view\objection_edit;
 
 function index($objection, $type)
 {
-    \partials\header(false);
+    \partials\header();
 
     $objection = escape($objection);
 

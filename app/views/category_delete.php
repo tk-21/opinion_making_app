@@ -4,7 +4,7 @@ namespace view\category_delete;
 
 function index($category)
 {
-    \partials\header(false);
+    \partials\header();
 
     $category = escape($category);
 

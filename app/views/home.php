@@ -6,7 +6,7 @@ use DateTime;
 
 function index($topic_num = "", $max_page = "", $current_page = "", $range = "", $topics, $categories, $is_home, $fetchedCategory)
 {
-    \partials\header(false);
+    \partials\header();
 
     $topics = escape($topics);
     $categories = escape($categories);

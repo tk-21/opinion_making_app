@@ -4,7 +4,7 @@ namespace view\category_edit;
 
 function index($category)
 {
-    \partials\header(false);
+    \partials\header();
 
     $category = escape($category);
 

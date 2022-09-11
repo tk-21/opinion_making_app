@@ -4,7 +4,7 @@ namespace view\request_form;
 
 function index()
 {
-    \partials\header(true);
+    \partials\header();
 
     $csrf_token = bin2hex(random_bytes(32));
 ?>

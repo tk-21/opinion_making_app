@@ -4,7 +4,7 @@ namespace view\reset_form;
 
 function index($passwordResetToken)
 {
-    \partials\header(true);
+    \partials\header();
 
     $csrf_token = bin2hex(random_bytes(32));
 ?>

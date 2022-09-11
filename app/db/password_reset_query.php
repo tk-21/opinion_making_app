@@ -3,7 +3,7 @@
 namespace db;
 
 use db\DataSource;
-use model\UserModel;
+use model\PasswordResetModel;
 
 class PasswordResetQuery
 {
@@ -18,7 +18,7 @@ class PasswordResetQuery
         // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\UserModel が返る）
         $result = $db->selectOne($sql, [
             ':email' => $email
-        ], DataSource::CLS, UserModel::class);
+        ], DataSource::CLS, PasswordResetModel::class);
 
         return $result;
     }
@@ -84,7 +84,7 @@ class PasswordResetQuery
         // ::classを使うことで、名前空間付きのクラスの完全修飾名を取得することができる（この場合は model\UserModel が返る）
         $result = $db->selectOne($sql, [
             ':token' => $passwordResetToken
-        ], DataSource::CLS, UserModel::class);
+        ], DataSource::CLS, PasswordResetModel::class);
 
         return $result;
     }

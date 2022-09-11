@@ -4,7 +4,7 @@ namespace view\topic;
 
 function index($topic, $categories, $type)
 {
-    \partials\header(false);
+    \partials\header();
 
     $topic = escape($topic);
     $categories = escape($categories);
