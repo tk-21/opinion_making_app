@@ -1,10 +1,13 @@
-#お手軽LAMP環境構築
-PHP + Nginx + MySQL
+# 概要
 
-#ファイル置き場
-appディレクトリ配下に置いてください。
+自分自身の意見をつくるトレーニングができるアプリ。
 
-```
-docker-compose up -d
-```
+# 機能一覧
 
+# URL
+
+https://opinion-making.com/
+
+# 画面設計書
+
+# ER 図
